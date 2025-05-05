@@ -53,9 +53,10 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   const handleAddWithOption = () => {
     const selectedOptionObj = item.options?.find((opt) => opt.name === selectedOption)
     if (selectedOptionObj) {
+      const baseName = item.nameKey ? t(item.nameKey) : (item.name || "")
       const itemWithOption = {
         ...item,
-        name: `${item.name} (${selectedOption})`,
+        name: `${baseName} (${selectedOption})`,
         price: selectedOptionObj.price,
         weight: selectedOptionObj.size || item.weight,
       }
@@ -64,31 +65,14 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
     }
   }
 
-  // Use a placeholder image that's guaranteed to work
-  const placeholderImage = `https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(item.name)}`
+  // Use t() function with keys directly, with fallbacks to old fields or empty string
+  const localizedName = item.nameKey ? t(item.nameKey) : (item.name || "")
+  const localizedDescription = item.descriptionKey ? t(item.descriptionKey) : (item.description || "")
+  const placeholderImage = `https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(localizedName || "Item")}` // Add fallback for placeholder text
 
   // Check if the item has reviews to determine if we need 3 tabs
   const hasReviews = item.reviews && item.reviews.length > 0
   const hasAllergens = item.allergens && item.allergens.length > 0
-
-  // Get the appropriate description based on the current language
-  const getLocalizedDescription = () => {
-    if (language === "en" && item.descriptionEn) return item.descriptionEn
-    if (language === "el" && item.descriptionEl) return item.descriptionEl
-    if (language === "bg" && item.descriptionBg) return item.descriptionBg
-    return item.description
-  }
-
-  // Get the appropriate name based on the current language
-  const getLocalizedName = () => {
-    if (language === "en" && item.nameEn) return item.nameEn
-    if (language === "el" && item.nameEl) return item.nameEl
-    if (language === "bg" && item.nameBg) return item.nameBg
-    return item.name
-  }
-
-  const localizedName = getLocalizedName()
-  const localizedDescription = getLocalizedDescription()
 
   return (
     <>
@@ -369,7 +353,7 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
                   ))}
                 </div>
               </div>
-              <p className="text-gray-300 text-sm">{review.comment}</p>
+              <p className="text-gray-300 text-sm">{review.commentKey ? t(review.commentKey) : (review.comment || "")}</p>
               {review.date && <p className="text-gray-500 text-xs mt-1">{review.date}</p>}
             </div>
           ))}

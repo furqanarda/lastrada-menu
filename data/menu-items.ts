@@ -4,8 +4,8 @@ import type { MenuItem } from "@/types/menu"
 export const breakfast: MenuItem[] = [
   {
     id: "continental-kahvalti",
-    name: "Continental Kahvaltı",
-    description: "Edirne beyaz peyniri, sade omlet, kaşar, domates, salatalık, biber, zeytin, vs..",
+    nameKey: "item.breakfast.continental-kahvalti.name",
+    descriptionKey: "item.breakfast.continental-kahvalti.description",
     weight: "",
     price: 390,
     image: "/images/breakfast/continental-kahvalti.png",
@@ -14,8 +14,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "serpme-kahvalti",
-    name: "Serpme Kahvaltı",
-    description: "Continental kahvaltıya ek olarak pankek, sosis, salam, kurabiye, simit, vs..",
+    nameKey: "item.breakfast.serpme-kahvalti.name",
+    descriptionKey: "item.breakfast.serpme-kahvalti.description",
     weight: "",
     price: 520,
     image: "/images/breakfast/serpme-kahvalti.png",
@@ -24,8 +24,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "pankek-pastasi",
-    name: "Pankek Pastası",
-    description: "3 adet pankek ve mevsim meyveleri",
+    nameKey: "item.breakfast.pankek-pastasi.name",
+    descriptionKey: "item.breakfast.pankek-pastasi.description",
     weight: "",
     price: 340,
     image: "/images/breakfast/pankek-pastasi.png",
@@ -34,8 +34,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "acik-bufe-kahvalti",
-    name: "Açık Büfe Kahvaltı",
-    description: "07:30 - 10:30 saatleri arası",
+    nameKey: "item.breakfast.acik-bufe-kahvalti.name",
+    descriptionKey: "item.breakfast.acik-bufe-kahvalti.description",
     weight: "",
     price: 520,
     image: "/images/breakfast/continental-kahvalti.png",
@@ -44,8 +44,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "omlet",
-    name: "Omlet",
-    description: "Sade, peynirli, sebzeli, kaşarlı, sucuklu, sosisli, kavurmalı",
+    nameKey: "item.breakfast.omlet.name",
+    descriptionKey: "item.breakfast.omlet.description",
     weight: "",
     price: 310,
     image: "/images/breakfast/omlet.png",
@@ -54,8 +54,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "sahanda-goz-yumurta",
-    name: "Sahanda Göz Yumurta",
-    description: "Taze pişirilmiş göz yumurta",
+    nameKey: "item.breakfast.sahanda-goz-yumurta.name",
+    descriptionKey: "item.breakfast.sahanda-goz-yumurta.description",
     weight: "",
     price: 220,
     image: "/images/breakfast/omlet.png",
@@ -64,8 +64,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "menemen",
-    name: "Menemen",
-    description: "Köy biberi ve yaz domatesiyle hazırlanmış menemen harcı, 2 yumurta ile..",
+    nameKey: "item.breakfast.menemen.name",
+    descriptionKey: "item.breakfast.menemen.description",
     weight: "",
     price: 330,
     image: "/images/breakfast/omlet.png",
@@ -74,9 +74,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "eksi-mayali-ekmege-cift-kasarli-tost",
-    name: "Ekşi Mayalı Ekmeğe Çift Kaşarlı Tost",
-    description:
-      "Ekşi mayalı kare tost ekmeği, trakya taze kaşarı ve yanında ev salçası, karışık zeytin, domates salatalık ile",
+    nameKey: "item.breakfast.eksi-mayali-ekmege-cift-kasarli-tost.name",
+    descriptionKey: "item.breakfast.eksi-mayali-ekmege-cift-kasarli-tost.description",
     weight: "",
     price: 330,
     image: "/images/breakfast/continental-kahvalti.png",
@@ -85,9 +84,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "eksi-mayali-ekmege-kasarli-sucuklu-tost",
-    name: "Ekşi Mayalı Ekmeğe Kaşarlı Sucuklu Tost",
-    description:
-      "Ekşi mayalı kare tost ekmeği, trakya taze kaşarı, dana sucuğu ve yanında ev salçası, karışık zeytin, domates salatalık ile",
+    nameKey: "item.breakfast.eksi-mayali-ekmege-kasarli-sucuklu-tost.name",
+    descriptionKey: "item.breakfast.eksi-mayali-ekmege-kasarli-sucuklu-tost.description",
     weight: "",
     price: 330,
     image: "/images/breakfast/continental-kahvalti.png",
@@ -96,9 +94,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "eksi-mayali-ekmege-3-peynirli-tost",
-    name: "Ekşi Mayalı Ekmeğe 3 Peynirli Tost",
-    description:
-      "Ekşi mayalı kare tost ekmeği, trakya taze kaşarı, edirne beyaz peyniri ve trakya eski kaşarı yanında ev salçası, karışık zeytin, domates salatalık ile",
+    nameKey: "item.breakfast.eksi-mayali-ekmege-3-peynirli-tost.name",
+    descriptionKey: "item.breakfast.eksi-mayali-ekmege-3-peynirli-tost.description",
     weight: "",
     price: 330,
     image: "/images/breakfast/continental-kahvalti.png",
@@ -107,9 +104,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "akitma",
-    name: "Akıtma (Trakya Usulü Krep)",
-    description:
-      "Trakya usulü krep, yanında edirne beyaz peyniri, organik böğürtlen reçeli, domates salatalık ve zeytin ile",
+    nameKey: "item.breakfast.akitma.name",
+    descriptionKey: "item.breakfast.akitma.description",
     weight: "",
     price: 330,
     image: "/images/breakfast/pankek-pastasi.png",
@@ -118,9 +114,8 @@ export const breakfast: MenuItem[] = [
   },
   {
     id: "cicipapa",
-    name: "Cicipapa",
-    description:
-      "4 dilim yumurtalı ekmek, edirne beyaz peynir ve taze kaşarı, ev yapımı cevizli acuka sos, domates, salatalık sivri biber",
+    nameKey: "item.breakfast.cicipapa.name",
+    descriptionKey: "item.breakfast.cicipapa.description",
     weight: "",
     price: 330,
     image: "/images/breakfast/continental-kahvalti.png",
@@ -133,9 +128,8 @@ export const breakfast: MenuItem[] = [
 export const starters: MenuItem[] = [
   {
     id: "trakya-koy-tarhanasi",
-    name: "Trakya Köy Tarhanası",
-    description:
-      "Doğal malzemelerle hazırlanmış, iç ısıtan bir lezzet. Edirne beyaz peyniri ve kızarmış köy ekmeği ile damaklarda unutulmaz bir tat bırakır.",
+    nameKey: "item.starters.trakya-koy-tarhanasi.name",
+    descriptionKey: "item.starters.trakya-koy-tarhanasi.description",
     weight: "180 ml.",
     price: 220,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -144,8 +138,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "zeytinyagli-aysekadin-fasulye",
-    name: "Zeytinyağlı Ayşekadın Fasulye",
-    description: "Limon ve dereotu ile süslenen hafif ve sağlıklı bir Ege lezzeti.",
+    nameKey: "item.starters.zeytinyagli-aysekadin-fasulye.name",
+    descriptionKey: "item.starters.zeytinyagli-aysekadin-fasulye.description",
     weight: "225 gr.",
     price: 280,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -153,9 +147,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "caciki",
-    name: "Caciki",
-    description:
-      "Yunan usulü olarak hazırlanan yoğurt, salatalık, sarımsak - zeytinyağının mükemmel uyumu. Ferahlatıcı ve hafif bir meze olarak sofranıza lezzet katacak.",
+    nameKey: "item.starters.caciki.name",
+    descriptionKey: "item.starters.caciki.description",
     weight: "225 gr.",
     price: 240,
     image: "/images/starters/cacik.png",
@@ -166,28 +159,27 @@ export const starters: MenuItem[] = [
       {
         name: "Ahmet Y.",
         rating: 5,
-        comment: "Harika bir cacıki! Sarımsak oranı tam kıvamında, çok ferahlatıcı.",
+        commentKey: "item.starters.caciki.review0.comment",
         date: "15.04.2023",
       },
       {
         name: "Zeynep K.",
         rating: 5,
-        comment: "Yunan usulü yapılmış, gerçekten çok lezzetli.",
+        commentKey: "item.starters.caciki.review1.comment",
         date: "22.05.2023",
       },
       {
         name: "Mehmet A.",
         rating: 4,
-        comment: "Çok taze ve lezzetli, yanında ekmekle harika gidiyor.",
+        commentKey: "item.starters.caciki.review2.comment",
         date: "10.06.2023",
       },
     ],
   },
   {
     id: "saksuka",
-    name: "Şakşuka",
-    description:
-      "Kızartılmış patlıcan, biber ve domates sosunun eşsiz uyumu. Hafif acı ve lezzet dolu bu Akdeniz mezesi, sofralarınıza renk katacak.",
+    nameKey: "item.starters.saksuka.name",
+    descriptionKey: "item.starters.saksuka.description",
     weight: "225 gr.",
     price: 240,
     image: "/images/starters/cacik.png",
@@ -195,9 +187,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "trakya-mamzana",
-    name: "Trakya Mamzana",
-    description:
-      "Közlenmiş patlıcan, biber ve soğan, sarımsaklı yoğurt ile birleşerek oluşturulan bu eşsiz lezzet, Trakya'nın otantik tadını sofralarınıza getiriyor.",
+    nameKey: "item.starters.trakya-mamzana.name",
+    descriptionKey: "item.starters.trakya-mamzana.description",
     weight: "225 gr.",
     price: 240,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -206,9 +197,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "atom-haydari",
-    name: "Atom Haydari",
-    description:
-      "Sarımsaklı yoğurt üzerine çıtır Edirne biberleriyle hazırlanan bu lezzetli meze, hem gözlere hem de damaklara hitap eder.",
+    nameKey: "item.starters.atom-haydari.name",
+    descriptionKey: "item.starters.atom-haydari.description",
     weight: "225 gr.",
     price: 240,
     image: "/images/starters/cacik.png",
@@ -217,9 +207,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "guvecte-manda-yogurdu",
-    name: "Güveçte Manda Yoğurdu",
-    description:
-      "Toprak güveçlerde mayalandırılmış, doğal ve lezzetli manda yoğurdu. Yoğun kıvamı ve zengin aromasıyla sofralarınıza eşsiz bir tat katıyor.",
+    nameKey: "item.starters.guvecte-manda-yogurdu.name",
+    descriptionKey: "item.starters.guvecte-manda-yogurdu.description",
     weight: "175 gr.",
     price: 180,
     image: "/images/starters/cacik.png",
@@ -228,9 +217,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "karpuz-peynir",
-    name: "Karpuz Peynir",
-    description:
-      "Serinletici karpuz dilimleri, taze beyaz peynirle buluşuyor. Yazın vazgeçilmezi olan bu klasik ikili, ferahlatıcı ve lezzet dolu bir atıştırmalık.",
+    nameKey: "item.starters.karpuz-peynir.name",
+    descriptionKey: "item.starters.karpuz-peynir.description",
     weight: "500 gr.",
     price: 240,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -239,9 +227,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "soka-kaymakli-biber-tursusu",
-    name: "Şoka Kaymaklı Biber Turşusu",
-    description:
-      "Trakya ve Balkanların meşhur peynirli ve kaymaklı biber turşusu. Eşsiz lezzetiyle sofralarınıza ferahlatıcı bir dokunuş katıyor.",
+    nameKey: "item.starters.soka-kaymakli-biber-tursusu.name",
+    descriptionKey: "item.starters.soka-kaymakli-biber-tursusu.description",
     weight: "225 gr.",
     price: 240,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -252,22 +239,21 @@ export const starters: MenuItem[] = [
       {
         name: "Ayşe T.",
         rating: 5,
-        comment: "Balkan lezzetini İstanbul'da bulabileceğimi düşünmezdim. Harika bir tat!",
+        commentKey: "item.starters.soka-kaymakli-biber-tursusu.review0.comment",
         date: "03.03.2023",
       },
       {
         name: "Hasan K.",
         rating: 5,
-        comment: "Edirne'yi özleyenler için birebir, kaymak ve turşu uyumu muhteşem.",
+        commentKey: "item.starters.soka-kaymakli-biber-tursusu.review1.comment",
         date: "17.04.2023",
       },
     ],
   },
   {
     id: "tereyagli-kasarli-mantar",
-    name: "Tereyağlı Kaşarlı Mantar",
-    description:
-      "Kendi suyunda pişmiş kültür, istiridye ve sarıkız mantarları, üzerinde graten Trakya taze kaşarı ile.",
+    nameKey: "item.starters.tereyagli-kasarli-mantar.name",
+    descriptionKey: "item.starters.tereyagli-kasarli-mantar.description",
     weight: "225 gr.",
     price: 330,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -276,9 +262,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "tereyagli-soganli-yaprak-ciger",
-    name: "Tereyağlı Soğanlı Yaprak Ciğer",
-    description:
-      "Soğan ve tereyağ ile sotelenmiş dana yaprak ciğer. Yumuşak dokusu ve zengin aromasıyla, geleneksel bir lezzet.",
+    nameKey: "item.starters.tereyagli-soganli-yaprak-ciger.name",
+    descriptionKey: "item.starters.tereyagli-soganli-yaprak-ciger.description",
     weight: "175 gr.",
     price: 360,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -287,9 +272,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "pacanga-boregi",
-    name: "Paçanga Böreği",
-    description:
-      "Pastırma, taze kaşar, domates ve biber ile hazırlanır. İçindeki malzemelerin uyumu ve çıtır dışıyla, sıcak ve lezzet dolu bir başlangıç.",
+    nameKey: "item.starters.pacanga-boregi.name",
+    descriptionKey: "item.starters.pacanga-boregi.description",
     weight: "160 gr.",
     price: 330,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -300,22 +284,21 @@ export const starters: MenuItem[] = [
       {
         name: "Deniz M.",
         rating: 5,
-        comment: "Çıtır çıtır dışı, lezzetli içi ile harika bir atıştırmalık.",
+        commentKey: "item.starters.pacanga-boregi.review0.comment",
         date: "05.05.2023",
       },
       {
         name: "Selin A.",
         rating: 4,
-        comment: "Pastırma ve peynir uyumu mükemmel, tekrar sipariş edeceğim.",
+        commentKey: "item.starters.pacanga-boregi.review1.comment",
         date: "12.06.2023",
       },
     ],
   },
   {
     id: "patates-kizartmasi",
-    name: "Patates Kızartması",
-    description:
-      "Altın sarısı ve çıtır patates kızartmaları, isteğe bağlı peynir seçeneği ile. Her lokmada keyif veren klasik bir lezzet.",
+    nameKey: "item.starters.patates-kizartmasi.name",
+    descriptionKey: "item.starters.patates-kizartmasi.description",
     weight: "300 gr.",
     price: 240,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -323,9 +306,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "ev-yapimi-patates-kizartmasi",
-    name: "Ev Yapımı Patates Kızartması",
-    description:
-      "Çıtır çıtır ev yapımı patates kızartması, isteğe bağlı peynir seçeneği ile. Sıcacık ve doyurucu bir lezzet.",
+    nameKey: "item.starters.ev-yapimi-patates-kizartmasi.name",
+    descriptionKey: "item.starters.ev-yapimi-patates-kizartmasi.description",
     weight: "300 gr.",
     price: 240,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -333,9 +315,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "kizartma-sepeti",
-    name: "Kızartma Sepeti",
-    description:
-      "Patates kızartması, hellim, soğan halkası, sosis, finger tavuk ve cheeseburger börekten oluşan lezzet dolu bir çeşitlilik.",
+    nameKey: "item.starters.kizartma-sepeti.name",
+    descriptionKey: "item.starters.kizartma-sepeti.description",
     weight: "400 gr.",
     price: 410,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -344,9 +325,8 @@ export const starters: MenuItem[] = [
   },
   {
     id: "sarkuteri-tahtasi",
-    name: "Şarküteri Tahtası",
-    description:
-      "Yöresel et, peynir ve meyveler ile hazırlanan bu enfes şarküteri tahtası, her lokmada farklı bir lezzet deneyimi sunar.",
+    nameKey: "item.starters.sarkuteri-tahtasi.name",
+    descriptionKey: "item.starters.sarkuteri-tahtasi.description",
     weight: "300 gr.",
     price: 720,
     image: "/images/starters/trakya-koy-tarhanasi.png",
@@ -359,9 +339,8 @@ export const starters: MenuItem[] = [
 export const salads: MenuItem[] = [
   {
     id: "bruschetta",
-    name: "Bruschetta",
-    description:
-      "Sarımsaklı kızarmış ekmek dilimleri, üzerinde pesto soslu domates, peynir ve fesleğen ile hazırlanır. Hafif ve ferahlatıcı bir İtalyan klasiği.",
+    nameKey: "item.salads.bruschetta.name",
+    descriptionKey: "item.salads.bruschetta.description",
     weight: "300 gr.",
     price: 290,
     image: "/images/salads/bruschetta.png",
@@ -370,9 +349,8 @@ export const salads: MenuItem[] = [
   },
   {
     id: "yesil-salata",
-    name: "Yeşil Salata",
-    description:
-      "Karışık Akdeniz yeşillikleri, hardallı zeytinyağı sos ile servis edilir. Taze ve hafif bir salata. Sağlıklı bir seçenek arayanlar için idealdir.",
+    nameKey: "item.salads.yesil-salata.name",
+    descriptionKey: "item.salads.yesil-salata.description",
     weight: "150 gr.",
     price: 290,
     image: "/images/salads/yesil-salata.png",
@@ -380,9 +358,8 @@ export const salads: MenuItem[] = [
   },
   {
     id: "peynirli-yesil-salata",
-    name: "Peynirli Yeşil Salata",
-    description:
-      "Edirne peyniri, karışık Akdeniz yeşillikleri ve hardallı zeytinyağı sos ile servis edilir. Sağlıklı ve lezzet dolu bu salata, damakları şenlendirecek.",
+    nameKey: "item.salads.peynirli-yesil-salata.name",
+    descriptionKey: "item.salads.peynirli-yesil-salata.description",
     weight: "300 gr.",
     price: 320,
     image: "/images/salads/yesil-salata.png",
@@ -391,8 +368,8 @@ export const salads: MenuItem[] = [
   },
   {
     id: "roka-salata",
-    name: "Roka Salata",
-    description: "Roka, kuru domates, balzamik sos ve traşlanmış Trakya Eski Kaşarı ile hazırlanır.",
+    nameKey: "item.salads.roka-salata.name",
+    descriptionKey: "item.salads.roka-salata.description",
     weight: "150 gr.",
     price: 310,
     image: "/images/salads/yesil-salata.png",
@@ -401,9 +378,8 @@ export const salads: MenuItem[] = [
   },
   {
     id: "shopska-salata",
-    name: "Shopska Salata",
-    description:
-      "Domates, soğan, salatalık, biber, maydanoz, zeytin ve rende beyaz peynir ile hazırlanır. Kızarmış ekşi maya ekmeği, yağ ve limon sos ile.",
+    nameKey: "item.salads.shopska-salata.name",
+    descriptionKey: "item.salads.shopska-salata.description",
     weight: "450 gr.",
     price: 310,
     image: "/images/salads/yesil-salata.png",
@@ -414,22 +390,21 @@ export const salads: MenuItem[] = [
       {
         name: "Burak T.",
         rating: 5,
-        comment: "Balkan lezzetini tam anlamıyla yansıtan harika bir salata.",
+        commentKey: "item.salads.shopska-salata.review0.comment",
         date: "20.03.2023",
       },
       {
         name: "Elif D.",
         rating: 5,
-        comment: "Taze sebzeler ve beyaz peynir uyumu muhteşem, her zaman sipariş ediyorum.",
+        commentKey: "item.salads.shopska-salata.review1.comment",
         date: "15.04.2023",
       },
     ],
   },
   {
     id: "istanbul-salata",
-    name: "İstanbul Salata",
-    description:
-      "Domates, kırmızı soğan, taze kekik ve kroton ile hazırlanır. Balzamikli domates sos ile taçlandırılan bu salata, taze lezzetleri sofranıza getirir.",
+    nameKey: "item.salads.istanbul-salata.name",
+    descriptionKey: "item.salads.istanbul-salata.description",
     weight: "450 gr.",
     price: 310,
     image: "/images/salads/bruschetta.png",
@@ -438,9 +413,8 @@ export const salads: MenuItem[] = [
   },
   {
     id: "sezar-salata",
-    name: "Sezar Salata",
-    description:
-      "Çıtır iceberg marulu ve marine edilmiş tavuk etleri, sezar sos, sarımsaklı kıtır ekmek ve parmesan peyniri ile hazırlanır.",
+    nameKey: "item.salads.sezar-salata.name",
+    descriptionKey: "item.salads.sezar-salata.description",
     weight: "350 gr.",
     price: 350,
     image: "/images/salads/yesil-salata.png",
@@ -449,9 +423,8 @@ export const salads: MenuItem[] = [
   },
   {
     id: "ananas-ve-buzlu-badem-salatasi",
-    name: "Ananas ve Buzlu Badem Salatası",
-    description:
-      "Karışık Akdeniz yeşilliği, ananas dilimleri, badem ve balzamikli sos ile hazırlanan bu taptaze salata, tropikal bir lezzeti sunuyor.",
+    nameKey: "item.salads.ananas-ve-buzlu-badem-salatasi.name",
+    descriptionKey: "item.salads.ananas-ve-buzlu-badem-salatasi.description",
     weight: "350 gr.",
     price: 340,
     image: "/images/salads/yesil-salata.png",
@@ -464,9 +437,8 @@ export const salads: MenuItem[] = [
 export const mainDishes: MenuItem[] = [
   {
     id: "edirne-koftesi",
-    name: "Edirne Köftesi",
-    description:
-      "Yanında soğan, domates, biber ve acı sos ile servis edilir. Her lokmada bu yöresel lezzetin tadını çıkarın.",
+    nameKey: "item.mainDishes.edirne-koftesi.name",
+    descriptionKey: "item.mainDishes.edirne-koftesi.description",
     weight: "230 gr.",
     price: 430,
     image: "/images/main-dishes/edirne-koftesi.png",
@@ -475,9 +447,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "kesan-satir-kofte",
-    name: "Keşan Satır Köfte",
-    description:
-      "Dana ve kuzu etiyle hazırlanır. Yanında koyun yoğurdu, Edirne biberi ve patates kızartması ile. Her lokmada Trakya'nın lezzetlerini keşfedin.",
+    nameKey: "item.mainDishes.kesan-satir-kofte.name",
+    descriptionKey: "item.mainDishes.kesan-satir-kofte.description",
     weight: "250 gr.",
     price: 480,
     image: "/images/main-dishes/kasap-kofte.png",
@@ -488,22 +459,21 @@ export const mainDishes: MenuItem[] = [
       {
         name: "Ali R.",
         rating: 5,
-        comment: "Keşan'ın meşhur satır köftesini burada bulabilmek harika. Tam kıvamında pişmiş.",
+        commentKey: "item.mainDishes.kesan-satir-kofte.review0.comment",
         date: "10.02.2023",
       },
       {
         name: "Merve Y.",
         rating: 5,
-        comment: "Dana ve kuzu etinin mükemmel uyumu, yanındaki yoğurt ile harika gidiyor.",
+        commentKey: "item.mainDishes.kesan-satir-kofte.review1.comment",
         date: "25.03.2023",
       },
     ],
   },
   {
     id: "bosnak-kofte",
-    name: "Boşnak Köfte",
-    description:
-      "Dana kaburga kıyması, taze süt kaymağı ve Balkanların özel baharat karışımı ile servis edilir. Yanında anne patates, domates, biber ve soğan ile sunulan bu lezzet, Balkan mutfağının eşsiz tadını sofralarınıza getirir.",
+    nameKey: "item.mainDishes.bosnak-kofte.name",
+    descriptionKey: "item.mainDishes.bosnak-kofte.description",
     weight: "230 gr.",
     price: 480,
     image: "/images/main-dishes/kasap-kofte.png",
@@ -514,22 +484,21 @@ export const mainDishes: MenuItem[] = [
       {
         name: "Emre K.",
         rating: 5,
-        comment: "Balkan lezzetini tam anlamıyla yansıtan muhteşem bir köfte.",
+        commentKey: "item.mainDishes.bosnak-kofte.review0.comment",
         date: "05.04.2023",
       },
       {
         name: "Seda M.",
         rating: 4,
-        comment: "Baharat karışımı çok özel, kaymak ile birlikte harika bir tat.",
+        commentKey: "item.mainDishes.bosnak-kofte.review1.comment",
         date: "18.05.2023",
       },
     ],
   },
   {
     id: "izgara-kasap-sucugu",
-    name: "Izgara Kasap Sucuğu",
-    description:
-      "Trakya'nın meşhur kasap sucuğu, ızgara domates, biber, soğan ve ev yapımı patates kızartması ile birlikte.",
+    nameKey: "item.mainDishes.izgara-kasap-sucugu.name",
+    descriptionKey: "item.mainDishes.izgara-kasap-sucugu.description",
     weight: "230 gr.",
     price: 430,
     image: "/images/main-dishes/edirne-koftesi.png",
@@ -537,8 +506,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "izgara-tavuk-sis",
-    name: "Izgara Tavuk Şiş",
-    description: "Hardal marinasyonunda dinlendirilmiş tavuk but şişleri.",
+    nameKey: "item.mainDishes.izgara-tavuk-sis.name",
+    descriptionKey: "item.mainDishes.izgara-tavuk-sis.description",
     weight: "220 gr.",
     price: 410,
     image: "/images/main-dishes/edirne-koftesi.png",
@@ -546,9 +515,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "pilic-kulbasti",
-    name: "Piliç Külbastı",
-    description:
-      "Kremalı patates püresi, Akdeniz yeşillikleri ve ızgara tavuk but ile hazırlanan bu enfes lezzet, sofranıza doyurucu ve sağlıklı bir seçenek sunar.",
+    nameKey: "item.mainDishes.pilic-kulbasti.name",
+    descriptionKey: "item.mainDishes.pilic-kulbasti.description",
     weight: "220 gr.",
     price: 410,
     image: "/images/main-dishes/edirne-koftesi.png",
@@ -557,9 +525,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "tavuk-schnitzel",
-    name: "Tavuk Şinitzel",
-    description:
-      "Altın renginde kızartılmış, çıtır çıtır tavuk şinitzel, yanında taze ve lezzetli patates salatası ile servis edilir. Her lokmada keyif alacağınız bir lezzet.",
+    nameKey: "item.mainDishes.tavuk-schnitzel.name",
+    descriptionKey: "item.mainDishes.tavuk-schnitzel.description",
     weight: "220 gr.",
     price: 410,
     image: "/images/main-dishes/edirne-koftesi.png",
@@ -568,9 +535,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "tereyagli-dana-bonfile",
-    name: "Tereyağlı Dana Bonfile",
-    description:
-      "Kremalı patates püresi, balzamik ve parmesan soslu roka salatası ile servis edilen, tereyağ soslu dana bonfile dilimleri. Bu zarif ve doyurucu lezzet, damaklarınızı şenlendirecek.",
+    nameKey: "item.mainDishes.tereyagli-dana-bonfile.name",
+    descriptionKey: "item.mainDishes.tereyagli-dana-bonfile.description",
     weight: "200 gr.",
     price: 690,
     image: "/images/main-dishes/kasap-kofte.png",
@@ -579,9 +545,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "antrikot-sis",
-    name: "Antrikot Şiş",
-    description:
-      "Dinlendirilmiş antrikot, ızgara baby patatesler ve chimichurri sos ile servis edilir. Bu enfes lezzet, sosunun zengin aromasıyla damağınızı şenlendirecek.",
+    nameKey: "item.mainDishes.antrikot-sis.name",
+    descriptionKey: "item.mainDishes.antrikot-sis.description",
     weight: "200 gr.",
     price: 690,
     image: "/images/main-dishes/kasap-kofte.png",
@@ -591,22 +556,21 @@ export const mainDishes: MenuItem[] = [
       {
         name: "Kemal B.",
         rating: 5,
-        comment: "Antrikot tam kıvamında pişmiş, chimichurri sosu da harika bir eşlikçi.",
+        commentKey: "item.mainDishes.antrikot-sis.review0.comment",
         date: "12.03.2023",
       },
       {
         name: "Canan T.",
         rating: 5,
-        comment: "Et çok yumuşak ve lezzetli, baby patatesler de mükemmel pişmiş.",
+        commentKey: "item.mainDishes.antrikot-sis.review1.comment",
         date: "28.04.2023",
       },
     ],
   },
   {
     id: "coban-kavurma",
-    name: "Çoban Kavurma",
-    description:
-      "Bonfile ve antrikot dilimleri, renkli biberler, soğan ve sarımsak ile özenle kavrulur. Lezzetli bu geleneksel yemek, sofralarınıza eşsiz bir tat katıyor.",
+    nameKey: "item.mainDishes.coban-kavurma.name",
+    descriptionKey: "item.mainDishes.coban-kavurma.description",
     weight: "230 gr.",
     price: 690,
     image: "/images/main-dishes/kasap-kofte.png",
@@ -614,9 +578,8 @@ export const mainDishes: MenuItem[] = [
   },
   {
     id: "kuzu-tandir",
-    name: "Kuzu Tandır",
-    description:
-      "Trakya kıvırcık kuzusunun özenle pişirilmiş tandırı, kekikli baby patatesler ile birlikte sunulur. Her lokmada yumuşacık ve aromatik bir lezzet deneyimi.",
+    nameKey: "item.mainDishes.kuzu-tandir.name",
+    descriptionKey: "item.mainDishes.kuzu-tandir.description",
     weight: "300 gr.",
     price: 690,
     image: "/images/main-dishes/kasap-kofte.png",
@@ -628,9 +591,8 @@ export const mainDishes: MenuItem[] = [
 export const pasta: MenuItem[] = [
   {
     id: "peynirli-edirne-koy-eristesi",
-    name: "Peynirli Edirne Köy Eriştesi",
-    description:
-      "Tereyağı, nane, pul biber ve maydanozlu sosta pişen erişte makarna, kırık peynir ve ceviz ile taçlanır.",
+    nameKey: "item.pasta.peynirli-edirne-koy-eristesi.name",
+    descriptionKey: "item.pasta.peynirli-edirne-koy-eristesi.description",
     weight: "300 gr.",
     price: 360,
     image: "/images/pasta/peynirli-edirne-koy-eritesi.png",
@@ -641,22 +603,21 @@ export const pasta: MenuItem[] = [
       {
         name: "Gizem A.",
         rating: 5,
-        comment: "Edirne'nin meşhur eriştesi, tereyağı ve peynir ile mükemmel bir uyum yakalamış.",
+        commentKey: "item.pasta.peynirli-edirne-koy-eristesi.review0.comment",
         date: "15.02.2023",
       },
       {
         name: "Tolga S.",
         rating: 5,
-        comment: "Ev yapımı erişte tadında, ceviz ve peynir kombinasyonu harika.",
+        commentKey: "item.pasta.peynirli-edirne-koy-eristesi.review1.comment",
         date: "20.03.2023",
       },
     ],
   },
   {
     id: "kiyma-el-acmasi-makarna",
-    name: "Kıymalı El Açması Makarna",
-    description:
-      "Kavrulmuş dana kıyması ve taze el açması makarna ile hazırlanan bu lezzetli yemek, ev yapımı tadıyla sofralarınıza lezzet katıyor.",
+    nameKey: "item.pasta.kiyma-el-acmasi-makarna.name",
+    descriptionKey: "item.pasta.kiyma-el-acmasi-makarna.description",
     weight: "350 gr.",
     price: 410,
     image: "/images/pasta/peynirli-edirne-koy-eritesi.png",
@@ -665,9 +626,8 @@ export const pasta: MenuItem[] = [
   },
   {
     id: "penne-alfredo",
-    name: "Penne Alfredo",
-    description:
-      "Tavuk, krema, mantar, parmesan ve pesto sos ile hazırlanan Alfredo sos, penne makarna ile buluşuyor. Bu zengin lezzet sizi mutlu edecek.",
+    nameKey: "item.pasta.penne-alfredo.name",
+    descriptionKey: "item.pasta.penne-alfredo.description",
     weight: "350 gr.",
     price: 410,
     image: "/images/pasta/peynirli-edirne-koy-eritesi.png",
@@ -676,9 +636,8 @@ export const pasta: MenuItem[] = [
   },
   {
     id: "penne-napoliten",
-    name: "Penne Napoliten",
-    description:
-      "Yaz domateslerinden hazırlanan fesleğenli ve sarımsaklı domates sos, Trakya eski kaşarı ve penne makarna ile buluşuyor.",
+    nameKey: "item.pasta.penne-napoliten.name",
+    descriptionKey: "item.pasta.penne-napoliten.description",
     weight: "350 gr.",
     price: 360,
     image: "/images/pasta/peynirli-edirne-koy-eritesi.png",
@@ -691,9 +650,8 @@ export const pasta: MenuItem[] = [
 export const burgers: MenuItem[] = [
   {
     id: "la-strada-burger",
-    name: "La Strada Burger",
-    description:
-      "Dana kaburga kıyması, cheddar peyniri, iceberg, salatalık turşusu, domates ve kıtır soğan parçaları ile hazırlanan bu eşsiz burger, her lokmada zengin ve doyurucu bir lezzet sunuyor.",
+    nameKey: "item.burgers.la-strada-burger.name",
+    descriptionKey: "item.burgers.la-strada-burger.description",
     weight: "180 gr.",
     price: 465,
     image: "/images/burgers/burger.png",
@@ -702,9 +660,8 @@ export const burgers: MenuItem[] = [
   },
   {
     id: "la-strada-crispy-burger",
-    name: "La Strada Crispy Burger",
-    description:
-      "Çıtır tavuk but, salatalık, kırmızı soğan turşusu ve domates ile hazırlanan bu lezzetli burger, her lokmada çıtır ve taze malzemelerle dolu bir lezzet deneyimi sunar.",
+    nameKey: "item.burgers.la-strada-crispy-burger.name",
+    descriptionKey: "item.burgers.la-strada-crispy-burger.description",
     weight: "160 gr.",
     price: 410,
     image: "/images/burgers/burger.png",
@@ -713,9 +670,8 @@ export const burgers: MenuItem[] = [
   },
   {
     id: "balkan-burger",
-    name: "Balkan Burger",
-    description:
-      "Közlenmiş kapya biber sosu, domates, kırmızı soğan, çıtır pastırma dilimleri ve dana kaburga kıyması ile hazırlanan bu benzersiz burger, Balkan lezzetlerini sofralarınıza getiriyor.",
+    nameKey: "item.burgers.balkan-burger.name",
+    descriptionKey: "item.burgers.balkan-burger.description",
     weight: "180 gr.",
     price: 465,
     image: "/images/burgers/burger.png",
@@ -726,13 +682,13 @@ export const burgers: MenuItem[] = [
       {
         name: "Ozan K.",
         rating: 5,
-        comment: "Pastırma ve közlenmiş biber sosu ile muhteşem bir lezzet.",
+        commentKey: "item.burgers.balkan-burger.review0.comment",
         date: "05.05.2023",
       },
       {
         name: "Aylin M.",
         rating: 5,
-        comment: "Balkan lezzetlerini burger ile buluşturan harika bir fikir, çok lezzetli.",
+        commentKey: "item.burgers.balkan-burger.review1.comment",
         date: "18.06.2023",
       },
     ],
@@ -743,9 +699,8 @@ export const burgers: MenuItem[] = [
 export const desserts: MenuItem[] = [
   {
     id: "cup-dondurma",
-    name: "Cup dondurma",
-    description:
-      "Kağıt helvalı ve meyveli dondurma şöleni! Taptaze meyveler ve çıtır kağıt helva eşliğinde sunulan bu nefis dondurma, serinletici bir keyif sunuyor.",
+    nameKey: "item.desserts.cup-dondurma.name",
+    descriptionKey: "item.desserts.cup-dondurma.description",
     weight: "160 gr.",
     price: 260,
     image: "/images/desserts/trilece.png",
@@ -754,9 +709,8 @@ export const desserts: MenuItem[] = [
   },
   {
     id: "trilece",
-    name: "Trileçe",
-    description:
-      "Balkanların meşhur 3 sütlü karamelli tatlısı. Yumuşacık dokusu ve zengin süt aromasıyla her lokmada tatlı bir lezzet patlaması sunuyor.",
+    nameKey: "item.desserts.trilece.name",
+    descriptionKey: "item.desserts.trilece.description",
     weight: "120 gr.",
     price: 310,
     image: "/images/desserts/trilece.png",
@@ -765,9 +719,8 @@ export const desserts: MenuItem[] = [
   },
   {
     id: "karamelli-affogato",
-    name: "Karamelli Affogato",
-    description:
-      "Kek tabanı, dondurma, espresso, damla çikolata, ceviz ve karamel sos ile hazırlanan bu muhteşem tatlı, lezzetlerin uyumunu sunar.",
+    nameKey: "item.desserts.karamelli-affogato.name",
+    descriptionKey: "item.desserts.karamelli-affogato.description",
     weight: "160 gr.",
     price: 310,
     image: "/images/desserts/trilece.png",
@@ -776,9 +729,8 @@ export const desserts: MenuItem[] = [
   },
   {
     id: "firinlanmis-edirne-peynir-helvasi",
-    name: "Fırınlanmış Edirne Peynir Helvası",
-    description:
-      "Geleneksel tarifle hazırlanan fırınlanmış Edirne peynir helvası, yanında dondurma seçeneği ile sunulur.",
+    nameKey: "item.desserts.firinlanmis-edirne-peynir-helvasi.name",
+    descriptionKey: "item.desserts.firinlanmis-edirne-peynir-helvasi.description",
     weight: "120 gr.",
     price: 310,
     image: "/images/desserts/helva.png",
@@ -789,22 +741,21 @@ export const desserts: MenuItem[] = [
       {
         name: "Fatma Y.",
         rating: 5,
-        comment: "Edirne'nin meşhur peynir helvasını burada bulabilmek harika, tam kıvamında.",
+        commentKey: "item.desserts.firinlanmis-edirne-peynir-helvasi.review0.comment",
         date: "10.04.2023",
       },
       {
         name: "Murat S.",
         rating: 5,
-        comment: "Dondurma ile birlikte servis edilmesi çok güzel bir fikir, muhteşem uyum.",
+        commentKey: "item.desserts.firinlanmis-edirne-peynir-helvasi.review1.comment",
         date: "22.05.2023",
       },
     ],
   },
   {
     id: "brownie",
-    name: "Brownie",
-    description:
-      "Yoğun çikolatalı olarak ve yanında dondurma seçeneği ile sunulur. Sıcak ve yumuşak dokusuyla her lokmada çikolata şöleni yaşayın.",
+    nameKey: "item.desserts.brownie.name",
+    descriptionKey: "item.desserts.brownie.description",
     weight: "120 gr.",
     price: 310,
     image: "/images/desserts/trilece.png",
@@ -813,8 +764,8 @@ export const desserts: MenuItem[] = [
   },
   {
     id: "fistikli-havuc-dilim-baklava",
-    name: "Fıstıklı Havuç Dilim Baklava",
-    description: "Her lokmada çıtırdayan dokusu ve yoğun fıstık aromasıyla damaklarınızı şenlendirecek.",
+    nameKey: "item.desserts.fistikli-havuc-dilim-baklava.name",
+    descriptionKey: "item.desserts.fistikli-havuc-dilim-baklava.description",
     weight: "120 gr.",
     price: 370,
     image: "/images/desserts/trilece.png",
@@ -982,8 +933,8 @@ export const drinks: MenuItem[] = [
   // Coffee
   {
     id: "turk-kahvesi",
-    name: "Türk Kahvesi (Turkish Coffee)",
-    description: "Geleneksel Türk kahvesi, isteğe göre sade, orta veya şekerli.",
+    nameKey: "item.drinks.turk-kahvesi.name",
+    descriptionKey: "item.drinks.turk-kahvesi.description",
     weight: "70ml",
     price: 95,
     image: "/images/drinks/turk-kahvesi.png",
@@ -992,8 +943,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "espresso",
-    name: "Espresso",
-    description: "Yoğun aromalı İtalyan espresso.",
+    nameKey: "item.drinks.espresso.name",
+    descriptionKey: "item.drinks.espresso.description",
     weight: "70ml",
     price: 95,
     image: "/images/drinks/espresso.png",
@@ -1002,8 +953,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "double-espresso",
-    name: "Double Espresso",
-    description: "Çift shot espresso.",
+    nameKey: "item.drinks.double-espresso.name",
+    descriptionKey: "item.drinks.double-espresso.description",
     weight: "150ml",
     price: 160,
     image: "/images/drinks/espresso.png",
@@ -1012,8 +963,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "americano",
-    name: "Americano",
-    description: "Espresso ve sıcak su ile hazırlanır.",
+    nameKey: "item.drinks.americano.name",
+    descriptionKey: "item.drinks.americano.description",
     weight: "150ml",
     price: 95,
     image: "/images/drinks/americano.png",
@@ -1022,8 +973,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "latte",
-    name: "Latte",
-    description: "Espresso ve buharla ısıtılmış süt ile hazırlanır.",
+    nameKey: "item.drinks.latte.name",
+    descriptionKey: "item.drinks.latte.description",
     weight: "150ml",
     price: 120,
     image: "/images/drinks/latte.png",
@@ -1033,8 +984,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "cappuccino",
-    name: "Cappuccino",
-    description: "Espresso, buharla ısıtılmış süt ve süt köpüğü ile hazırlanır.",
+    nameKey: "item.drinks.cappuccino.name",
+    descriptionKey: "item.drinks.cappuccino.description",
     weight: "150ml",
     price: 120,
     image: "/images/drinks/cappuccino.png",
@@ -1044,8 +995,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "sicak-cikolata",
-    name: "Sıcak Çikolata (Hot Chocolate)",
-    description: "Yoğun çikolata aromalı sıcak içecek.",
+    nameKey: "item.drinks.sicak-cikolata.name",
+    descriptionKey: "item.drinks.sicak-cikolata.description",
     weight: "150ml",
     price: 95,
     image: "/images/drinks/sicak-cikolata.png",
@@ -1055,8 +1006,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "salep",
-    name: "Salep",
-    description: "Geleneksel Türk içeceği, tarçın ile servis edilir.",
+    nameKey: "item.drinks.salep.name",
+    descriptionKey: "item.drinks.salep.description",
     weight: "150ml",
     price: 130,
     image: "/images/drinks/salep.png",
@@ -1066,8 +1017,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "filter-coffee",
-    name: "Filter Coffee (Filtre Kahve)",
-    description: "Günlük öğütülmüş kahve çekirdeklerinden hazırlanır.",
+    nameKey: "item.drinks.filter-coffee.name",
+    descriptionKey: "item.drinks.filter-coffee.description",
     weight: "250ml",
     price: 95,
     image: "/images/drinks/filter-coffee.png",
@@ -1076,8 +1027,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "sade-kahve",
-    name: "Sade Kahve (Black Coffee)",
-    description: "Türk usulü sade kahve.",
+    nameKey: "item.drinks.sade-kahve.name",
+    descriptionKey: "item.drinks.sade-kahve.description",
     weight: "150ml",
     price: 95,
     image: "/images/drinks/sade-kahve.png",
@@ -1086,8 +1037,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "sutlu-kahve",
-    name: "Sütlü Kahve (Coffee with Milk)",
-    description: "Türk usulü sütlü kahve.",
+    nameKey: "item.drinks.sutlu-kahve.name",
+    descriptionKey: "item.drinks.sutlu-kahve.description",
     weight: "150ml",
     price: 95,
     image: "/images/drinks/sutlu-kahve.png",
@@ -1097,8 +1048,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "soguk-kahve",
-    name: "Soğuk Kahve (Cold Brew)",
-    description: "Buzlu soğuk kahve.",
+    nameKey: "item.drinks.soguk-kahve.name",
+    descriptionKey: "item.drinks.soguk-kahve.description",
     weight: "250ml",
     price: 150,
     image: "/images/drinks/soguk-kahve.png",
@@ -1107,8 +1058,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "frappe",
-    name: "Frappe",
-    description: "Yunan usulü köpüklü soğuk kahve.",
+    nameKey: "item.drinks.frappe.name",
+    descriptionKey: "item.drinks.frappe.description",
     weight: "250ml",
     price: 150,
     image: "/images/drinks/frappe.png",
@@ -1119,8 +1070,8 @@ export const drinks: MenuItem[] = [
   // Soft Drinks
   {
     id: "cay",
-    name: "Çay (Tea)",
-    description: "Geleneksel Türk çayı.",
+    nameKey: "item.drinks.cay.name",
+    descriptionKey: "item.drinks.cay.description",
     weight: "150ml",
     price: 45,
     image: "/images/drinks/cay.png",
@@ -1129,8 +1080,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "bitki-cayi",
-    name: "Bitki Çayı (Herbal Tea)",
-    description: "Çeşitli bitki çayları (Ihlamur, Ada Çayı, Papatya, Yeşil Çay).",
+    nameKey: "item.drinks.bitki-cayi.name",
+    descriptionKey: "item.drinks.bitki-cayi.description",
     weight: "250ml",
     price: 90,
     image: "/images/drinks/bitki-cayi.png",
@@ -1139,8 +1090,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "su-small",
-    name: "Su - Water",
-    description: "Doğal kaynak suyu.",
+    nameKey: "item.drinks.su-small.name",
+    descriptionKey: "item.drinks.su-small.description",
     weight: "330ml",
     price: 80,
     image: "/images/drinks/su.png",
@@ -1149,8 +1100,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "su-large",
-    name: "Su - Water",
-    description: "Doğal kaynak suyu.",
+    nameKey: "item.drinks.su-large.name",
+    descriptionKey: "item.drinks.su-large.description",
     weight: "750ml",
     price: 120,
     image: "/images/drinks/su.png",
@@ -1159,8 +1110,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "san-pellegrino",
-    name: "San Pellegrino",
-    description: "İtalyan maden suyu.",
+    nameKey: "item.drinks.san-pellegrino.name",
+    descriptionKey: "item.drinks.san-pellegrino.description",
     weight: "250ml",
     price: 120,
     image: "/images/drinks/san-pellegrino.png",
@@ -1169,8 +1120,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "soda",
-    name: "Soda (Mineral Water)",
-    description: "Sade veya limonlu maden suyu.",
+    nameKey: "item.drinks.soda.name",
+    descriptionKey: "item.drinks.soda.description",
     weight: "200ml",
     price: 75,
     image: "/images/drinks/soda.png",
@@ -1179,8 +1130,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "kola",
-    name: "Kola (Coke)",
-    description: "Coca-Cola, Diet Coke, Coca-Cola Zero.",
+    nameKey: "item.drinks.kola.name",
+    descriptionKey: "item.drinks.kola.description",
     weight: "330ml",
     price: 95,
     image: "/images/drinks/kola.png",
@@ -1189,8 +1140,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "ayran",
-    name: "Ayran",
-    description: "Geleneksel Türk yoğurt içeceği.",
+    nameKey: "item.drinks.ayran.name",
+    descriptionKey: "item.drinks.ayran.description",
     weight: "200ml",
     price: 75,
     image: "/images/drinks/ayran.png",
@@ -1200,8 +1151,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "meyve-suyu",
-    name: "Meyve Suyu (Juice)",
-    description: "Portakal, vişne, şeftali, kayısı, ananas.",
+    nameKey: "item.drinks.meyve-suyu.name",
+    descriptionKey: "item.drinks.meyve-suyu.description",
     weight: "330ml",
     price: 95,
     image: "/images/drinks/meyve-suyu.png",
@@ -1210,8 +1161,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "limonata",
-    name: "Limonata (Lemonade)",
-    description: "Ev yapımı taze limonata.",
+    nameKey: "item.drinks.limonata.name",
+    descriptionKey: "item.drinks.limonata.description",
     weight: "300ml",
     price: 130,
     image: "/images/drinks/limonata.png",
@@ -1220,8 +1171,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "tonic",
-    name: "Tonic",
-    description: "Schweppes Tonik.",
+    nameKey: "item.drinks.tonic.name",
+    descriptionKey: "item.drinks.tonic.description",
     weight: "200ml",
     price: 190,
     image: "/images/drinks/tonic.png",
@@ -1230,8 +1181,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "red-bull",
-    name: "Red Bull",
-    description: "Enerji içeceği.",
+    nameKey: "item.drinks.red-bull.name",
+    descriptionKey: "item.drinks.red-bull.description",
     weight: "250ml",
     price: 190,
     image: "/images/drinks/red-bull.png",
@@ -1242,8 +1193,8 @@ export const drinks: MenuItem[] = [
   // Fresh Juices
   {
     id: "portakal-suyu",
-    name: "Portakal Suyu (Orange Juice)",
-    description: "Taze sıkılmış portakal suyu.",
+    nameKey: "item.drinks.portakal-suyu.name",
+    descriptionKey: "item.drinks.portakal-suyu.description",
     weight: "300ml",
     price: 190,
     image: "/images/drinks/portakal-suyu.png",
@@ -1252,8 +1203,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "nar-suyu",
-    name: "Nar Suyu (Pomegranate Juice)",
-    description: "Taze sıkılmış nar suyu.",
+    nameKey: "item.drinks.nar-suyu.name",
+    descriptionKey: "item.drinks.nar-suyu.description",
     weight: "300ml",
     price: 190,
     image: "/images/drinks/nar-suyu.png",
@@ -1262,8 +1213,8 @@ export const drinks: MenuItem[] = [
   },
   {
     id: "elma-havuc-bal",
-    name: "Elma Havuç Bal (Apple Carrot Honey)",
-    description: "Taze sıkılmış elma ve havuç suyu, bal ile tatlandırılmış.",
+    nameKey: "item.drinks.elma-havuc-bal.name",
+    descriptionKey: "item.drinks.elma-havuc-bal.description",
     weight: "300ml",
     price: 210,
     image: "/images/drinks/elma-havuc.png",

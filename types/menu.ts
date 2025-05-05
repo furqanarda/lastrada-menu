@@ -7,14 +7,10 @@ export type Category = {
 
 export type MenuItem = {
   id: string
-  name: string
-  nameEn?: string
-  nameEl?: string
-  nameBg?: string
-  description: string
-  descriptionEn?: string
-  descriptionEl?: string
-  descriptionBg?: string
+  nameKey?: string
+  descriptionKey?: string
+  name?: string
+  description?: string
   weight: string
   price: number
   image: string
@@ -30,7 +26,8 @@ export type MenuItem = {
   reviews?: {
     name: string
     rating: number
-    comment: string
+    commentKey?: string
+    comment?: string
     date?: string
   }[]
   pairingNumbers?: string

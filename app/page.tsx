@@ -2,21 +2,11 @@
 
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSelector } from "@/components/language-selector"
-import { useEffect } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Heart } from "lucide-react"
 
 export default function Home() {
-  const { setLanguage } = useLanguage()
-
-  // Clear any previously saved language to ensure language selection is shown
-  useEffect(() => {
-    localStorage.removeItem("language")
-    // Default to no language until user selects one
-    setLanguage("tr")
-  }, [setLanguage])
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-[#0f172a]">
       <motion.div

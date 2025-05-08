@@ -23,6 +23,7 @@ type CartContextType = {
   subtotal: number
   roomOrTableNumber: string
   setRoomOrTableNumber: (number: string) => void
+  isLoaded: boolean
 }
 
 // Create context with default values
@@ -37,15 +38,20 @@ const CartContext = createContext<CartContextType>({
   subtotal: 0,
   roomOrTableNumber: "",
   setRoomOrTableNumber: () => {},
+  isLoaded: false
 })
 
 // Create provider component
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([])
   const [roomOrTableNumber, setRoomOrTableNumber] = useState<string>("")
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
-  // Load cart from localStorage on client side
+  // Load cart from localStorage on client side only
   useEffect(() => {
+    // Only run on client-side
+    if (typeof window === 'undefined') return;
+    
     const savedCart = localStorage.getItem("cart")
     const savedRoomOrTable = localStorage.getItem("roomOrTableNumber")
 
@@ -60,17 +66,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (savedRoomOrTable) {
       setRoomOrTableNumber(savedRoomOrTable)
     }
+    
+    // Mark as loaded from localStorage
+    setIsLoaded(true)
   }, [])
 
   // Save cart to localStorage when it changes
   useEffect(() => {
+    // Only save to localStorage after initial loading and when on client-side
+    if (!isLoaded || typeof window === 'undefined') return;
     localStorage.setItem("cart", JSON.stringify(items))
-  }, [items])
+  }, [items, isLoaded])
 
   // Save room/table number to localStorage when it changes
   useEffect(() => {
+    // Only save to localStorage after initial loading and when on client-side
+    if (!isLoaded || typeof window === 'undefined') return;
     localStorage.setItem("roomOrTableNumber", roomOrTableNumber)
-  }, [roomOrTableNumber])
+  }, [roomOrTableNumber, isLoaded])
 
   // Add item to cart
   const addItem = (item: MenuItem) => {
@@ -130,6 +143,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         subtotal,
         roomOrTableNumber,
         setRoomOrTableNumber,
+        isLoaded
       }}
     >
       {children}

@@ -63,7 +63,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
   }
 
   // Use a placeholder image that's guaranteed to work
-  const placeholderImage = `https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(item.name)}`
+  const placeholderImage = `https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(item.name || "")}`
 
   return (
     <>
@@ -82,7 +82,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
             ) : (
               <Image
                 src={placeholderImage || "/placeholder.svg"}
-                alt={item.name}
+                alt={item.name || ""}
                 fill
                 className="object-cover"
                 onError={() => setImageError(true)}
@@ -114,7 +114,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
                 </h3>
                 <div className="relative">
                   <p className="text-sm text-gray-300 line-clamp-2 mt-1 pr-6">{item.description}</p>
-                  {(item.description.length > 60 || item.allergens?.length || item.reviews?.length) && (
+                  {((item.description?.length || 0) > 60 || item.allergens?.length || item.reviews?.length) && (
                     <button
                       onClick={() => setIsDialogOpen(true)}
                       className="absolute right-0 top-0 text-blue-400 hover:text-blue-300"

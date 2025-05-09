@@ -133,7 +133,7 @@ export default function MenuPage() {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       items = items.filter(
-        (item) => item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query)
+        (item) => (item.name?.toLowerCase() ?? '').includes(query) || (item.description?.toLowerCase() ?? '').includes(query)
       );
     }
 
@@ -355,21 +355,21 @@ export default function MenuPage() {
                   className="flex-1 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
                 >
                   <Wine className="h-4 w-4 mr-2" />
-                  Kırmızı
+                  {t("wine.subcategory.red")}
                 </TabsTrigger>
                 <TabsTrigger
                   value="white"
                   className="flex-1 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
                 >
                   <Wine className="h-4 w-4 mr-2" />
-                  Beyaz
+                  {t("wine.subcategory.white")}
                 </TabsTrigger>
                 <TabsTrigger
                   value="rose"
                   className="flex-1 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
                 >
                   <Wine className="h-4 w-4 mr-2" />
-                  Rose / Blush
+                  {t("wine.subcategory.rose")}
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -379,49 +379,49 @@ export default function MenuPage() {
         {/* Wine pairing guide */}
         {activeCategory === "wines" && (
           <div className="mb-4 bg-[#1a2234] border border-[#2a3346] rounded-md p-3">
-            <h3 className="text-sm font-medium text-white mb-2">Şarap Eşleştirme Rehberi</h3>
+            <h3 className="text-sm font-medium text-white mb-2">{t("wine.foodPairings")}</h3>
             <div className="grid grid-cols-5 gap-1 text-xs mb-2">
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">0</div>
-                <div>Başlangıçlar</div>
+                <div>{t("wine.pairingCategory.starters")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">1</div>
-                <div>Salatalar</div>
+                <div>{t("wine.pairingCategory.salads")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">2</div>
-                <div>Mezeler</div>
+                <div>{t("wine.pairingCategory.appetizers")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">3</div>
-                <div>Şarküteri</div>
+                <div>{t("wine.pairingCategory.charcuterie")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">4</div>
-                <div>Peynir</div>
+                <div>{t("wine.pairingCategory.cheese")}</div>
               </div>
             </div>
             <div className="grid grid-cols-5 gap-1 text-xs">
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">5</div>
-                <div>Meyve</div>
+                <div>{t("wine.pairingCategory.fruit")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">6</div>
-                <div>Tavuk</div>
+                <div>{t("wine.pairingCategory.chicken")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">7</div>
-                <div>Kırmızı Et</div>
+                <div>{t("wine.pairingCategory.redMeat")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">8</div>
-                <div>Domates Sos</div>
+                <div>{t("wine.pairingCategory.tomatoSauce")}</div>
               </div>
               <div className="bg-[#0f172a] p-1 rounded text-center">
                 <div className="font-bold">9</div>
-                <div>Krema Sos</div>
+                <div>{t("wine.pairingCategory.creamSauce")}</div>
               </div>
             </div>
           </div>
@@ -439,7 +439,7 @@ export default function MenuPage() {
               <div key={region} className="mb-6">
                 <h3 className="text-lg font-medium text-white mb-3 border-b border-[#2a3346] pb-2 flex items-center">
                   <Wine className="h-5 w-5 mr-2" />
-                  {region}
+                  {t(region)}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {filteredItems

@@ -45,12 +45,12 @@ export function CartItem({ item }: CartItemProps) {
     <div className="flex flex-col border-b border-border py-4">
       <div className="flex gap-4">
         <div className="relative h-20 w-20 flex-shrink-0 rounded-md overflow-hidden">
-          <Image src={item.item.image || "/placeholder.svg"} alt={item.item.name} fill className="object-cover" />
+          <Image src={item.item.image || "/placeholder.svg"} alt={item.item.nameKey || ""} fill className="object-cover" />
         </div>
 
         <div className="flex-1">
           <div className="flex justify-between">
-            <h3 className="font-medium">{item.item.name}</h3>
+            <h3 className="font-medium">{t(item.item.nameKey || "")}</h3>
             <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground" onClick={handleRemove}>
               <Trash2 className="h-4 w-4" />
             </Button>

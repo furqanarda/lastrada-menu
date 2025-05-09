@@ -1,0 +1,19 @@
+{
+  "name": "la-strada-print-service",
+  "version": "1.0.0",
+  "description": "ESC/POS print service for La Strada Restaurant",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-thermal-printer": "^4.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "author": "",
+  "license": "ISC"
+} 

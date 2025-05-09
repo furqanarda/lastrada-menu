@@ -18,8 +18,8 @@ export default function CartPage() {
   const router = useRouter()
   const [error, setError] = useState("")
 
-  const tax = subtotal * 0.08 // 8% tax
-  const total = subtotal + tax
+  const tax = 0 // Prices include tax
+  const total = subtotal // Prices include tax
 
   const handleContinue = () => {
     if (!roomOrTableNumber) {
@@ -70,14 +70,6 @@ export default function CartPage() {
             </div>
 
             <div className="border-t border-border pt-4 mt-4 space-y-2">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{t("app.subtotal")}</span>
-                <span>{formatPrice(subtotal)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{t("app.tax")} (8%)</span>
-                <span>{formatPrice(tax)}</span>
-              </div>
               <div className="flex justify-between font-bold text-lg">
                 <span>{t("app.total")}</span>
                 <span>{formatPrice(total)}</span>

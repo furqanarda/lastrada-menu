@@ -911,7 +911,7 @@ export const beers: MenuItem[] = [
     descriptionKey: "item.beers.erdinger.description",
     weight: "33cl",
     price: 330,
-    image: "/images/beers/erdinger.png",
+    image: "/images/beers/erdinger_beer.jpg",
     category: "beers",
     subcategory: "import",
     allergens: ["alcohol", "gluten"],

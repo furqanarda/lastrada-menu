@@ -878,7 +878,7 @@ export const beers: MenuItem[] = [
     descriptionKey: "item.beers.grolsch.description",
     weight: "45cl",
     price: 390,
-    image: "/images/beers/grolsch.png",
+    image: "/images/beers/grolsch_beer.jpg",
     category: "beers",
     subcategory: "import",
     allergens: ["alcohol", "gluten"],

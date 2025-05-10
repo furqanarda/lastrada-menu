@@ -11,7 +11,27 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "La Strada Restaurant | The Plaza Hotel Edirne",
   description: "Digital menu for La Strada Restaurant at The Plaza Hotel Edirne",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  openGraph: {
+    title: "La Strada Restaurant | The Plaza Hotel Edirne",
+    description: "Our menu features a delightful blend of local and international cuisines, while our selection of wine and beer is sure to captivate you.",
+    url: "https://menu.theplazahoteledirne.com/",
+    images: [
+      {
+        url: "https://theplazahoteledirne.com/assets/images/lastrada-share-preview.jpg",
+        width: 1200, // You might want to adjust these dimensions
+        height: 630, // based on your image's actual size
+        alt: "La Strada Restaurant Logo",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "La Strada Restaurant | The Plaza Hotel Edirne",
+    description: "Our menu features a delightful blend of local and international cuisines, while our selection of wine and beer is sure to captivate you.",
+    images: ["https://theplazahoteledirne.com/assets/images/lastrada-share-preview.jpg"],
+  },
 }
 
 export default function RootLayout({

@@ -889,7 +889,7 @@ export const beers: MenuItem[] = [
     descriptionKey: "item.beers.miller.description",
     weight: "33cl",
     price: 240,
-    image: "/images/beers/miller.png",
+    image: "/images/beers/miller_beer.jpg",
     category: "beers",
     subcategory: "import",
     allergens: ["alcohol", "gluten"],

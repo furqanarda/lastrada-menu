@@ -100,6 +100,10 @@ const translations: Record<Language, Record<string, string>> = {
     "allergen.wheat": "Wheat",
     "allergen.alcohol": "Alcohol",
 
+    // Beer Subcategories
+    "beer.subcategory.local": "Local Beers",
+    "beer.subcategory.imported": "Imported Beers",
+
     // Wine
     "wine.pairing": "Pairing",
     "wine.pairsWellWith": "This wine pairs well with",
@@ -582,6 +586,10 @@ const translations: Record<Language, Record<string, string>> = {
     "allergen.wheat": "Σιτάρι",
     "allergen.alcohol": "Αλκοόλ",
 
+    // Beers Subcategories
+    "beer.subcategory.local": "Τοπικές Μπύρες",
+    "beer.subcategory.imported": "Εισαγόμενες Μπύρες",
+
     // Wine
     "wine.pairing": "Συνδυασμός",
     "wine.pairsWellWith": "Αυτό το κρασί ταιριάζει καλά με",
@@ -1059,6 +1067,10 @@ const translations: Record<Language, Record<string, string>> = {
     "allergen.soy": "Соя",
     "allergen.wheat": "Пшеница",
     "allergen.alcohol": "Алкохол",
+
+    // Beers Subcategories
+    "beer.subcategory.local": "Местни бири",
+    "beer.subcategory.imported": "Вносни бири",
 
     // Wine
     "wine.pairing": "Съчетание",

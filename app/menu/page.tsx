@@ -172,14 +172,14 @@ export default function MenuPage() {
                 className="flex-1 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
               >
                 <Beer className="h-4 w-4 mr-2" />
-                Yerli Biralar
+                {t("beer.subcategory.local")}
               </TabsTrigger>
               <TabsTrigger
                 value="import"
                 className="flex-1 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
               >
                 <Beer className="h-4 w-4 mr-2" />
-                İthal Biralar
+                {t("beer.subcategory.imported")}
               </TabsTrigger>
             </TabsList>
           </Tabs>

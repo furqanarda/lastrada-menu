@@ -856,7 +856,7 @@ export const beers: MenuItem[] = [
     descriptionKey: "item.beers.becks.description",
     weight: "33cl",
     price: 240,
-    image: "/images/beers/becks.png",
+    image: "/images/beers/becks_beer.jpg",
     category: "beers",
     subcategory: "import",
     allergens: ["alcohol", "gluten"],

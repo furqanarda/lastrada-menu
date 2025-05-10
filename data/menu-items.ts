@@ -900,7 +900,7 @@ export const beers: MenuItem[] = [
     descriptionKey: "item.beers.amsterdam.description",
     weight: "50cl",
     price: 390,
-    image: "/images/beers/amsterdam.png",
+    image: "/images/beers/amsterdam_beer.jpg",
     category: "beers",
     subcategory: "import",
     allergens: ["alcohol", "gluten"],

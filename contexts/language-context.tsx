@@ -551,6 +551,8 @@ const translations: Record<Language, Record<string, string>> = {
     "app.bestSeller": "Δημοφιλές",
     "ui.order.print_note": "Θα λάβετε μια έντυπη απόδειξη.",
     "ui.order.print_success": "Η παραγγελία σας στάλθηκε με επιτυχία στο προσωπικό!",
+    "ui.order.print_error_some_printers": "Η παραγγελία καταχωρήθηκε, αλλά ορισμένοι εκτυπωτές απέτυχαν. Ελέγξτε τις λεπτομέρειες ή επικοινωνήστε με το προσωπικό.",
+    "ui.order.print_error_all_printers": "Η παραγγελία καταχωρήθηκε, αλλά όλοι οι εκτυπωτές απέτυχαν. Παρακαλώ ενημερώστε άμεσα το προσωπικό.",
 
     // Categories
     "category.all": "Όλο το Μενού",
@@ -1027,6 +1029,8 @@ const translations: Record<Language, Record<string, string>> = {
     "app.bestSeller": "Най-Продаван",
     "ui.order.print_note": "Ще получите разпечатана касова бележка.",
     "ui.order.print_success": "Поръчката ви беше изпратена успешно до персонала!",
+    "ui.order.print_error_some_printers": "Поръчката е обработена, но някои принтери са отказали. Моля, проверете детайлите или се обърнете към персонала.",
+    "ui.order.print_error_all_printers": "Поръчката е обработена, но всички принтери са отказали. Моля, незабавно се свържете с персонала.",
 
     // Categories
     "category.all": "Цялото Меню",

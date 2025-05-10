@@ -41,6 +41,8 @@
     "app.bestSeller": "En Çok Satan",
     "ui.order.print_note": "Yazdırılmış bir fiş alacaksınız.",
     "ui.order.print_success": "Siparişiniz personele başarıyla gönderildi!",
+    "ui.order.print_error_some_printers": "Sipariş işlendi, ancak bazı yazıcılarda hata oluştu. Lütfen detayları kontrol edin veya personele danışın.",
+    "ui.order.print_error_all_printers": "Sipariş işlendi, ancak tüm yazıcılarda hata oluştu. Lütfen hemen personele başvurun.",
     "category.all": "Tüm Menü",
     "category.breakfast": "Kahvaltı",
     "category.starters": "Başlangıçlar ve Mezeler",

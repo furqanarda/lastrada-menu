@@ -95,7 +95,7 @@ const translations: Record<Language, Record<string, string>> = {
     "allergen.nuts": "Nuts",
     "allergen.eggs": "Eggs",
     "allergen.fish": "Fish",
-    "allergen.shellfish": "Shell-fish",
+    "allergen.shellfish": "Shellfish",
     "allergen.soy": "Soy",
     "allergen.wheat": "Wheat",
     "allergen.alcohol": "Alcohol",

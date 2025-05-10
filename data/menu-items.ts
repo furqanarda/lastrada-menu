@@ -417,7 +417,7 @@ export const salads: MenuItem[] = [
     descriptionKey: "item.salads.sezar-salata.description",
     weight: "350 gr.",
     price: 350,
-    image: "/images/salads/yesil-salata.png",
+    image: "/images/salads/sezar-salad.jpeg",
     category: "salads",
     allergens: ["dairy", "eggs", "gluten"],
   },

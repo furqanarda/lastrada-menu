@@ -69,10 +69,8 @@ export default function CheckoutPage() {
           printServiceUrl = `http://${hostname}:3001/print`
         }
         else if (hostname === "menu.theplazahoteledirne.com" || hostname === "theplazahoteledirne.com") {
-          // Domain access - use server IP for print service with same protocol as the page
-          const protocol = window.location.protocol
-          const printPort = protocol === 'https:' ? '3443' : '3001'
-          printServiceUrl = `${protocol}//81.215.205.185:${printPort}/print`
+          // Domain access - use server IP for print service
+          printServiceUrl = "http://81.215.205.185:3001/print"
         }
         // Default already set to public IP
       }

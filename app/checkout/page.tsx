@@ -58,11 +58,21 @@ export default function CheckoutPage() {
       let printServiceUrl = "http://81.215.205.185:3001/print" // Default to public IP
       if (typeof window !== "undefined") {
         const hostname = window.location.hostname
-        if (hostname.startsWith("192.168.1.") || hostname === "localhost") {
-          // Use localhost if print service runs on the same machine as Next.js dev server,
-          // otherwise use the specific LAN IP of the print service.
-          printServiceUrl = hostname === "localhost" ? "http://localhost:3001/print" : "http://192.168.1.100:3001/print"
+        
+        // Handle different access methods
+        if (hostname === "localhost") {
+          // Local development
+          printServiceUrl = "http://localhost:3001/print"
+        } 
+        else if (hostname.startsWith("192.168.1.")) {
+          // Local network IP access - use same IP for print service
+          printServiceUrl = `http://${hostname}:3001/print`
         }
+        else if (hostname === "menu.theplazahoteledirne.com" || hostname === "theplazahoteledirne.com") {
+          // Domain access - use server IP for print service
+          printServiceUrl = "http://81.215.205.185:3001/print"
+        }
+        // Default already set to public IP
       }
 
       const orderPayload = {

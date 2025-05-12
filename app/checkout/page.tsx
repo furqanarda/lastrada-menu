@@ -55,24 +55,24 @@ export default function CheckoutPage() {
 
     try {
       // Determine Print Service URL
-      let printServiceUrl = "http://81.215.205.185:3001/print" // Default to public IP
+      let printServiceUrl = "https://menu.theplazahoteledirne.com/print"; // Default for production
+
       if (typeof window !== "undefined") {
-        const hostname = window.location.hostname
-        
-        // Handle different access methods
+        const hostname = window.location.hostname;
+        const protocol = window.location.protocol;
+
         if (hostname === "localhost") {
           // Local development
-          printServiceUrl = "http://localhost:3001/print"
-        } 
+          printServiceUrl = "http://localhost:3001/print";
+        }
         else if (hostname.startsWith("192.168.1.")) {
-          // Local network IP access - use same IP for print service
-          printServiceUrl = `http://${hostname}:3001/print`
+          // Local network IP access
+          printServiceUrl = `http://${hostname}:3001/print`;
         }
         else if (hostname === "menu.theplazahoteledirne.com" || hostname === "theplazahoteledirne.com") {
-          // Domain access - use server IP for print service
-          printServiceUrl = "http://81.215.205.185:3001/print"
+          // Use HTTPS and relative route through NGINX reverse proxy
+          printServiceUrl = `${protocol}//${hostname}/print`;
         }
-        // Default already set to public IP
       }
 
       const orderPayload = {
@@ -125,7 +125,7 @@ export default function CheckoutPage() {
           setPrintJobDetails([]) // Clear any previous details
           setOrderProcessingError(null)
         }
-        
+
         setConfirmedOrderTotal(currentOrderTotalValue); // Set the captured total for confirmation screen
         // OrderNumber and OrderTime are already set from the beginning of the function
         setIsComplete(true); // Now, mark as complete to show confirmation screen
@@ -183,9 +183,8 @@ export default function CheckoutPage() {
             <div className="w-full max-w-md bg-secondary/30 rounded-lg p-4 my-4 text-sm">
               <h3 className="font-medium mb-2">Printer Status:</h3>
               {printJobDetails.map((result) => (
-                <div key={result.printer} className={`flex justify-between py-1 ${
-                  result.success ? 'text-green-400' : 'text-red-400'
-                }`}>
+                <div key={result.printer} className={`flex justify-between py-1 ${result.success ? 'text-green-400' : 'text-red-400'
+                  }`}>
                   <span>{result.name}:</span>
                   <span>{result.success ? "Success" : "Failed"}</span>
                 </div>

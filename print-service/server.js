@@ -2,13 +2,21 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { ThermalPrinter, PrinterTypes, CharacterSet } = require('node-thermal-printer');
+const http = require('http');
+const https = require('https');
 
 const app = express();
 const port = 3001;
+const httpsPort = 3443; // Conventional alternative to 443 when running without root
 const PRINTER_PORT = 9100;
 
 // THIS SHOULD BE IN AN ENVIRONMENT VARIABLE IN PRODUCTION!
 const EXPECTED_AUTH_TOKEN = "LA_STRADA_PRINT_SUPER_SECRET_TOKEN_123!";
+
+// Path to SSL certificates - you'll need to create these
+// You can use tools like mkcert for development or Let's Encrypt for production
+const SSL_KEY_PATH = process.env.SSL_KEY_PATH || path.join(__dirname, 'certs', 'key.pem');
+const SSL_CERT_PATH = process.env.SSL_CERT_PATH || path.join(__dirname, 'certs', 'cert.pem');
 
 // Function to convert Turkish characters to Latin equivalents
 const latinizeText = (text) => {
@@ -65,11 +73,28 @@ const authenticateToken = (req, res, next) => {
   next(); // Token is valid
 };
 
-// TODO: Implement a more robust CORS policy for production
+// CORS middleware - update to be more specific about allowed origins
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allow all origins for now
+  // Define allowed origins
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'http://81.215.205.185:3000', 
+    'https://81.215.205.185:3000',
+    'http://menu.theplazahoteledirne.com',
+    'https://menu.theplazahoteledirne.com',
+    'http://theplazahoteledirne.com',
+    'https://theplazahoteledirne.com'
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
   }
@@ -186,6 +211,34 @@ app.get('/', (req, res) => {
   res.send('Print Service is running. Use POST /print to send an order.');
 });
 
-app.listen(port, () => {
-  console.log(`Print service listening at http://localhost:${port}`);
-}); 
+// Create HTTP server
+const httpServer = http.createServer(app);
+
+// Create HTTPS server if certificates exist
+let httpsServer;
+try {
+  if (fs.existsSync(SSL_KEY_PATH) && fs.existsSync(SSL_CERT_PATH)) {
+    const httpsOptions = {
+      key: fs.readFileSync(SSL_KEY_PATH),
+      cert: fs.readFileSync(SSL_CERT_PATH)
+    };
+    httpsServer = https.createServer(httpsOptions, app);
+    console.log('HTTPS certificates found, HTTPS server will be enabled');
+  } else {
+    console.log('HTTPS certificates not found at specified path, HTTPS server will NOT be enabled');
+  }
+} catch (error) {
+  console.error('Error setting up HTTPS server:', error.message);
+}
+
+// Start HTTP server
+httpServer.listen(port, () => {
+  console.log(`Print service HTTP server listening at http://localhost:${port}`);
+});
+
+// Start HTTPS server if available
+if (httpsServer) {
+  httpsServer.listen(httpsPort, () => {
+    console.log(`Print service HTTPS server listening at https://localhost:${httpsPort}`);
+  });
+} 

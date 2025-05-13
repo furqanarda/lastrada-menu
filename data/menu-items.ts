@@ -303,6 +303,7 @@ export const starters: MenuItem[] = [
     price: 290,
     image: "/images/starters/patates_kizartmasi.jpeg",
     category: "starters",
+    allergens: ["dairy", "gluten", "eggs"],
   },
   {
     id: "citir-soganli-kabak",
@@ -504,6 +505,7 @@ export const mainDishes: MenuItem[] = [
     price: 510,
     image: "/images/main-dishes/edirne-koftesi.png",
     category: "main-dishes",
+    allergens: ["eggs", "gluten"],
   },
   {
     id: "izgara-tavuk-sis",
@@ -513,6 +515,7 @@ export const mainDishes: MenuItem[] = [
     price: 480,
     image: "/images/main-dishes/tavuk-sis.jpeg",
     category: "main-dishes",
+    allergens: ["eggs", "gluten"],
   },
   {
     id: "pilic-kulbasti",
@@ -552,6 +555,7 @@ export const mainDishes: MenuItem[] = [
     price: 810,
     image: "/images/main-dishes/kasap-kofte.png",
     category: "main-dishes",
+    allergens: ["dairy", "gluten", "eggs"],
     isBestSeller: true,
     reviews: [
       {

@@ -18,7 +18,7 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".", // Root directory
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }

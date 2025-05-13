@@ -92,7 +92,7 @@ export default function CartPage() {
           >
             <ShoppingBag className="h-16 w-16 mb-4 text-muted-foreground" />
             <h2 className="text-xl font-medium mb-2">{t("app.emptyCart")}</h2>
-            <p className="text-muted-foreground mb-6">Add items from the menu to place an order</p>
+            <p className="text-muted-foreground mb-6">{t("app.addItemsToPlaceOrder")}</p>
             <Link href="/menu">
               <Button>{t("app.addItems")}</Button>
             </Link>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useCart } from "@/contexts/cart-context"
+import { useLanguage } from "@/contexts/language-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, ShoppingBag } from "lucide-react"
@@ -15,7 +16,19 @@ type MenuHeaderProps = {
 
 export function MenuHeader({ onSearch }: MenuHeaderProps) {
   const { totalItems } = useCart()
+  const { language } = useLanguage()
   const [searchQuery, setSearchQuery] = useState("")
+
+  // Get the flag for current language
+  const getLanguageFlag = () => {
+    switch(language) {
+      case "tr": return "🇹🇷";
+      case "en": return "🇬🇧";
+      case "el": return "🇬🇷";
+      case "bg": return "🇧🇬";
+      default: return "🇹🇷"; // Default to Turkish
+    }
+  }
 
   // Update search results as user types
   useEffect(() => {
@@ -33,8 +46,8 @@ export function MenuHeader({ onSearch }: MenuHeaderProps) {
           </div>
           <div className="flex items-center gap-2">
             <Link href="/">
-              <Button variant="outline" className="bg-[#1a2234] border-[#2a3346] text-white">
-                Dil Seçimi
+              <Button variant="outline" className="bg-[#1a2234] border-[#2a3346] text-white w-10 h-10 p-0 flex items-center justify-center">
+                <span className="text-xl">{getLanguageFlag()}</span>
               </Button>
             </Link>
             <Link href="/cart">

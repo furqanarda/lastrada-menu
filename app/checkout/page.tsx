@@ -4,7 +4,7 @@ import { useCart } from "@/contexts/cart-context"
 import { useLanguage } from "@/contexts/language-context"
 import { formatPrice, generateOrderNumber, formatDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Check } from "lucide-react"
+import { ArrowLeft, Check, Loader2 } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -268,7 +268,11 @@ export default function CheckoutPage() {
             onClick={handleProcessOrder}
             disabled={isProcessing}
           >
-            {isProcessing ? `${t("app.processing") || "Processing"}...` : t("app.processOrder")}
+            {isProcessing ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              t("app.processOrder")
+            )}
           </Button>
 
           <p className="text-sm text-muted-foreground text-center mt-2">{t("ui.order.print_note")}</p>

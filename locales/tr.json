@@ -26,6 +26,7 @@
     "app.newOrder": "Yeni Sipariş",
     "app.emptyCart": "Sepetiniz boş",
     "app.addItems": "Ürün Ekle",
+    "app.addItemsToPlaceOrder": "Sipariş vermek için menüden ürün ekleyin",
     "app.add": "Ekle",
     "app.select": "Seç",
     "app.addToCart": "Sepete Ekle",

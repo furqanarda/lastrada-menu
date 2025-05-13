@@ -41,12 +41,19 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(item.options?.[0]?.name || "")
   const [activeTab, setActiveTab] = useState<string>("details")
+  const [isItemAdded, setIsItemAdded] = useState(false)
 
   const handleAddToCart = () => {
     if (item.options && item.options.length > 0) {
       setIsDialogOpen(true)
     } else {
       addItem(item)
+      // Show the animation
+      setIsItemAdded(true)
+      // Reset the animation state after animation completes
+      setTimeout(() => {
+        setIsItemAdded(false)
+      }, 600)
     }
   }
 
@@ -62,6 +69,12 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
       }
       addItem(itemWithOption)
       setIsDialogOpen(false)
+      // Show the animation
+      setIsItemAdded(true)
+      // Reset the animation state after animation completes
+      setTimeout(() => {
+        setIsItemAdded(false)
+      }, 600)
     }
   }
 
@@ -168,14 +181,48 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
                   ? `${formatPrice(item.options[0].price)}`
                   : formatPrice(item.price)}
               </div>
-              <Button
-                size="sm"
-                className="rounded-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white"
-                onClick={handleAddToCart}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                {item.options && item.options.length > 0 ? t("app.select") : t("app.add")}
-              </Button>
+              <div className="relative">
+                <Button
+                  size="sm"
+                  className="rounded-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white"
+                  onClick={handleAddToCart}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  {item.options && item.options.length > 0 ? t("app.select") : t("app.add")}
+                </Button>
+                {isItemAdded && (
+                  <>
+                    {/* First wave - fast */}
+                    <motion.div
+                      initial={{ opacity: 0.8, scale: 1 }}
+                      animate={{ opacity: 0, scale: 2.2 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0 rounded-full bg-blue-400"
+                    />
+                    {/* Second wave - slightly delayed */}
+                    <motion.div
+                      initial={{ opacity: 0.7, scale: 1 }}
+                      animate={{ opacity: 0, scale: 2 }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      className="absolute inset-0 rounded-full bg-blue-500"
+                    />
+                    {/* Third wave - more delayed, different color */}
+                    <motion.div
+                      initial={{ opacity: 0.5, scale: 1 }}
+                      animate={{ opacity: 0, scale: 1.8 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="absolute inset-0 rounded-full bg-blue-600"
+                    />
+                    {/* Brief flash effect */}
+                    <motion.div
+                      initial={{ opacity: 0.9 }}
+                      animate={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 rounded-full bg-white"
+                    />
+                  </>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

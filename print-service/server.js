@@ -120,6 +120,25 @@ async function printReceipt(printerIp, printerPort, orderData) {
     printer.newLine();
     printer.alignCenter();
     printer.println(latinizeText("Tesekkur Ederiz!"));
+    
+    // Single long beep (approximately 3 seconds)
+    // Method 1: Built-in beep method
+    printer.beep();
+    
+    // Method 2: Single long beep with maximum duration
+    // ESC (27) + B (66) + number_of_beeps (1) + beep_duration (9 - maximum for longest single beep)
+    const longBeepCommand = Buffer.from([27, 66, 1, 9]);
+    const currentBuffer = printer.getBuffer();
+    const newBuffer = Buffer.concat([currentBuffer, longBeepCommand]);
+    printer.setBuffer(newBuffer);
+    
+    // Method 3: Additional long beep commands to extend duration to ~3 seconds
+    // Some printers have limited single beep duration, so we chain single long beeps
+    const extendedBeep1 = Buffer.from([27, 66, 1, 9]);
+    const extendedBeep2 = Buffer.from([27, 66, 1, 9]);
+    const finalBuffer = Buffer.concat([newBuffer, extendedBeep1, extendedBeep2]);
+    printer.setBuffer(finalBuffer);
+    
     printer.newLine();
     printer.cut();
 

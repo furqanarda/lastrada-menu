@@ -16,7 +16,7 @@ type MenuHeaderProps = {
 
 export function MenuHeader({ onSearch }: MenuHeaderProps) {
   const { totalItems } = useCart()
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
   const [searchQuery, setSearchQuery] = useState("")
 
   // Get the flag for current language
@@ -70,7 +70,7 @@ export function MenuHeader({ onSearch }: MenuHeaderProps) {
         <div className="relative">
           <Input
             type="text"
-            placeholder="Ara"
+            placeholder={t("app.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-[#1a2234] border-[#2a3346] text-white pr-10 focus:ring-blue-500 focus:border-blue-500"

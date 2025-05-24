@@ -23,7 +23,7 @@ import { MenuHeader } from "@/components/menu-header"
 import { CategoryTabs } from "@/components/category-tabs"
 import { EnhancedMenuItemCard } from "@/components/enhanced-menu-item-card"
 import { motion } from "framer-motion"
-import { UtensilsCrossed, Beer, Wine, Coffee, GlassWater, Citrus } from 'lucide-react'
+import { UtensilsCrossed, Beer, Wine, Coffee, GlassWater, Citrus, Search } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import Image from "next/image"
@@ -43,8 +43,8 @@ export default function MenuPage() {
   useEffect(() => {
     let items: MenuItem[] = [];
 
-    // Filter by category
-    if (activeCategory === "all") {
+    // If there's a search query, search across ALL items regardless of category
+    if (searchQuery) {
       items = [
         ...breakfast,
         ...starters,
@@ -60,81 +60,105 @@ export default function MenuPage() {
         ...extras,
         ...wines,
       ];
-    } else {
-      // Map category ID to the corresponding array
-      switch (activeCategory) {
-        case "breakfast":
-          items = breakfast;
-          break;
-        case "starters":
-          items = starters;
-          break;
-        case "salads":
-          items = salads;
-          break;
-        case "main-dishes":
-          items = mainDishes;
-          break;
-        case "pasta":
-          items = pasta;
-          break;
-        case "burgers":
-          items = burgers;
-          break;
-        case "desserts":
-          items = desserts;
-          break;
-        case "cocktails":
-          items = cocktails;
-          break;
-        case "beers":
-          items = beers;
-          break;
-        case "drinks":
-          items = drinks;
-          break;
-        case "spirits":
-          items = spirits;
-          break;
-        case "wines":
-          items = wines;
-          break;
-        case "extras":
-          items = extras;
-          break;
-        default:
-          items = [];
-      }
-    }
-
-    // Apply subcategory filters only if tabs are clicked
-    if (activeCategory === "beers" && activeBeerTab) {
-      items = items.filter((item) => item.subcategory === activeBeerTab);
-    }
-
-    if (activeCategory === "drinks" && activeDrinkTab) {
-      items = items.filter((item) => item.subcategory === activeDrinkTab);
-    }
-
-    if (activeCategory === "spirits" && activeSpiritTab) {
-      items = items.filter((item) => item.subcategory === activeSpiritTab);
-    }
-
-    if (activeCategory === "wines" && activeWineTab) {
-      items = items.filter((item) => item.subcategory === activeWineTab);
-    }
-
-    // Additional filter by wine brand if selected
-    if (activeCategory === "wines" && activeWineBrand) {
-      items = items.filter((item) => item.brand === activeWineBrand);
-    }
-
-    // Filter by search query
-    if (searchQuery) {
+      
+      // Filter by search query across all items
       const query = searchQuery.toLowerCase();
-      items = items.filter(
-        (item) => (item.name?.toLowerCase() ?? '').includes(query) || (item.description?.toLowerCase() ?? '').includes(query)
-      );
+      items = items.filter((item) => {
+        // Get localized name only (no description search)
+        const localizedName = item.nameKey ? t(item.nameKey) : (item.name || '');
+        
+        // Search only in name (both localized and original)
+        return (
+          localizedName.toLowerCase().includes(query) ||
+          (item.name?.toLowerCase() ?? '').includes(query)
+        );
+      });
+    } else {
+      // If no search query, filter by category normally
+      if (activeCategory === "all") {
+        items = [
+          ...breakfast,
+          ...starters,
+          ...salads,
+          ...mainDishes,
+          ...pasta,
+          ...burgers,
+          ...desserts,
+          ...cocktails,
+          ...beers,
+          ...drinks,
+          ...spirits,
+          ...extras,
+          ...wines,
+        ];
+      } else {
+        // Map category ID to the corresponding array
+        switch (activeCategory) {
+          case "breakfast":
+            items = breakfast;
+            break;
+          case "starters":
+            items = starters;
+            break;
+          case "salads":
+            items = salads;
+            break;
+          case "main-dishes":
+            items = mainDishes;
+            break;
+          case "pasta":
+            items = pasta;
+            break;
+          case "burgers":
+            items = burgers;
+            break;
+          case "desserts":
+            items = desserts;
+            break;
+          case "cocktails":
+            items = cocktails;
+            break;
+          case "beers":
+            items = beers;
+            break;
+          case "drinks":
+            items = drinks;
+            break;
+          case "spirits":
+            items = spirits;
+            break;
+          case "wines":
+            items = wines;
+            break;
+          case "extras":
+            items = extras;
+            break;
+          default:
+            items = [];
+        }
+      }
+
+      // Apply subcategory filters only when no search query and specific category is selected
+      if (activeCategory === "beers" && activeBeerTab) {
+        items = items.filter((item) => item.subcategory === activeBeerTab);
+      }
+
+      if (activeCategory === "drinks" && activeDrinkTab) {
+        items = items.filter((item) => item.subcategory === activeDrinkTab);
+      }
+
+      if (activeCategory === "spirits" && activeSpiritTab) {
+        items = items.filter((item) => item.subcategory === activeSpiritTab);
+      }
+
+      if (activeCategory === "wines" && activeWineTab) {
+        items = items.filter((item) => item.subcategory === activeWineTab);
+      }
+
+      // Additional filter by wine brand if selected
+      if (activeCategory === "wines" && activeWineBrand) {
+        items = items.filter((item) => item.brand === activeWineBrand);
+      }
     }
 
     setFilteredItems(items);
@@ -158,9 +182,25 @@ export default function MenuPage() {
 
       <CategoryTabs categories={categories} activeCategory={activeCategory} onSelectCategory={handleSelectCategory} />
 
+      {/* Search indicator */}
+      {searchQuery && (
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-blue-500/10 border border-blue-500/20 mx-4 mt-2 mb-2 p-3 rounded-md"
+        >
+          <div className="flex items-center text-blue-400">
+            <Search className="h-4 w-4 mr-2" />
+            <span className="text-sm">
+              {t("app.searchResults").replace("{query}", searchQuery)}
+            </span>
+          </div>
+        </motion.div>
+      )}
+
       <div className="flex-1 p-4">
         {/* Beer subcategories */}
-        {activeCategory === "beers" && (
+        {activeCategory === "beers" && !searchQuery && (
           <Tabs
             value={activeBeerTab}
             onValueChange={(value) => setActiveBeerTab(value as BeerCategory)}
@@ -186,7 +226,7 @@ export default function MenuPage() {
         )}
 
         {/* Spirits subcategories */}
-        {activeCategory === "spirits" && (
+        {activeCategory === "spirits" && !searchQuery && (
           <ScrollArea className="w-full whitespace-nowrap mb-4">
             <Tabs value={activeSpiritTab} onValueChange={(value) => setActiveSpiritTab(value as SpiritCategory)}>
               <TabsList className="bg-[#1a2234] border border-[#2a3346] inline-flex w-auto p-1">
@@ -239,7 +279,7 @@ export default function MenuPage() {
         )}
 
         {/* Drinks subcategories */}
-        {activeCategory === "drinks" && (
+        {activeCategory === "drinks" && !searchQuery && (
           <Tabs
             value={activeDrinkTab}
             onValueChange={(value) => setActiveDrinkTab(value as DrinkCategory)}
@@ -272,7 +312,7 @@ export default function MenuPage() {
         )}
 
         {/* Wine subcategories */}
-        {activeCategory === "wines" && (
+        {activeCategory === "wines" && !searchQuery && (
           <>
             {/* Wine brand filter */}
             <div className="mb-4 bg-[#1a2234] border border-[#2a3346] p-4 rounded-md">
@@ -338,7 +378,7 @@ export default function MenuPage() {
                     onClick={() => setActiveWineBrand(null)}
                     className="text-blue-400 hover:text-blue-300 bg-[#0f172a] px-4 py-2 rounded-md border border-[#2a3346] hover:border-blue-500 transition-all text-sm font-medium"
                   >
-                    Tüm markaları göster
+                    {t("wine.showAllBrands")}
                   </button>
                 </div>
               )}
@@ -428,7 +468,7 @@ export default function MenuPage() {
         )}
 
         {/* Wine region grouping */}
-        {activeCategory === "wines" && filteredItems.length > 0 && (
+        {activeCategory === "wines" && !searchQuery && filteredItems.length > 0 && (
           <div className="mb-4">
             {Array.from(new Set(
               filteredItems
@@ -454,7 +494,7 @@ export default function MenuPage() {
         )}
 
         {/* Regular items display */}
-        {activeCategory !== "wines" && (
+        {(activeCategory !== "wines" || searchQuery) && (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredItems.map((item, index) => (
               <EnhancedMenuItemCard key={`${item.id}-${index}`} item={item} />
@@ -469,8 +509,17 @@ export default function MenuPage() {
             className="flex flex-col items-center justify-center h-60 text-center"
           >
             <UtensilsCrossed className="h-12 w-12 mb-4 text-gray-400" />
-            <p className="text-xl font-medium mb-2 text-white">Sonuç bulunamadı</p>
-            <p className="text-gray-400">Arama kriterlerinizi veya kategori seçiminizi değiştirmeyi deneyin</p>
+            {searchQuery ? (
+              <>
+                <p className="text-xl font-medium mb-2 text-white">{t("app.noResultsFound").replace("{query}", searchQuery)}</p>
+                <p className="text-gray-400">{t("app.searchSuggestion")}</p>
+              </>
+            ) : (
+              <>
+                <p className="text-xl font-medium mb-2 text-white">{t("app.noResultsFoundGeneral")}</p>
+                <p className="text-gray-400">{t("app.categorySuggestion")}</p>
+              </>
+            )}
           </motion.div>
         )}
       </div>

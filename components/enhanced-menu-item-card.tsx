@@ -112,7 +112,7 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
             )}
             {item.weight && !item.options && (
               <div className="absolute bottom-0 right-0 bg-black/70 text-white text-xs px-2 py-1 rounded-tl-md">
-                {item.weight}
+                {item.weight === "1 şişe (75cl)" ? t("wine.bottleSize") : item.weight}
               </div>
             )}
             {item.isBestSeller && (
@@ -326,7 +326,7 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
       <div>
         {item.weight && (
           <span className="block text-sm mb-2">
-            {t("app.portion")}: {item.weight}
+            {t("app.portion")}: {item.weight === "1 şişe (75cl)" ? t("wine.bottleSize") : item.weight}
           </span>
         )}
 

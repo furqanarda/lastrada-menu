@@ -3,6 +3,12 @@
     "app.hotel": "The Plaza Hotel Edirne",
     "app.selectLanguage": "Dil Seçin",
     "app.search": "Ara",
+    "app.searchPlaceholder": "Yemek adı ara...",
+    "app.searchResults": "\"{query}\" için arama sonuçları - Tüm kategorilerde gösteriliyor",
+    "app.noResultsFound": "\"{query}\" için sonuç bulunamadı",
+    "app.noResultsFoundGeneral": "Sonuç bulunamadı",
+    "app.searchSuggestion": "Farklı kelimeler kullanarak tekrar aramayı deneyin",
+    "app.categorySuggestion": "Arama kriterlerinizi veya kategori seçiminizi değiştirmeyi deneyin",
     "app.cart": "Sepet",
     "app.menu": "Menü",
     "app.order": "Sipariş",
@@ -431,5 +437,7 @@
     "item.extras.toblerone.name": "Toblerone",
     "item.extras.toblerone.description": "İsviçre çikolatası.",
     "item.extras.pringles.name": "Pringles",
-    "item.extras.pringles.description": "Patates cipsi."
+    "item.extras.pringles.description": "Patates cipsi.",
+    "wine.showAllBrands": "Tüm markaları göster",
+    "wine.bottleSize": "1 şişe (75cl)"
 }

@@ -1,6 +1,6 @@
 import type { MenuItem } from "@/types/menu"
 
-// Breakfast
+// Breakfast Category
 export const breakfast: MenuItem[] = [
   {
     id: "continental-kahvalti",

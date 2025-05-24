@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { LanguageProvider } from "@/contexts/language-context"
 import { CartProvider } from "@/contexts/cart-context"
+import { StockProvider } from "@/contexts/stock-context"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -45,7 +46,9 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <LanguageProvider>
             <CartProvider>
-              <main className="min-h-screen bg-[#0f172a]">{children}</main>
+              <StockProvider>
+                <main className="min-h-screen bg-[#0f172a]">{children}</main>
+              </StockProvider>
             </CartProvider>
           </LanguageProvider>
         </ThemeProvider>

@@ -15,6 +15,7 @@ export type MenuItem = {
   price: number
   image: string
   category: string
+  isAvailable?: boolean
   options?: {
     name: string
     price: number

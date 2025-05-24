@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useLanguage } from "@/contexts/language-context"
+import { useStock } from "@/contexts/stock-context"
 
 // Allergen icons and names
 const allergenInfo: Record<string, { icon: string; name: string }> = {
@@ -37,13 +38,18 @@ type EnhancedMenuItemCardProps = {
 export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   const { addItem } = useCart()
   const { t, language } = useLanguage()
+  const { isItemAvailable } = useStock()
   const [imageError, setImageError] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(item.options?.[0]?.name || "")
   const [activeTab, setActiveTab] = useState<string>("details")
   const [isItemAdded, setIsItemAdded] = useState(false)
 
+  const itemAvailable = isItemAvailable(item.id)
+
   const handleAddToCart = () => {
+    if (!itemAvailable) return // Don't allow adding out-of-stock items
+    
     if (item.options && item.options.length > 0) {
       setIsDialogOpen(true)
     } else {
@@ -58,6 +64,8 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   }
 
   const handleAddWithOption = () => {
+    if (!itemAvailable) return // Don't allow adding out-of-stock items
+    
     const selectedOptionObj = item.options?.find((opt) => opt.name === selectedOption)
     if (selectedOptionObj) {
       const baseName = item.nameKey ? t(item.nameKey) : (item.name || "")
@@ -93,9 +101,9 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        whileHover={{ scale: 1.02 }}
+        whileHover={{ scale: itemAvailable ? 1.02 : 1 }}
       >
-        <Card className="overflow-hidden bg-[#1a2234] border-[#2a3346] shadow-lg h-full">
+        <Card className={`overflow-hidden bg-[#1a2234] border-[#2a3346] shadow-lg h-full ${!itemAvailable ? 'opacity-60' : ''}`}>
           <div className="relative h-48 w-full">
             {imageError ? (
               <div className="absolute inset-0 flex items-center justify-center bg-[#0f172a] text-white p-4 text-center">
@@ -119,6 +127,13 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
               <div className="absolute top-0 left-0 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs px-3 py-1 rounded-br-md flex items-center">
                 <Flame className="h-3 w-3 mr-1" />
                 <span>{t("app.bestSeller")}</span>
+              </div>
+            )}
+            {!itemAvailable && (
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <div className="bg-red-500 text-white text-xs px-3 py-1 rounded-md font-medium">
+                  {t("item.outOfStock")}
+                </div>
               </div>
             )}
           </div>
@@ -184,11 +199,17 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
               <div className="relative">
                 <Button
                   size="sm"
-                  className="rounded-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white"
+                  className={`rounded-full ${itemAvailable 
+                    ? 'bg-blue-500 text-white hover:bg-blue-600 hover:text-white' 
+                    : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
                   onClick={handleAddToCart}
+                  disabled={!itemAvailable}
                 >
                   <Plus className="h-4 w-4 mr-1" />
-                  {item.options && item.options.length > 0 ? t("app.select") : t("app.add")}
+                  {!itemAvailable 
+                    ? t("item.outOfStock")
+                    : (item.options && item.options.length > 0 ? t("app.select") : t("app.add"))
+                  }
                 </Button>
                 {isItemAdded && (
                   <>
@@ -318,8 +339,14 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
           ))}
         </RadioGroup>
 
-        <Button className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white" onClick={handleAddWithOption}>
-          {t("app.addToCart")}
+        <Button 
+          className={`w-full mt-4 ${itemAvailable 
+            ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+            : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+          onClick={handleAddWithOption}
+          disabled={!itemAvailable}
+        >
+          {itemAvailable ? t("app.addToCart") : t("item.outOfStock")}
         </Button>
       </div>
     ) : (
@@ -339,13 +366,18 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
           </div>
         )}
         <Button
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+          className={`w-full ${itemAvailable 
+            ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+            : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
           onClick={() => {
-            addItem(item)
-            setIsDialogOpen(false)
+            if (itemAvailable) {
+              addItem(item)
+              setIsDialogOpen(false)
+            }
           }}
+          disabled={!itemAvailable}
         >
-          {t("app.addToCart")}
+          {itemAvailable ? t("app.addToCart") : t("item.outOfStock")}
         </Button>
       </div>
     )

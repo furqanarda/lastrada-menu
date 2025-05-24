@@ -80,6 +80,7 @@ const translations: Record<Language, Record<string, string>> = {
     "app.categorySuggestion": "Try changing your search criteria or category selection",
     "wine.showAllBrands": "Show all brands",
     "wine.bottleSize": "1 bottle (75cl)",
+    "item.outOfStock": "Out of Stock",
 
     // Categories
     "category.all": "All Menu",
@@ -580,6 +581,7 @@ const translations: Record<Language, Record<string, string>> = {
     "app.categorySuggestion": "Δοκιμάστε να αλλάξετε τα κριτήρια αναζήτησης ή την επιλογή κατηγορίας",
     "wine.showAllBrands": "Εμφάνιση όλων των μαρκών",
     "wine.bottleSize": "1 μπουκάλι (75cl)",
+    "item.outOfStock": "Εξαντλήθηκε",
 
     // Categories
     "category.all": "Όλο το Μενού",
@@ -1076,6 +1078,7 @@ const translations: Record<Language, Record<string, string>> = {
     "app.categorySuggestion": "Опитайте да промените критериите за търсене или избора на категория",
     "wine.showAllBrands": "Показване на всички марки",
     "wine.bottleSize": "1 бутилка (75cl)",
+    "item.outOfStock": "Няма наличност",
 
     // Categories
     "category.all": "Цялото Меню",

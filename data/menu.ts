@@ -1,7 +1,7 @@
 import type { Category, MenuItem } from "@/types/menu"
 
 export const categories: Category[] = [
-  { id: "all", name: "Tüm Menü", nameKey: "category.all", items: 152 },
+  { id: "all", name: "Tüm Menü", nameKey: "category.all", items: 159 },
   { id: "breakfast", name: "Kahvaltı", nameKey: "category.breakfast", items: 12 },
   { id: "starters", name: "Başlangıçlar ve Mezeler", nameKey: "category.starters", items: 16 },
   { id: "salads", name: "Salatalar", nameKey: "category.salads", items: 8 },

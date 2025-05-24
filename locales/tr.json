@@ -439,5 +439,6 @@
     "item.extras.pringles.name": "Pringles",
     "item.extras.pringles.description": "Patates cipsi.",
     "wine.showAllBrands": "Tüm markaları göster",
-    "wine.bottleSize": "1 şişe (75cl)"
+    "wine.bottleSize": "1 şişe (75cl)",
+    "item.outOfStock": "Tükendi"
 }

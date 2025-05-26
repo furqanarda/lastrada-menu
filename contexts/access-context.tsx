@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useState, useEffect } from "react"
+import React, { createContext, useContext, useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import type { TokenContext, TokenData } from "@/types/auth"
 import { validateToken, getRestaurantHours } from "@/lib/auth"
@@ -15,8 +15,8 @@ const AccessContext = createContext<TokenContext>({
   clearToken: () => {},
 })
 
-// Create provider component
-export const AccessProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+// Internal provider component that uses useSearchParams
+const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null)
   const [locationData, setLocationData] = useState<TokenData | null>(null)
   const [isValidToken, setIsValidToken] = useState<boolean>(false)
@@ -92,6 +92,33 @@ export const AccessProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     >
       {children}
     </AccessContext.Provider>
+  )
+}
+
+// Loading fallback component
+const AccessProviderFallback: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <AccessContext.Provider
+      value={{
+        token: null,
+        locationData: null,
+        isValidToken: false,
+        isLoading: true,
+        validateToken: async () => false,
+        clearToken: () => {},
+      }}
+    >
+      {children}
+    </AccessContext.Provider>
+  )
+}
+
+// Main provider component with Suspense boundary
+export const AccessProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <Suspense fallback={<AccessProviderFallback>{children}</AccessProviderFallback>}>
+      <AccessProviderInternal>{children}</AccessProviderInternal>
+    </Suspense>
   )
 }
 

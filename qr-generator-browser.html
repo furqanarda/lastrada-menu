@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Strada Hotel - Browser QR Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .qr-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .room-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .qr-canvas {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .download-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+        .download-btn:hover {
+            background: #0056b3;
+        }
+        .generate-all-btn {
+            background: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .generate-all-btn:hover {
+            background: #218838;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .token-info {
+            font-size: 12px;
+            color: #666;
+            margin: 5px 0;
+            font-family: monospace;
+        }
+        @media print {
+            .controls, .instructions { display: none; }
+            .qr-item { page-break-inside: avoid; margin-bottom: 20px; }
+            .download-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏨 La Strada Hotel - Browser QR Generator</h1>
+        <p>Generate QR codes for all hotel rooms directly in your browser - No installation required!</p>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 How to Use:</h3>
+        <ol>
+            <li><strong>Generate:</strong> Click "Generate All QR Codes" button below</li>
+            <li><strong>Download:</strong> Right-click any QR code and "Save image as..." or use download buttons</li>
+            <li><strong>Print:</strong> Use Ctrl+P (Cmd+P on Mac) to print this entire page</li>
+            <li><strong>Test:</strong> Scan with your phone camera to verify they work</li>
+        </ol>
+        <p><strong>💡 Tip:</strong> This works completely offline once loaded - no internet required for generation!</p>
+    </div>
+
+    <div class="controls">
+        <button class="generate-all-btn" onclick="generateAllQRCodes()">🎨 Generate All QR Codes</button>
+        <button class="generate-all-btn" onclick="downloadAllAsZip()" style="background: #6f42c1;">📦 Download All as ZIP</button>
+        <div id="status" class="loading" style="margin-top: 10px;"></div>
+    </div>
+
+    <div id="qr-gallery" class="gallery"></div>
+
+    <script>
+        // Room data with tokens
+        const rooms = [
+            {number: "101", name: "Room 101", token: "qr_101_t9u2v5w8x1y4"},
+            {number: "102", name: "Room 102", token: "qr_102_z7a0b3c6d9e2"},
+            {number: "103", name: "Room 103", token: "qr_103_f5g8h1i4j7k0"},
+            {number: "104", name: "Room 104", token: "qr_104_l3m6n9o2p5q8"},
+            {number: "105", name: "Room 105", token: "qr_105_r1s4t7u0v3w6"},
+            {number: "106", name: "Room 106", token: "qr_106_x9y2z5a8b1c4"},
+            {number: "107", name: "Room 107", token: "qr_107_d7e0f3g6h9i2"},
+            {number: "108", name: "Room 108", token: "qr_108_j5k8l1m4n7o0"},
+            {number: "109", name: "Room 109", token: "qr_109_p3q6r9s2t5u8"},
+            {number: "110", name: "Room 110", token: "qr_110_v1w4x7y0z3a6"},
+            {number: "111", name: "Room 111", token: "qr_111_b9c2d5e8f1g4"},
+            {number: "201", name: "Room 201", token: "qr_201_h7i0j3k6l9m2"},
+            {number: "202", name: "Room 202", token: "qr_202_n5o8p1q4r7s0"},
+            {number: "203", name: "Room 203", token: "qr_203_t3u6v9w2x5y8"},
+            {number: "204", name: "Room 204", token: "qr_204_z1a4b7c0d3e6"},
+            {number: "205", name: "Room 205", token: "qr_205_f9g2h5i8j1k4"},
+            {number: "206", name: "Room 206", token: "qr_206_l7m0n3o6p9q2"},
+            {number: "207", name: "Room 207", token: "qr_207_r5s8t1u4v7w0"},
+            {number: "208", name: "Room 208", token: "qr_208_x3y6z9a2b5c8"},
+            {number: "209", name: "Room 209", token: "qr_209_d1e4f7g0h3i6"},
+            {number: "210", name: "Room 210", token: "qr_210_j9k2l5m8n1o4"},
+            {number: "211", name: "Room 211", token: "qr_211_p7q0r3s6t9u2"},
+            {number: "212", name: "Room 212", token: "qr_212_v5w8x1y4z7a0"},
+            {number: "301", name: "Room 301", token: "qr_301_b3c6d9e2f5g8"},
+            {number: "302", name: "Room 302", token: "qr_302_h1i4j7k0l3m6"},
+            {number: "303", name: "Room 303", token: "qr_303_n9o2p5q8r1s4"},
+            {number: "304", name: "Room 304", token: "qr_304_t7u0v3w6x9y2"},
+            {number: "305", name: "Room 305", token: "qr_305_z5a8b1c4d7e0"},
+            {number: "306", name: "Room 306", token: "qr_306_f3g6h9i2j5k8"},
+            {number: "307", name: "Room 307", token: "qr_307_l1m4n7o0p3q6"},
+            {number: "308", name: "Room 308", token: "qr_308_r9s2t5u8v1w4"},
+            {number: "309", name: "Room 309", token: "qr_309_x7y0z3a6b9c2"},
+            {number: "310", name: "Room 310", token: "qr_310_d5e8f1g4h7i0"},
+            {number: "311", name: "Room 311", token: "qr_311_j3k6l9m2n5o8"},
+            {number: "312", name: "Room 312", token: "qr_312_p1q4r7s0t3u6"},
+            {number: "401", name: "Room 401", token: "qr_401_v9w2x5y8z1a4"},
+            {number: "402", name: "Room 402", token: "qr_402_b7c0d3e6f9g2"},
+            {number: "403", name: "Room 403", token: "qr_403_h5i8j1k4l7m0"},
+            {number: "404", name: "Room 404", token: "qr_404_n3o6p9q2r5s8"},
+            {number: "405", name: "Room 405", token: "qr_405_t1u4v7w0x3y6"},
+            {number: "406", name: "Room 406", token: "qr_406_z9a2b5c8d1e4"},
+            {number: "407", name: "Room 407", token: "qr_407_f7g0h3i6j9k2"},
+            {number: "408", name: "Room 408", token: "qr_408_l5m8n1o4p7q0"},
+            {number: "409", name: "Room 409", token: "qr_409_r3s6t9u2v5w8"},
+            {number: "410", name: "Room 410", token: "qr_410_x1y4z7a0b3c6"},
+            {number: "411", name: "Room 411", token: "qr_411_d9e2f5g8h1i4"},
+            {number: "412", name: "Room 412", token: "qr_412_j7k0l3m6n9o2"},
+            {number: "L1", name: "Room L1", token: "qr_l1_a7b9c2d8e4f1"},
+            {number: "L2", name: "Room L2", token: "qr_l2_f3g6h9j2k5l8"},
+            {number: "L3", name: "Room L3", token: "qr_l3_m1n4p7q0r3s6"},
+            {number: "EP1-Suit-31", name: "EP1 Suite 31", token: "qr_ep1_suit_31_a1b2c3d4e5f6"},
+            {number: "EP1-Suit-32", name: "EP1 Suite 32", token: "qr_ep1_suit_32_g7h8i9j0k1l2"},
+            {number: "EP1-Suit-33", name: "EP1 Suite 33", token: "qr_ep1_suit_33_m3n4o5p6q7r8"},
+            {number: "EP1-Suit-36", name: "EP1 Suite 36", token: "qr_ep1_suit_36_s9t0u1v2w3x4"},
+            {number: "Suit-26", name: "Suite 26", token: "qr_suit_26_y5z6a7b8c9d0"},
+            {number: "Suit-28", name: "Suite 28", token: "qr_suit_28_e1f2g3h4i5j6"},
+            {number: "Suit-42", name: "Suite 42", token: "qr_suit_42_k7l8m9n0o1p2"},
+            {number: "Suit-44", name: "Suite 44", token: "qr_suit_44_q3r4s5t6u7v8"},
+            {number: "Suit-45", name: "Suite 45", token: "qr_suit_45_w9x0y1z2a3b4"},
+            {number: "Suit-46", name: "Suite 46", token: "qr_suit_46_c5d6e7f8g9h0"}
+        ];
+
+        const baseURL = "https://menu.theplazahoteledirne.com";
+
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+
+        function generateAllQRCodes() {
+            const gallery = document.getElementById('qr-gallery');
+            gallery.innerHTML = '';
+            updateStatus('Generating QR codes...');
+
+            let completed = 0;
+            const total = rooms.length;
+
+            rooms.forEach((room, index) => {
+                setTimeout(() => {
+                    const qrURL = `${baseURL}?token=${room.token}`;
+                    
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'qr-item';
+                    itemDiv.innerHTML = `
+                        <div class="room-title">${room.name}</div>
+                        <canvas id="qr-${room.number}" class="qr-canvas"></canvas>
+                        <div class="token-info">Token: ${room.token}</div>
+                        <button class="download-btn" onclick="downloadQR('qr-${room.number}', '${room.name}')">Download PNG</button>
+                    `;
+                    gallery.appendChild(itemDiv);
+
+                    const canvas = document.getElementById(`qr-${room.number}`);
+                    QRCode.toCanvas(canvas, qrURL, {
+                        width: 200,
+                        margin: 2,
+                        color: {
+                            dark: '#000000',
+                            light: '#FFFFFF'
+                        }
+                    }, function(error) {
+                        completed++;
+                        if (error) {
+                            console.error(`Error generating QR for ${room.name}:`, error);
+                        }
+                        updateStatus(`Generated ${completed}/${total} QR codes...`);
+                        
+                        if (completed === total) {
+                            updateStatus(`🎉 All ${total} QR codes generated successfully!`);
+                        }
+                    });
+                }, index * 50); // Small delay to prevent browser freezing
+            });
+        }
+
+        function downloadQR(canvasId, roomName) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = `${roomName.replace(/\s+/g, '_')}_QR.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function downloadAllAsZip() {
+            alert('💡 Tip: To download all QR codes:\n\n1. Right-click on each QR code image\n2. Select "Save image as..."\n3. Or use the individual download buttons\n\nFor bulk download, use the Python script method from the instructions.');
+        }
+
+        // Auto-generate on page load
+        window.onload = function() {
+            updateStatus('Ready to generate QR codes. Click the button above!');
+        };
+    </script>
+
+    <div style="margin-top: 40px; text-align: center; color: #666; background: white; padding: 20px; border-radius: 10px;">
+        <h3>🆓 Free Alternative Methods</h3>
+        <p><strong>Python Script:</strong> Use the provided Python script for bulk generation with automatic file saving</p>
+        <p><strong>Online Tools:</strong> Use free services like qr-code-monkey.com for individual QR codes</p>
+        <p><strong>Google Charts:</strong> Use the Google Charts API for simple QR generation</p>
+        <br>
+        <p>🏨 <strong>La Strada Hotel Digital Menu System</strong></p>
+        <p>Each QR code links directly to the menu with automatic room detection</p>
+    </div>
+</body>
+</html> 

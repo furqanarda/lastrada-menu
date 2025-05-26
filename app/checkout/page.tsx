@@ -2,6 +2,7 @@
 
 import { useCart } from "@/contexts/cart-context"
 import { useLanguage } from "@/contexts/language-context"
+import { AccessGuard } from "@/components/access-guard"
 import { formatPrice, generateOrderNumber, formatDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Check, Loader2 } from "lucide-react"
@@ -23,7 +24,7 @@ const printerNameMapping: { [key: string]: string } = {
 };
 
 export default function CheckoutPage() {
-  const { items, subtotal, roomOrTableNumber, clearCart } = useCart()
+  const { items, subtotal, locationInfo, clearCart } = useCart()
   const { t } = useLanguage()
   const router = useRouter()
   const [orderNumber, setOrderNumber] = useState("")
@@ -78,7 +79,7 @@ export default function CheckoutPage() {
       const orderPayload = {
         orderNumber: number, // Use generated number
         orderTime: time.toISOString(), // Use generated time
-        roomOrTableNumber,
+        locationInfo,
         items: items.map(cartItem => ({
           id: cartItem.item.id,
           nameKey: cartItem.item.nameKey,
@@ -156,7 +157,8 @@ export default function CheckoutPage() {
 
   if (isComplete) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <AccessGuard requireValidToken={true} requireOpenHours={true}>
+        <div className="flex flex-col min-h-screen">
         <div className="sticky top-0 z-10 bg-background border-b border-border p-4">
           <h1 className="text-xl font-bold text-center">{t("app.orderConfirmation")}</h1>
         </div>
@@ -216,11 +218,13 @@ export default function CheckoutPage() {
           </Button>
         </motion.div>
       </div>
+      </AccessGuard>
     )
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <AccessGuard requireValidToken={true} requireOpenHours={true}>
+      <div className="flex flex-col min-h-screen">
       <div className="sticky top-0 z-10 bg-background border-b border-border p-4">
         <div className="flex items-center gap-4">
           <Link href="/cart">
@@ -238,7 +242,7 @@ export default function CheckoutPage() {
             <h2 className="font-medium mb-2">
               {t("app.roomNumber")} / {t("app.tableNumber")}
             </h2>
-            <p className="text-lg">{roomOrTableNumber}</p>
+                          <p className="text-lg">{locationInfo}</p>
           </div>
 
           <div className="space-y-4">
@@ -279,5 +283,6 @@ export default function CheckoutPage() {
         </div>
       </div>
     </div>
+    </AccessGuard>
   )
 }

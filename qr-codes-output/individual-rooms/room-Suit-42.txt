@@ -1,0 +1,10 @@
+Room: Suite 42
+Token: qr_suit42_b1c4d7e0f3g6
+QR Code URL: https://menu.theplazahoteledirne.com?token=qr_suit42_b1c4d7e0f3g6
+
+Instructions:
+1. Copy the URL above
+2. Go to https://qr-code-generator.com
+3. Paste the URL and generate QR code
+4. Download and print the QR code
+5. Place it in Suite 42

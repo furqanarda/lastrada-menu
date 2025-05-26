@@ -2,36 +2,30 @@
 
 import { useCart } from "@/contexts/cart-context"
 import { useLanguage } from "@/contexts/language-context"
+import { AccessGuard } from "@/components/access-guard"
 import { formatPrice } from "@/lib/utils"
 import { CartItem } from "@/components/cart-item"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { ArrowLeft, ShoppingBag } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
 
 export default function CartPage() {
-  const { items, subtotal, roomOrTableNumber, setRoomOrTableNumber } = useCart()
+  const { items, subtotal, locationInfo } = useCart()
   const { t } = useLanguage()
   const router = useRouter()
-  const [error, setError] = useState("")
 
   const tax = 0 // Prices include tax
   const total = subtotal // Prices include tax
 
   const handleContinue = () => {
-    if (!roomOrTableNumber) {
-      setError(t("app.enterRoomOrTable"))
-      return
-    }
-
     router.push("/checkout")
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <AccessGuard requireValidToken={true} requireOpenHours={true}>
+      <div className="flex flex-col min-h-screen">
       <div className="sticky top-0 z-10 bg-background border-b border-border p-4">
         <div className="flex items-center gap-4">
           <Link href="/menu">
@@ -52,21 +46,11 @@ export default function CartPage() {
               ))}
             </div>
 
-            <div className="mt-4">
-              <label className="text-sm font-medium mb-2 block">
-                {t("app.roomNumber")} / {t("app.tableNumber")}
+            <div className="mt-4 p-3 bg-secondary/30 rounded-md">
+              <label className="text-sm font-medium mb-2 block text-gray-300">
+                {t("app.location")}
               </label>
-              <Input
-                type="text"
-                placeholder={t("app.enterRoomOrTable")}
-                value={roomOrTableNumber}
-                onChange={(e) => {
-                  setRoomOrTableNumber(e.target.value)
-                  setError("")
-                }}
-                className={error ? "border-destructive" : ""}
-              />
-              {error && <p className="text-destructive text-sm mt-1">{error}</p>}
+              <p className="text-white font-medium">{locationInfo}</p>
             </div>
 
             <div className="border-t border-border pt-4 mt-4 space-y-2">
@@ -100,5 +84,6 @@ export default function CartPage() {
         )}
       </div>
     </div>
+    </AccessGuard>
   )
 }

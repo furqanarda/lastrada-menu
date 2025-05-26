@@ -1,0 +1,10 @@
+Room: Room 105
+Token: qr_105_r1s4t7u0v3w6
+QR Code URL: https://menu.theplazahoteledirne.com?token=qr_105_r1s4t7u0v3w6
+
+Instructions:
+1. Copy the URL above
+2. Go to https://qr-code-generator.com
+3. Paste the URL and generate QR code
+4. Download and print the QR code
+5. Place it in Room 105

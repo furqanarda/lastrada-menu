@@ -5,6 +5,7 @@ import "./globals.css"
 import { LanguageProvider } from "@/contexts/language-context"
 import { CartProvider } from "@/contexts/cart-context"
 import { StockProvider } from "@/contexts/stock-context"
+import { AccessProvider } from "@/contexts/access-context"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -45,11 +46,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <LanguageProvider>
-            <CartProvider>
-              <StockProvider>
-                <main className="min-h-screen bg-[#0f172a]">{children}</main>
-              </StockProvider>
-            </CartProvider>
+            <AccessProvider>
+              <CartProvider>
+                <StockProvider>
+                  <main className="min-h-screen bg-[#0f172a]">{children}</main>
+                </StockProvider>
+              </CartProvider>
+            </AccessProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

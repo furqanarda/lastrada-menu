@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { AccessGuard } from "@/components/access-guard"
 import { useLanguage } from "@/contexts/language-context"
 import { categories } from "@/data/menu"
 import {
@@ -177,7 +178,8 @@ export default function MenuPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0f172a]">
+    <AccessGuard requireValidToken={true} requireOpenHours={true}>
+      <div className="flex flex-col min-h-screen bg-[#0f172a]">
       <MenuHeader onSearch={handleSearch} />
 
       <CategoryTabs categories={categories} activeCategory={activeCategory} onSelectCategory={handleSelectCategory} />
@@ -524,5 +526,6 @@ export default function MenuPage() {
         )}
       </div>
     </div>
+    </AccessGuard>
   )
 }

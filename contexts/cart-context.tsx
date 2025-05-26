@@ -3,6 +3,7 @@
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
 import type { MenuItem } from "@/types/menu"
+import { useAccess } from "@/contexts/access-context"
 
 // Define cart item type
 export type CartItem = {
@@ -21,8 +22,7 @@ type CartContextType = {
   clearCart: () => void
   totalItems: number
   subtotal: number
-  roomOrTableNumber: string
-  setRoomOrTableNumber: (number: string) => void
+  locationInfo: string
   isLoaded: boolean
 }
 
@@ -36,16 +36,15 @@ const CartContext = createContext<CartContextType>({
   clearCart: () => {},
   totalItems: 0,
   subtotal: 0,
-  roomOrTableNumber: "",
-  setRoomOrTableNumber: () => {},
+  locationInfo: "",
   isLoaded: false
 })
 
 // Create provider component
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([])
-  const [roomOrTableNumber, setRoomOrTableNumber] = useState<string>("")
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  const { locationData } = useAccess()
 
   // Load cart from localStorage on client side only
   useEffect(() => {
@@ -53,7 +52,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (typeof window === 'undefined') return;
     
     const savedCart = localStorage.getItem("cart")
-    const savedRoomOrTable = localStorage.getItem("roomOrTableNumber")
 
     if (savedCart) {
       try {
@@ -61,10 +59,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } catch (error) {
         console.error("Failed to parse cart from localStorage", error)
       }
-    }
-
-    if (savedRoomOrTable) {
-      setRoomOrTableNumber(savedRoomOrTable)
     }
     
     // Mark as loaded from localStorage
@@ -77,13 +71,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!isLoaded || typeof window === 'undefined') return;
     localStorage.setItem("cart", JSON.stringify(items))
   }, [items, isLoaded])
-
-  // Save room/table number to localStorage when it changes
-  useEffect(() => {
-    // Only save to localStorage after initial loading and when on client-side
-    if (!isLoaded || typeof window === 'undefined') return;
-    localStorage.setItem("roomOrTableNumber", roomOrTableNumber)
-  }, [roomOrTableNumber, isLoaded])
 
   // Add item to cart
   const addItem = (item: MenuItem) => {
@@ -121,7 +108,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Clear cart
   const clearCart = () => {
     setItems([])
-    setRoomOrTableNumber("")
   }
 
   // Calculate total items
@@ -129,6 +115,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Calculate subtotal
   const subtotal = items.reduce((total, item) => total + item.item.price * item.quantity, 0)
+
+  // Get location info from access context
+  const locationInfo = locationData ? locationData.name : ""
 
   return (
     <CartContext.Provider
@@ -141,8 +130,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         clearCart,
         totalItems,
         subtotal,
-        roomOrTableNumber,
-        setRoomOrTableNumber,
+        locationInfo,
         isLoaded
       }}
     >

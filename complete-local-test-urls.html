@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Strada Hotel - Complete Local Test URLs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .rooms .stat-number { color: #3498db; }
+        .restaurant .stat-number { color: #27ae60; }
+        .garden .stat-number { color: #9b59b6; }
+        .total .stat-number { color: #e74c3c; }
+        .alert {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .test-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        .test-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .rooms .section-title {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        .restaurant .section-title {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        .garden .section-title {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+        .test-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .test-link {
+            display: block;
+            padding: 12px 15px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+            text-align: center;
+            font-weight: 500;
+        }
+        .test-link:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .token-display {
+            font-size: 10px;
+            color: rgba(255,255,255,0.8);
+            font-family: monospace;
+            margin-top: 5px;
+        }
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .search-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .server-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .server-running {
+            background: #d4edda;
+            color: #155724;
+        }
+        .server-stopped {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 La Strada Hotel - Complete Local Test URLs</h1>
+        <p>All 92 test URLs for your localhost:3000 server</p>
+        <p><strong>Server Status:</strong> <span id="server-status" class="server-status">Checking...</span></p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card rooms">
+            <div class="stat-number">60</div>
+            <div><strong>Hotel Rooms</strong></div>
+        </div>
+        <div class="stat-card restaurant">
+            <div class="stat-number">16</div>
+            <div><strong>Restaurant Tables</strong></div>
+        </div>
+        <div class="stat-card garden">
+            <div class="stat-number">16</div>
+            <div><strong>Garden Tables</strong></div>
+        </div>
+        <div class="stat-card total">
+            <div class="stat-number">92</div>
+            <div><strong>Total Test URLs</strong></div>
+        </div>
+    </div>
+
+    <div class="alert">
+        <h4>🚀 Complete Testing Instructions:</h4>
+        <ol>
+            <li><strong>Make sure your server is running:</strong> <code>npm run dev</code> or <code>yarn dev</code></li>
+            <li><strong>Click any test link below</strong> to open in a new tab</li>
+            <li><strong>Use the search box</strong> to quickly find specific rooms/tables</li>
+            <li><strong>Test the complete flow:</strong> Language selection → Menu → Cart → Checkout</li>
+            <li><strong>Verify location detection:</strong> Check that the correct room/table is shown in cart</li>
+        </ol>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 Search for room number or table (e.g., 101, S1, B5)..." onkeyup="filterLinks()">
+    </div>
+
+    <div class="test-sections">
+
+        <div class="test-section rooms">
+            <div class="section-title">🏨 Hotel Rooms (60 locations)</div>
+            <div class="test-links">
+
+                <a href="http://localhost:3000?token=qr_101_t9u2v5w8x1y4" target="_blank" class="test-link" data-search="101 room 101">
+                    Room 101
+                    <div class="token-display">101</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_102_z7a0b3c6d9e2" target="_blank" class="test-link" data-search="102 room 102">
+                    Room 102
+                    <div class="token-display">102</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_103_f5g8h1i4j7k0" target="_blank" class="test-link" data-search="103 room 103">
+                    Room 103
+                    <div class="token-display">103</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_104_l3m6n9o2p5q8" target="_blank" class="test-link" data-search="104 room 104">
+                    Room 104
+                    <div class="token-display">104</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_105_r1s4t7u0v3w6" target="_blank" class="test-link" data-search="105 room 105">
+                    Room 105
+                    <div class="token-display">105</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_106_x9y2z5a8b1c4" target="_blank" class="test-link" data-search="106 room 106">
+                    Room 106
+                    <div class="token-display">106</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_107_d7e0f3g6h9i2" target="_blank" class="test-link" data-search="107 room 107">
+                    Room 107
+                    <div class="token-display">107</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_108_j5k8l1m4n7o0" target="_blank" class="test-link" data-search="108 room 108">
+                    Room 108
+                    <div class="token-display">108</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_109_p3q6r9s2t5u8" target="_blank" class="test-link" data-search="109 room 109">
+                    Room 109
+                    <div class="token-display">109</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_110_v1w4x7y0z3a6" target="_blank" class="test-link" data-search="110 room 110">
+                    Room 110
+                    <div class="token-display">110</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_111_b9c2d5e8f1g4" target="_blank" class="test-link" data-search="111 room 111">
+                    Room 111
+                    <div class="token-display">111</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_201_h7i0j3k6l9m2" target="_blank" class="test-link" data-search="201 room 201">
+                    Room 201
+                    <div class="token-display">201</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_202_n5o8p1q4r7s0" target="_blank" class="test-link" data-search="202 room 202">
+                    Room 202
+                    <div class="token-display">202</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_203_t3u6v9w2x5y8" target="_blank" class="test-link" data-search="203 room 203">
+                    Room 203
+                    <div class="token-display">203</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_204_z1a4b7c0d3e6" target="_blank" class="test-link" data-search="204 room 204">
+                    Room 204
+                    <div class="token-display">204</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_205_f9g2h5i8j1k4" target="_blank" class="test-link" data-search="205 room 205">
+                    Room 205
+                    <div class="token-display">205</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_206_l7m0n3o6p9q2" target="_blank" class="test-link" data-search="206 room 206">
+                    Room 206
+                    <div class="token-display">206</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_207_r5s8t1u4v7w0" target="_blank" class="test-link" data-search="207 room 207">
+                    Room 207
+                    <div class="token-display">207</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_208_x3y6z9a2b5c8" target="_blank" class="test-link" data-search="208 room 208">
+                    Room 208
+                    <div class="token-display">208</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_209_d1e4f7g0h3i6" target="_blank" class="test-link" data-search="209 room 209">
+                    Room 209
+                    <div class="token-display">209</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_210_j9k2l5m8n1o4" target="_blank" class="test-link" data-search="210 room 210">
+                    Room 210
+                    <div class="token-display">210</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_211_p7q0r3s6t9u2" target="_blank" class="test-link" data-search="211 room 211">
+                    Room 211
+                    <div class="token-display">211</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_212_v5w8x1y4z7a0" target="_blank" class="test-link" data-search="212 room 212">
+                    Room 212
+                    <div class="token-display">212</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_301_b3c6d9e2f5g8" target="_blank" class="test-link" data-search="301 room 301">
+                    Room 301
+                    <div class="token-display">301</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_302_h1i4j7k0l3m6" target="_blank" class="test-link" data-search="302 room 302">
+                    Room 302
+                    <div class="token-display">302</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_303_n9o2p5q8r1s4" target="_blank" class="test-link" data-search="303 room 303">
+                    Room 303
+                    <div class="token-display">303</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_304_t7u0v3w6x9y2" target="_blank" class="test-link" data-search="304 room 304">
+                    Room 304
+                    <div class="token-display">304</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_305_z5a8b1c4d7e0" target="_blank" class="test-link" data-search="305 room 305">
+                    Room 305
+                    <div class="token-display">305</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_306_f3g6h9i2j5k8" target="_blank" class="test-link" data-search="306 room 306">
+                    Room 306
+                    <div class="token-display">306</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_307_l1m4n7o0p3q6" target="_blank" class="test-link" data-search="307 room 307">
+                    Room 307
+                    <div class="token-display">307</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_308_r9s2t5u8v1w4" target="_blank" class="test-link" data-search="308 room 308">
+                    Room 308
+                    <div class="token-display">308</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_309_x7y0z3a6b9c2" target="_blank" class="test-link" data-search="309 room 309">
+                    Room 309
+                    <div class="token-display">309</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_310_d5e8f1g4h7i0" target="_blank" class="test-link" data-search="310 room 310">
+                    Room 310
+                    <div class="token-display">310</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_311_j3k6l9m2n5o8" target="_blank" class="test-link" data-search="311 room 311">
+                    Room 311
+                    <div class="token-display">311</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_312_p1q4r7s0t3u6" target="_blank" class="test-link" data-search="312 room 312">
+                    Room 312
+                    <div class="token-display">312</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_401_v9w2x5y8z1a4" target="_blank" class="test-link" data-search="401 room 401">
+                    Room 401
+                    <div class="token-display">401</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_402_b7c0d3e6f9g2" target="_blank" class="test-link" data-search="402 room 402">
+                    Room 402
+                    <div class="token-display">402</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_403_h5i8j1k4l7m0" target="_blank" class="test-link" data-search="403 room 403">
+                    Room 403
+                    <div class="token-display">403</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_404_n3o6p9q2r5s8" target="_blank" class="test-link" data-search="404 room 404">
+                    Room 404
+                    <div class="token-display">404</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_405_t1u4v7w0x3y6" target="_blank" class="test-link" data-search="405 room 405">
+                    Room 405
+                    <div class="token-display">405</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_406_z9a2b5c8d1e4" target="_blank" class="test-link" data-search="406 room 406">
+                    Room 406
+                    <div class="token-display">406</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_407_f7g0h3i6j9k2" target="_blank" class="test-link" data-search="407 room 407">
+                    Room 407
+                    <div class="token-display">407</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_408_l5m8n1o4p7q0" target="_blank" class="test-link" data-search="408 room 408">
+                    Room 408
+                    <div class="token-display">408</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_409_r3s6t9u2v5w8" target="_blank" class="test-link" data-search="409 room 409">
+                    Room 409
+                    <div class="token-display">409</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_410_x1y4z7a0b3c6" target="_blank" class="test-link" data-search="410 room 410">
+                    Room 410
+                    <div class="token-display">410</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_411_d9e2f5g8h1i4" target="_blank" class="test-link" data-search="411 room 411">
+                    Room 411
+                    <div class="token-display">411</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_412_j7k0l3m6n9o2" target="_blank" class="test-link" data-search="412 room 412">
+                    Room 412
+                    <div class="token-display">412</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_l1_a7b9c2d8e4f1" target="_blank" class="test-link" data-search="l1 room l1">
+                    Room L1
+                    <div class="token-display">L1</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_l2_f3g6h9j2k5l8" target="_blank" class="test-link" data-search="l2 room l2">
+                    Room L2
+                    <div class="token-display">L2</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_l3_m1n4p7q0r3s6" target="_blank" class="test-link" data-search="l3 room l3">
+                    Room L3
+                    <div class="token-display">L3</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_ep1suit31_z3a6b9c2d5e8" target="_blank" class="test-link" data-search="ep1-suit-31 ep1 suite 31">
+                    EP1 Suite 31
+                    <div class="token-display">EP1-Suit-31</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_ep1suit32_f1g4h7i0j3k6" target="_blank" class="test-link" data-search="ep1-suit-32 ep1 suite 32">
+                    EP1 Suite 32
+                    <div class="token-display">EP1-Suit-32</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_ep1suit33_l9m2n5o8p1q4" target="_blank" class="test-link" data-search="ep1-suit-33 ep1 suite 33">
+                    EP1 Suite 33
+                    <div class="token-display">EP1-Suit-33</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_ep1suit36_r7s0t3u6v9w2" target="_blank" class="test-link" data-search="ep1-suit-36 ep1 suite 36">
+                    EP1 Suite 36
+                    <div class="token-display">EP1-Suit-36</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_suit26_p5q8r1s4t7u0" target="_blank" class="test-link" data-search="suit-26 suite 26">
+                    Suite 26
+                    <div class="token-display">Suit-26</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_suit28_v3w6x9y2z5a8" target="_blank" class="test-link" data-search="suit-28 suite 28">
+                    Suite 28
+                    <div class="token-display">Suit-28</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_suit42_b1c4d7e0f3g6" target="_blank" class="test-link" data-search="suit-42 suite 42">
+                    Suite 42
+                    <div class="token-display">Suit-42</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_suit44_h9i2j5k8l1m4" target="_blank" class="test-link" data-search="suit-44 suite 44">
+                    Suite 44
+                    <div class="token-display">Suit-44</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_suit45_n7o0p3q6r9s2" target="_blank" class="test-link" data-search="suit-45 suite 45">
+                    Suite 45
+                    <div class="token-display">Suit-45</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_suit46_t5u8v1w4x7y0" target="_blank" class="test-link" data-search="suit-46 suite 46">
+                    Suite 46
+                    <div class="token-display">Suit-46</div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="test-section restaurant">
+            <div class="section-title">🍽️ Restaurant Tables (16 locations)</div>
+            <div class="test-links">
+
+                <a href="http://localhost:3000?token=qr_s1_x5y8z1a4b7c0" target="_blank" class="test-link" data-search="s1 restaurant table s1">
+                    Restaurant Table S1
+                    <div class="token-display">S1</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s2_d3e6f9g2h5i8" target="_blank" class="test-link" data-search="s2 restaurant table s2">
+                    Restaurant Table S2
+                    <div class="token-display">S2</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s3_j1k4l7m0n3o6" target="_blank" class="test-link" data-search="s3 restaurant table s3">
+                    Restaurant Table S3
+                    <div class="token-display">S3</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s4_p9q2r5s8t1u4" target="_blank" class="test-link" data-search="s4 restaurant table s4">
+                    Restaurant Table S4
+                    <div class="token-display">S4</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s5_v7w0x3y6z9a2" target="_blank" class="test-link" data-search="s5 restaurant table s5">
+                    Restaurant Table S5
+                    <div class="token-display">S5</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s6_b5c8d1e4f7g0" target="_blank" class="test-link" data-search="s6 restaurant table s6">
+                    Restaurant Table S6
+                    <div class="token-display">S6</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s7_h3i6j9k2l5m8" target="_blank" class="test-link" data-search="s7 restaurant table s7">
+                    Restaurant Table S7
+                    <div class="token-display">S7</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s8_n1o4p7q0r3s6" target="_blank" class="test-link" data-search="s8 restaurant table s8">
+                    Restaurant Table S8
+                    <div class="token-display">S8</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s9_t9u2v5w8x1y4" target="_blank" class="test-link" data-search="s9 restaurant table s9">
+                    Restaurant Table S9
+                    <div class="token-display">S9</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s10_z7a0b3c6d9e2" target="_blank" class="test-link" data-search="s10 restaurant table s10">
+                    Restaurant Table S10
+                    <div class="token-display">S10</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s11_f5g8h1i4j7k0" target="_blank" class="test-link" data-search="s11 restaurant table s11">
+                    Restaurant Table S11
+                    <div class="token-display">S11</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s12_l3m6n9o2p5q8" target="_blank" class="test-link" data-search="s12 restaurant table s12">
+                    Restaurant Table S12
+                    <div class="token-display">S12</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s13_r1s4t7u0v3w6" target="_blank" class="test-link" data-search="s13 restaurant table s13">
+                    Restaurant Table S13
+                    <div class="token-display">S13</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s14_x9y2z5a8b1c4" target="_blank" class="test-link" data-search="s14 restaurant table s14">
+                    Restaurant Table S14
+                    <div class="token-display">S14</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s15_d7e0f3g6h9i2" target="_blank" class="test-link" data-search="s15 restaurant table s15">
+                    Restaurant Table S15
+                    <div class="token-display">S15</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_s16_j5k8l1m4n7o0" target="_blank" class="test-link" data-search="s16 restaurant table s16">
+                    Restaurant Table S16
+                    <div class="token-display">S16</div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="test-section garden">
+            <div class="section-title">🌿 Garden Tables (16 locations)</div>
+            <div class="test-links">
+
+                <a href="http://localhost:3000?token=qr_b1_p3q6r9s2t5u8" target="_blank" class="test-link" data-search="b1 garden table b1">
+                    Garden Table B1
+                    <div class="token-display">B1</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b2_v1w4x7y0z3a6" target="_blank" class="test-link" data-search="b2 garden table b2">
+                    Garden Table B2
+                    <div class="token-display">B2</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b3_b9c2d5e8f1g4" target="_blank" class="test-link" data-search="b3 garden table b3">
+                    Garden Table B3
+                    <div class="token-display">B3</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b4_h7i0j3k6l9m2" target="_blank" class="test-link" data-search="b4 garden table b4">
+                    Garden Table B4
+                    <div class="token-display">B4</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b5_n5o8p1q4r7s0" target="_blank" class="test-link" data-search="b5 garden table b5">
+                    Garden Table B5
+                    <div class="token-display">B5</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b6_t3u6v9w2x5y8" target="_blank" class="test-link" data-search="b6 garden table b6">
+                    Garden Table B6
+                    <div class="token-display">B6</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b7_z1a4b7c0d3e6" target="_blank" class="test-link" data-search="b7 garden table b7">
+                    Garden Table B7
+                    <div class="token-display">B7</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b8_f9g2h5i8j1k4" target="_blank" class="test-link" data-search="b8 garden table b8">
+                    Garden Table B8
+                    <div class="token-display">B8</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b9_l7m0n3o6p9q2" target="_blank" class="test-link" data-search="b9 garden table b9">
+                    Garden Table B9
+                    <div class="token-display">B9</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b10_r5s8t1u4v7w0" target="_blank" class="test-link" data-search="b10 garden table b10">
+                    Garden Table B10
+                    <div class="token-display">B10</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b11_x3y6z9a2b5c8" target="_blank" class="test-link" data-search="b11 garden table b11">
+                    Garden Table B11
+                    <div class="token-display">B11</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b12_d1e4f7g0h3i6" target="_blank" class="test-link" data-search="b12 garden table b12">
+                    Garden Table B12
+                    <div class="token-display">B12</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b13_j9k2l5m8n1o4" target="_blank" class="test-link" data-search="b13 garden table b13">
+                    Garden Table B13
+                    <div class="token-display">B13</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b14_p7q0r3s6t9u2" target="_blank" class="test-link" data-search="b14 garden table b14">
+                    Garden Table B14
+                    <div class="token-display">B14</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b15_v5w8x1y4z7a0" target="_blank" class="test-link" data-search="b15 garden table b15">
+                    Garden Table B15
+                    <div class="token-display">B15</div>
+                </a>
+
+                <a href="http://localhost:3000?token=qr_b16_b3c6d9e2f5g8" target="_blank" class="test-link" data-search="b16 garden table b16">
+                    Garden Table B16
+                    <div class="token-display">B16</div>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 40px; text-align: center; color: #7f8c8d; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <h3>🧪 Complete Local Development Testing</h3>
+        <p>All 92 test URLs for comprehensive testing of your QR access system.</p>
+        <p><strong>Expected Flow:</strong> Click link → Language selection → Menu → Add items → Cart → Checkout</p>
+        <p><strong>Check:</strong> Location should be automatically detected and displayed in cart/checkout</p>
+        <div style="margin-top: 20px; font-size: 14px;">
+            <strong>Coverage:</strong> 60 Rooms | 16 Restaurant Tables | 16 Garden Tables
+        </div>
+    </div>
+
+    <script>
+        // Check if server is running
+        async function checkServer() {
+            const statusElement = document.getElementById('server-status');
+            try {
+                const response = await fetch('http://localhost:3000', { mode: 'no-cors' });
+                statusElement.textContent = '✅ Server is running';
+                statusElement.className = 'server-status server-running';
+            } catch (error) {
+                statusElement.textContent = '❌ Server not running - Start with npm run dev';
+                statusElement.className = 'server-status server-stopped';
+            }
+        }
+
+        // Filter test links based on search
+        function filterLinks() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const links = document.querySelectorAll('.test-link');
+            
+            links.forEach(link => {
+                const searchData = link.getAttribute('data-search');
+                if (searchData.includes(searchTerm)) {
+                    link.style.display = 'block';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+        }
+
+        // Check server status on page load
+        checkServer();
+        
+        // Check every 10 seconds
+        setInterval(checkServer, 10000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Strada Hotel - Master QR Codes Gallery</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .header { text-align: center; margin-bottom: 30px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .header h1 { color: #2c3e50; margin-bottom: 10px; }
+        .header p { color: #7f8c8d; margin: 5px 0; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .stat-card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-number { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .rooms .stat-number { color: #3498db; }
+        .restaurant .stat-number { color: #27ae60; }
+        .garden .stat-number { color: #9b59b6; }
+        .total .stat-number { color: #e74c3c; }
+        .section { margin-bottom: 50px; }
+        .section-title { font-size: 28px; font-weight: bold; margin-bottom: 25px; padding: 20px; background: white; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .rooms .section-title { background: linear-gradient(135deg, #3498db, #2980b9); color: white; }
+        .restaurant .section-title { background: linear-gradient(135deg, #27ae60, #229954); color: white; }
+        .garden .section-title { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .qr-item { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .qr-item:hover { transform: translateY(-5px); }
+        .qr-item img { max-width: 220px; height: 220px; border: 2px solid #ecf0f1; border-radius: 10px; }
+        .location-title { font-size: 20px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; }
+        .token-info { font-size: 12px; color: #7f8c8d; margin: 10px 0; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 5px; border-radius: 5px; }
+        .url-info { font-size: 10px; color: #95a5a6; margin: 10px 0; word-break: break-all; }
+        .download-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background: #3498db; color: white; text-decoration: none; border-radius: 8px; transition: background 0.3s; }
+        .download-btn:hover { background: #2980b9; }
+        .instructions { background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; padding: 25px; border-radius: 15px; margin-bottom: 40px; }
+        .instructions h3 { margin-top: 0; }
+        .footer { margin-top: 50px; text-align: center; color: #7f8c8d; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        @media print { 
+            .qr-item { page-break-inside: avoid; margin-bottom: 20px; }
+            .download-btn, .instructions { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏨 La Strada Hotel - Master QR Codes Gallery</h1>
+        <p>Complete collection of QR codes for all hotel locations</p>
+        <p><strong>Total Locations: 92</strong> | Generated: 2025-05-26 15:47:12</p>
+    </div>
+    
+    <div class="stats">
+                 <div class="stat-card rooms">
+             <div class="stat-number">60</div>
+             <div><strong>Hotel Rooms</strong></div>
+             <div style="font-size: 14px; color: #7f8c8d; margin-top: 5px;">Room Service Orders</div>
+         </div>
+         <div class="stat-card restaurant">
+             <div class="stat-number">16</div>
+             <div><strong>Restaurant Tables</strong></div>
+             <div style="font-size: 14px; color: #7f8c8d; margin-top: 5px;">Dine-in Orders</div>
+         </div>
+         <div class="stat-card garden">
+             <div class="stat-number">16</div>
+             <div><strong>Garden Tables</strong></div>
+             <div style="font-size: 14px; color: #7f8c8d; margin-top: 5px;">Outdoor Dining</div>
+         </div>
+        <div class="stat-card total">
+            <div class="stat-number">92</div>
+            <div><strong>Total QR Codes</strong></div>
+            <div style="font-size: 14px; color: #7f8c8d; margin-top: 5px;">Complete Coverage</div>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📋 How to Use This Master Gallery:</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div>
+                <h4>🖨️ Printing</h4>
+                <ul>
+                    <li>Use Ctrl+P (Cmd+P on Mac)</li>
+                    <li>Print entire page or specific sections</li>
+                    <li>Each QR code is print-optimized</li>
+                </ul>
+            </div>
+            <div>
+                <h4>💾 Downloading</h4>
+                <ul>
+                    <li>Click "Download PNG" for individual codes</li>
+                    <li>Right-click images to save</li>
+                    <li>All files available in master-qr-gallery folder</li>
+                </ul>
+            </div>
+            <div>
+                <h4>📱 Testing</h4>
+                <ul>
+                    <li>Scan with phone camera</li>
+                    <li>Verify automatic location detection</li>
+                    <li>Test ordering process</li>
+                </ul>
+            </div>
+            <div>
+                <h4>🏨 Distribution</h4>
+                <ul>
+                    <li>Place in corresponding locations</li>
+                    <li>Consider laminating for durability</li>
+                    <li>Ensure good lighting for scanning</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section rooms">
+        <div class="section-title">🏨 Hotel Rooms (60 locations)</div>
+        <div class="gallery">
+
+            <div class="qr-item">
+                <div class="location-title">Room 101</div>
+                <img src="qr-101.png" alt="QR Code for Room 101" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_101_t9u2v5w8x1y4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_101_t9u2v5w8x1y4</div>
+                <a href="qr-101.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 102</div>
+                <img src="qr-102.png" alt="QR Code for Room 102" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_102_z7a0b3c6d9e2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_102_z7a0b3c6d9e2</div>
+                <a href="qr-102.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 103</div>
+                <img src="qr-103.png" alt="QR Code for Room 103" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_103_f5g8h1i4j7k0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_103_f5g8h1i4j7k0</div>
+                <a href="qr-103.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 104</div>
+                <img src="qr-104.png" alt="QR Code for Room 104" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_104_l3m6n9o2p5q8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_104_l3m6n9o2p5q8</div>
+                <a href="qr-104.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 105</div>
+                <img src="qr-105.png" alt="QR Code for Room 105" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_105_r1s4t7u0v3w6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_105_r1s4t7u0v3w6</div>
+                <a href="qr-105.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 106</div>
+                <img src="qr-106.png" alt="QR Code for Room 106" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_106_x9y2z5a8b1c4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_106_x9y2z5a8b1c4</div>
+                <a href="qr-106.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 107</div>
+                <img src="qr-107.png" alt="QR Code for Room 107" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_107_d7e0f3g6h9i2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_107_d7e0f3g6h9i2</div>
+                <a href="qr-107.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 108</div>
+                <img src="qr-108.png" alt="QR Code for Room 108" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_108_j5k8l1m4n7o0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_108_j5k8l1m4n7o0</div>
+                <a href="qr-108.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 109</div>
+                <img src="qr-109.png" alt="QR Code for Room 109" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_109_p3q6r9s2t5u8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_109_p3q6r9s2t5u8</div>
+                <a href="qr-109.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 110</div>
+                <img src="qr-110.png" alt="QR Code for Room 110" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_110_v1w4x7y0z3a6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_110_v1w4x7y0z3a6</div>
+                <a href="qr-110.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 111</div>
+                <img src="qr-111.png" alt="QR Code for Room 111" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_111_b9c2d5e8f1g4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_111_b9c2d5e8f1g4</div>
+                <a href="qr-111.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 201</div>
+                <img src="qr-201.png" alt="QR Code for Room 201" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_201_h7i0j3k6l9m2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_201_h7i0j3k6l9m2</div>
+                <a href="qr-201.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 202</div>
+                <img src="qr-202.png" alt="QR Code for Room 202" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_202_n5o8p1q4r7s0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_202_n5o8p1q4r7s0</div>
+                <a href="qr-202.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 203</div>
+                <img src="qr-203.png" alt="QR Code for Room 203" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_203_t3u6v9w2x5y8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_203_t3u6v9w2x5y8</div>
+                <a href="qr-203.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 204</div>
+                <img src="qr-204.png" alt="QR Code for Room 204" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_204_z1a4b7c0d3e6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_204_z1a4b7c0d3e6</div>
+                <a href="qr-204.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 205</div>
+                <img src="qr-205.png" alt="QR Code for Room 205" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_205_f9g2h5i8j1k4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_205_f9g2h5i8j1k4</div>
+                <a href="qr-205.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 206</div>
+                <img src="qr-206.png" alt="QR Code for Room 206" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_206_l7m0n3o6p9q2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_206_l7m0n3o6p9q2</div>
+                <a href="qr-206.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 207</div>
+                <img src="qr-207.png" alt="QR Code for Room 207" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_207_r5s8t1u4v7w0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_207_r5s8t1u4v7w0</div>
+                <a href="qr-207.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 208</div>
+                <img src="qr-208.png" alt="QR Code for Room 208" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_208_x3y6z9a2b5c8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_208_x3y6z9a2b5c8</div>
+                <a href="qr-208.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 209</div>
+                <img src="qr-209.png" alt="QR Code for Room 209" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_209_d1e4f7g0h3i6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_209_d1e4f7g0h3i6</div>
+                <a href="qr-209.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 210</div>
+                <img src="qr-210.png" alt="QR Code for Room 210" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_210_j9k2l5m8n1o4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_210_j9k2l5m8n1o4</div>
+                <a href="qr-210.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 211</div>
+                <img src="qr-211.png" alt="QR Code for Room 211" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_211_p7q0r3s6t9u2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_211_p7q0r3s6t9u2</div>
+                <a href="qr-211.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 212</div>
+                <img src="qr-212.png" alt="QR Code for Room 212" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_212_v5w8x1y4z7a0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_212_v5w8x1y4z7a0</div>
+                <a href="qr-212.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 301</div>
+                <img src="qr-301.png" alt="QR Code for Room 301" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_301_b3c6d9e2f5g8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_301_b3c6d9e2f5g8</div>
+                <a href="qr-301.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 302</div>
+                <img src="qr-302.png" alt="QR Code for Room 302" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_302_h1i4j7k0l3m6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_302_h1i4j7k0l3m6</div>
+                <a href="qr-302.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 303</div>
+                <img src="qr-303.png" alt="QR Code for Room 303" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_303_n9o2p5q8r1s4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_303_n9o2p5q8r1s4</div>
+                <a href="qr-303.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 304</div>
+                <img src="qr-304.png" alt="QR Code for Room 304" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_304_t7u0v3w6x9y2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_304_t7u0v3w6x9y2</div>
+                <a href="qr-304.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 305</div>
+                <img src="qr-305.png" alt="QR Code for Room 305" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_305_z5a8b1c4d7e0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_305_z5a8b1c4d7e0</div>
+                <a href="qr-305.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 306</div>
+                <img src="qr-306.png" alt="QR Code for Room 306" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_306_f3g6h9i2j5k8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_306_f3g6h9i2j5k8</div>
+                <a href="qr-306.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 307</div>
+                <img src="qr-307.png" alt="QR Code for Room 307" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_307_l1m4n7o0p3q6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_307_l1m4n7o0p3q6</div>
+                <a href="qr-307.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 308</div>
+                <img src="qr-308.png" alt="QR Code for Room 308" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_308_r9s2t5u8v1w4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_308_r9s2t5u8v1w4</div>
+                <a href="qr-308.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 309</div>
+                <img src="qr-309.png" alt="QR Code for Room 309" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_309_x7y0z3a6b9c2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_309_x7y0z3a6b9c2</div>
+                <a href="qr-309.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 310</div>
+                <img src="qr-310.png" alt="QR Code for Room 310" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_310_d5e8f1g4h7i0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_310_d5e8f1g4h7i0</div>
+                <a href="qr-310.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 311</div>
+                <img src="qr-311.png" alt="QR Code for Room 311" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_311_j3k6l9m2n5o8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_311_j3k6l9m2n5o8</div>
+                <a href="qr-311.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 312</div>
+                <img src="qr-312.png" alt="QR Code for Room 312" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_312_p1q4r7s0t3u6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_312_p1q4r7s0t3u6</div>
+                <a href="qr-312.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 401</div>
+                <img src="qr-401.png" alt="QR Code for Room 401" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_401_v9w2x5y8z1a4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_401_v9w2x5y8z1a4</div>
+                <a href="qr-401.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 402</div>
+                <img src="qr-402.png" alt="QR Code for Room 402" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_402_b7c0d3e6f9g2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_402_b7c0d3e6f9g2</div>
+                <a href="qr-402.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 403</div>
+                <img src="qr-403.png" alt="QR Code for Room 403" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_403_h5i8j1k4l7m0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_403_h5i8j1k4l7m0</div>
+                <a href="qr-403.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 404</div>
+                <img src="qr-404.png" alt="QR Code for Room 404" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_404_n3o6p9q2r5s8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_404_n3o6p9q2r5s8</div>
+                <a href="qr-404.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 405</div>
+                <img src="qr-405.png" alt="QR Code for Room 405" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_405_t1u4v7w0x3y6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_405_t1u4v7w0x3y6</div>
+                <a href="qr-405.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 406</div>
+                <img src="qr-406.png" alt="QR Code for Room 406" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_406_z9a2b5c8d1e4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_406_z9a2b5c8d1e4</div>
+                <a href="qr-406.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 407</div>
+                <img src="qr-407.png" alt="QR Code for Room 407" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_407_f7g0h3i6j9k2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_407_f7g0h3i6j9k2</div>
+                <a href="qr-407.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 408</div>
+                <img src="qr-408.png" alt="QR Code for Room 408" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_408_l5m8n1o4p7q0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_408_l5m8n1o4p7q0</div>
+                <a href="qr-408.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 409</div>
+                <img src="qr-409.png" alt="QR Code for Room 409" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_409_r3s6t9u2v5w8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_409_r3s6t9u2v5w8</div>
+                <a href="qr-409.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 410</div>
+                <img src="qr-410.png" alt="QR Code for Room 410" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_410_x1y4z7a0b3c6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_410_x1y4z7a0b3c6</div>
+                <a href="qr-410.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 411</div>
+                <img src="qr-411.png" alt="QR Code for Room 411" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_411_d9e2f5g8h1i4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_411_d9e2f5g8h1i4</div>
+                <a href="qr-411.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room 412</div>
+                <img src="qr-412.png" alt="QR Code for Room 412" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_412_j7k0l3m6n9o2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_412_j7k0l3m6n9o2</div>
+                <a href="qr-412.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room L1</div>
+                <img src="qr-L1.png" alt="QR Code for Room L1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_l1_a7b9c2d8e4f1</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_l1_a7b9c2d8e4f1</div>
+                <a href="qr-L1.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room L2</div>
+                <img src="qr-L2.png" alt="QR Code for Room L2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_l2_f3g6h9j2k5l8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_l2_f3g6h9j2k5l8</div>
+                <a href="qr-L2.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Room L3</div>
+                <img src="qr-L3.png" alt="QR Code for Room L3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_l3_m1n4p7q0r3s6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_l3_m1n4p7q0r3s6</div>
+                <a href="qr-L3.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">EP1 Suite 31</div>
+                <img src="qr-EP1-Suit-31.png" alt="QR Code for EP1 Suite 31" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_ep1suit31_z3a6b9c2d5e8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_ep1suit31_z3a6b9c2d5e8</div>
+                <a href="qr-EP1-Suit-31.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">EP1 Suite 32</div>
+                <img src="qr-EP1-Suit-32.png" alt="QR Code for EP1 Suite 32" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_ep1suit32_f1g4h7i0j3k6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_ep1suit32_f1g4h7i0j3k6</div>
+                <a href="qr-EP1-Suit-32.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">EP1 Suite 33</div>
+                <img src="qr-EP1-Suit-33.png" alt="QR Code for EP1 Suite 33" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_ep1suit33_l9m2n5o8p1q4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_ep1suit33_l9m2n5o8p1q4</div>
+                <a href="qr-EP1-Suit-33.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">EP1 Suite 36</div>
+                <img src="qr-EP1-Suit-36.png" alt="QR Code for EP1 Suite 36" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_ep1suit36_r7s0t3u6v9w2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_ep1suit36_r7s0t3u6v9w2</div>
+                <a href="qr-EP1-Suit-36.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Suite 26</div>
+                <img src="qr-Suit-26.png" alt="QR Code for Suite 26" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_suit26_p5q8r1s4t7u0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_suit26_p5q8r1s4t7u0</div>
+                <a href="qr-Suit-26.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Suite 28</div>
+                <img src="qr-Suit-28.png" alt="QR Code for Suite 28" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_suit28_v3w6x9y2z5a8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_suit28_v3w6x9y2z5a8</div>
+                <a href="qr-Suit-28.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Suite 42</div>
+                <img src="qr-Suit-42.png" alt="QR Code for Suite 42" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_suit42_b1c4d7e0f3g6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_suit42_b1c4d7e0f3g6</div>
+                <a href="qr-Suit-42.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Suite 44</div>
+                <img src="qr-Suit-44.png" alt="QR Code for Suite 44" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_suit44_h9i2j5k8l1m4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_suit44_h9i2j5k8l1m4</div>
+                <a href="qr-Suit-44.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Suite 45</div>
+                <img src="qr-Suit-45.png" alt="QR Code for Suite 45" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_suit45_n7o0p3q6r9s2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_suit45_n7o0p3q6r9s2</div>
+                <a href="qr-Suit-45.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Suite 46</div>
+                <img src="qr-Suit-46.png" alt="QR Code for Suite 46" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_suit46_t5u8v1w4x7y0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_suit46_t5u8v1w4x7y0</div>
+                <a href="qr-Suit-46.png" download class="download-btn">Download PNG</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section restaurant">
+        <div class="section-title">🍽️ Restaurant Tables (16 locations)</div>
+        <div class="gallery">
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S1</div>
+                <img src="qr-S1.png" alt="QR Code for Restaurant Table S1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s1_x5y8z1a4b7c0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s1_x5y8z1a4b7c0</div>
+                <a href="qr-S1.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S2</div>
+                <img src="qr-S2.png" alt="QR Code for Restaurant Table S2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s2_d3e6f9g2h5i8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s2_d3e6f9g2h5i8</div>
+                <a href="qr-S2.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S3</div>
+                <img src="qr-S3.png" alt="QR Code for Restaurant Table S3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s3_j1k4l7m0n3o6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s3_j1k4l7m0n3o6</div>
+                <a href="qr-S3.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S4</div>
+                <img src="qr-S4.png" alt="QR Code for Restaurant Table S4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s4_p9q2r5s8t1u4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s4_p9q2r5s8t1u4</div>
+                <a href="qr-S4.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S5</div>
+                <img src="qr-S5.png" alt="QR Code for Restaurant Table S5" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s5_v7w0x3y6z9a2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s5_v7w0x3y6z9a2</div>
+                <a href="qr-S5.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S6</div>
+                <img src="qr-S6.png" alt="QR Code for Restaurant Table S6" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s6_b5c8d1e4f7g0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s6_b5c8d1e4f7g0</div>
+                <a href="qr-S6.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S7</div>
+                <img src="qr-S7.png" alt="QR Code for Restaurant Table S7" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s7_h3i6j9k2l5m8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s7_h3i6j9k2l5m8</div>
+                <a href="qr-S7.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S8</div>
+                <img src="qr-S8.png" alt="QR Code for Restaurant Table S8" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s8_n1o4p7q0r3s6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s8_n1o4p7q0r3s6</div>
+                <a href="qr-S8.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S9</div>
+                <img src="qr-S9.png" alt="QR Code for Restaurant Table S9" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s9_t9u2v5w8x1y4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s9_t9u2v5w8x1y4</div>
+                <a href="qr-S9.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S10</div>
+                <img src="qr-S10.png" alt="QR Code for Restaurant Table S10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s10_z7a0b3c6d9e2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s10_z7a0b3c6d9e2</div>
+                <a href="qr-S10.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S11</div>
+                <img src="qr-S11.png" alt="QR Code for Restaurant Table S11" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s11_f5g8h1i4j7k0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s11_f5g8h1i4j7k0</div>
+                <a href="qr-S11.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S12</div>
+                <img src="qr-S12.png" alt="QR Code for Restaurant Table S12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s12_l3m6n9o2p5q8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s12_l3m6n9o2p5q8</div>
+                <a href="qr-S12.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S13</div>
+                <img src="qr-S13.png" alt="QR Code for Restaurant Table S13" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s13_r1s4t7u0v3w6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s13_r1s4t7u0v3w6</div>
+                <a href="qr-S13.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S14</div>
+                <img src="qr-S14.png" alt="QR Code for Restaurant Table S14" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s14_x9y2z5a8b1c4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s14_x9y2z5a8b1c4</div>
+                <a href="qr-S14.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S15</div>
+                <img src="qr-S15.png" alt="QR Code for Restaurant Table S15" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s15_d7e0f3g6h9i2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s15_d7e0f3g6h9i2</div>
+                <a href="qr-S15.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Restaurant Table S16</div>
+                <img src="qr-S16.png" alt="QR Code for Restaurant Table S16" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_s16_j5k8l1m4n7o0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_s16_j5k8l1m4n7o0</div>
+                <a href="qr-S16.png" download class="download-btn">Download PNG</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section garden">
+        <div class="section-title">🌿 Garden Tables (16 locations)</div>
+        <div class="gallery">
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B1</div>
+                <img src="qr-B1.png" alt="QR Code for Garden Table B1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b1_p3q6r9s2t5u8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b1_p3q6r9s2t5u8</div>
+                <a href="qr-B1.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B2</div>
+                <img src="qr-B2.png" alt="QR Code for Garden Table B2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b2_v1w4x7y0z3a6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b2_v1w4x7y0z3a6</div>
+                <a href="qr-B2.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B3</div>
+                <img src="qr-B3.png" alt="QR Code for Garden Table B3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b3_b9c2d5e8f1g4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b3_b9c2d5e8f1g4</div>
+                <a href="qr-B3.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B4</div>
+                <img src="qr-B4.png" alt="QR Code for Garden Table B4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b4_h7i0j3k6l9m2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b4_h7i0j3k6l9m2</div>
+                <a href="qr-B4.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B5</div>
+                <img src="qr-B5.png" alt="QR Code for Garden Table B5" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b5_n5o8p1q4r7s0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b5_n5o8p1q4r7s0</div>
+                <a href="qr-B5.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B6</div>
+                <img src="qr-B6.png" alt="QR Code for Garden Table B6" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b6_t3u6v9w2x5y8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b6_t3u6v9w2x5y8</div>
+                <a href="qr-B6.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B7</div>
+                <img src="qr-B7.png" alt="QR Code for Garden Table B7" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b7_z1a4b7c0d3e6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b7_z1a4b7c0d3e6</div>
+                <a href="qr-B7.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B8</div>
+                <img src="qr-B8.png" alt="QR Code for Garden Table B8" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b8_f9g2h5i8j1k4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b8_f9g2h5i8j1k4</div>
+                <a href="qr-B8.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B9</div>
+                <img src="qr-B9.png" alt="QR Code for Garden Table B9" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b9_l7m0n3o6p9q2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b9_l7m0n3o6p9q2</div>
+                <a href="qr-B9.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B10</div>
+                <img src="qr-B10.png" alt="QR Code for Garden Table B10" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b10_r5s8t1u4v7w0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b10_r5s8t1u4v7w0</div>
+                <a href="qr-B10.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B11</div>
+                <img src="qr-B11.png" alt="QR Code for Garden Table B11" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b11_x3y6z9a2b5c8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b11_x3y6z9a2b5c8</div>
+                <a href="qr-B11.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B12</div>
+                <img src="qr-B12.png" alt="QR Code for Garden Table B12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b12_d1e4f7g0h3i6</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b12_d1e4f7g0h3i6</div>
+                <a href="qr-B12.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B13</div>
+                <img src="qr-B13.png" alt="QR Code for Garden Table B13" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b13_j9k2l5m8n1o4</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b13_j9k2l5m8n1o4</div>
+                <a href="qr-B13.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B14</div>
+                <img src="qr-B14.png" alt="QR Code for Garden Table B14" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b14_p7q0r3s6t9u2</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b14_p7q0r3s6t9u2</div>
+                <a href="qr-B14.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B15</div>
+                <img src="qr-B15.png" alt="QR Code for Garden Table B15" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b15_v5w8x1y4z7a0</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b15_v5w8x1y4z7a0</div>
+                <a href="qr-B15.png" download class="download-btn">Download PNG</a>
+            </div>
+
+            <div class="qr-item">
+                <div class="location-title">Garden Table B16</div>
+                <img src="qr-B16.png" alt="QR Code for Garden Table B16" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color:#e74c3c; padding:20px;">QR Code Image Not Found</div>
+                <div class="token-info">Token: qr_b16_b3c6d9e2f5g8</div>
+                <div class="url-info">https://menu.theplazahoteledirne.com?token=qr_b16_b3c6d9e2f5g8</div>
+                <a href="qr-B16.png" download class="download-btn">Download PNG</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <h3>🏨 La Strada Hotel Digital Menu System</h3>
+        <p>Complete QR code solution for seamless guest experience</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                         <div>
+                 <strong>🏨 Hotel Rooms (60)</strong><br>
+                 <small>Room service ordering with automatic room detection</small>
+             </div>
+             <div>
+                 <strong>🍽️ Restaurant Tables (16)</strong><br>
+                 <small>Dine-in ordering system for indoor dining</small>
+             </div>
+             <div>
+                 <strong>🌿 Garden Tables (16)</strong><br>
+                 <small>Outdoor dining experience with table service</small>
+             </div>
+        </div>
+        <p style="margin-top: 20px; color: #95a5a6;">
+            Each QR code automatically detects the location and provides a customized menu experience
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+Room: Room 404
+Token: qr_404_n3o6p9q2r5s8
+QR Code URL: https://menu.theplazahoteledirne.com?token=qr_404_n3o6p9q2r5s8
+
+Instructions:
+1. Copy the URL above
+2. Go to https://qr-code-generator.com
+3. Paste the URL and generate QR code
+4. Download and print the QR code
+5. Place it in Room 404

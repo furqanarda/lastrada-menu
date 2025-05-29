@@ -158,7 +158,7 @@ export default function CheckoutPage() {
   if (isComplete) {
     return (
       <AccessGuard requireValidToken={true} requireOpenHours={true}>
-        <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen">
         <div className="sticky top-0 z-10 bg-background border-b border-border p-4">
           <h1 className="text-xl font-bold text-center">{t("app.orderConfirmation")}</h1>
         </div>
@@ -224,7 +224,7 @@ export default function CheckoutPage() {
 
   return (
     <AccessGuard requireValidToken={true} requireOpenHours={true}>
-      <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <div className="sticky top-0 z-10 bg-background border-b border-border p-4">
         <div className="flex items-center gap-4">
           <Link href="/cart">

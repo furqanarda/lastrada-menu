@@ -12,7 +12,7 @@ export type CartItem = {
   notes?: string
 }
 
-// Define cart context type
+// Define context type
 type CartContextType = {
   items: CartItem[]
   addItem: (item: MenuItem) => void
@@ -24,6 +24,7 @@ type CartContextType = {
   subtotal: number
   locationInfo: string
   isLoaded: boolean
+  isViewOnlyMode: boolean
 }
 
 // Create context with default values
@@ -37,19 +38,20 @@ const CartContext = createContext<CartContextType>({
   totalItems: 0,
   subtotal: 0,
   locationInfo: "",
-  isLoaded: false
+  isLoaded: false,
+  isViewOnlyMode: false
 })
 
 // Create provider component
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([])
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const { locationData } = useAccess()
+  const { locationData, isViewOnlyMode } = useAccess()
 
-  // Load cart from localStorage on client side only
+  // Load cart from localStorage on client side only (but not in view-only mode)
   useEffect(() => {
-    // Only run on client-side
-    if (typeof window === 'undefined') return;
+    // Only run on client-side and not in view-only mode
+    if (typeof window === 'undefined' || isViewOnlyMode) return;
     
     const savedCart = localStorage.getItem("cart")
 
@@ -63,17 +65,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     // Mark as loaded from localStorage
     setIsLoaded(true)
-  }, [])
+  }, [isViewOnlyMode])
 
-  // Save cart to localStorage when it changes
+  // Save cart to localStorage when it changes (but not in view-only mode)
   useEffect(() => {
-    // Only save to localStorage after initial loading and when on client-side
-    if (!isLoaded || typeof window === 'undefined') return;
+    // Only save to localStorage after initial loading, when on client-side, and not in view-only mode
+    if (!isLoaded || typeof window === 'undefined' || isViewOnlyMode) return;
     localStorage.setItem("cart", JSON.stringify(items))
-  }, [items, isLoaded])
+  }, [items, isLoaded, isViewOnlyMode])
 
-  // Add item to cart
+  // Clear cart when switching to view-only mode
+  useEffect(() => {
+    if (isViewOnlyMode) {
+      setItems([])
+    }
+  }, [isViewOnlyMode])
+
+  // Add item to cart (disabled in view-only mode)
   const addItem = (item: MenuItem) => {
+    if (isViewOnlyMode) return; // Don't allow adding items in view-only mode
+    
     setItems((prevItems) => {
       const existingItem = prevItems.find((i) => i.item.id === item.id)
 
@@ -85,13 +96,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     })
   }
 
-  // Remove item from cart
+  // Remove item from cart (disabled in view-only mode)
   const removeItem = (itemId: string) => {
+    if (isViewOnlyMode) return; // Don't allow removing items in view-only mode
     setItems((prevItems) => prevItems.filter((i) => i.item.id !== itemId))
   }
 
-  // Update item quantity
+  // Update quantity (disabled in view-only mode)
   const updateQuantity = (itemId: string, quantity: number) => {
+    if (isViewOnlyMode) return; // Don't allow updating quantity in view-only mode
     if (quantity <= 0) {
       removeItem(itemId)
       return
@@ -100,24 +113,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setItems((prevItems) => prevItems.map((i) => (i.item.id === itemId ? { ...i, quantity } : i)))
   }
 
-  // Update item notes
+  // Update notes (disabled in view-only mode)
   const updateNotes = (itemId: string, notes: string) => {
+    if (isViewOnlyMode) return; // Don't allow updating notes in view-only mode
     setItems((prevItems) => prevItems.map((i) => (i.item.id === itemId ? { ...i, notes } : i)))
   }
 
-  // Clear cart
+  // Clear cart (disabled in view-only mode)
   const clearCart = () => {
+    if (isViewOnlyMode) return; // Don't allow clearing cart in view-only mode
     setItems([])
   }
 
-  // Calculate total items
-  const totalItems = items.reduce((total, item) => total + item.quantity, 0)
+  // Calculate totals
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
+  const subtotal = items.reduce((sum, item) => sum + item.item.price * item.quantity, 0)
 
-  // Calculate subtotal
-  const subtotal = items.reduce((total, item) => total + item.item.price * item.quantity, 0)
-
-  // Get location info from access context
-  const locationInfo = locationData ? locationData.name : ""
+  // Get location info
+  const locationInfo = isViewOnlyMode 
+    ? "View-Only Menu" 
+    : (locationData ? locationData.name : "")
 
   return (
     <CartContext.Provider
@@ -131,7 +146,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         totalItems,
         subtotal,
         locationInfo,
-        isLoaded
+        isLoaded,
+        isViewOnlyMode,
       }}
     >
       {children}

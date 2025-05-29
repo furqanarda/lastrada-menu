@@ -11,6 +11,7 @@ const AccessContext = createContext<TokenContext>({
   locationData: null,
   isValidToken: false,
   isLoading: true,
+  isViewOnlyMode: false,
   validateToken: async () => false,
   clearToken: () => {},
 })
@@ -21,7 +22,37 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
   const [locationData, setLocationData] = useState<TokenData | null>(null)
   const [isValidToken, setIsValidToken] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isViewOnlyMode, setIsViewOnlyMode] = useState<boolean>(false)
   const searchParams = useSearchParams()
+
+  // Function to check if user should have view-only access
+  const checkViewOnlyMode = (): boolean => {
+    if (typeof window === 'undefined') return false
+    
+    // Check if this is the view-only domain access
+    const hostname = window.location.hostname
+    const isViewOnlyDomain = hostname === 'menu.theplazahoteledirne.com'
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1'
+    
+    // Check for view-only parameter
+    const viewOnlyParam = searchParams.get("viewonly") === "true"
+    
+    // If no token is present and it's the view-only domain, enable view-only mode
+    const urlToken = searchParams.get("token")
+    const storedToken = localStorage.getItem("accessToken")
+    
+    // Enable view-only mode if:
+    // 1. Production domain without token, OR
+    // 2. Localhost without token (for development testing), OR  
+    // 3. Any domain with viewonly=true parameter
+    if ((isViewOnlyDomain && !urlToken && !storedToken) || 
+        (isLocalhost && !urlToken && !storedToken) ||
+        viewOnlyParam) {
+      return true
+    }
+    
+    return false
+  }
 
   // Function to validate a token
   const validateTokenAsync = async (tokenToValidate: string): Promise<boolean> => {
@@ -30,6 +61,7 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
       setToken(tokenToValidate)
       setLocationData(data)
       setIsValidToken(true)
+      setIsViewOnlyMode(false) // Not in view-only mode when we have a valid token
       
       // Store token in localStorage for session persistence
       if (typeof window !== 'undefined') {
@@ -52,6 +84,10 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
     if (typeof window !== 'undefined') {
       localStorage.removeItem("accessToken")
     }
+    
+    // Check if we should enable view-only mode after clearing token
+    const viewOnly = checkViewOnlyMode()
+    setIsViewOnlyMode(viewOnly)
   }
 
   // Check for token on initial load
@@ -69,6 +105,10 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
           const storedToken = localStorage.getItem("accessToken")
           if (storedToken) {
             await validateTokenAsync(storedToken)
+          } else {
+            // No token found, check if we should enable view-only mode
+            const viewOnly = checkViewOnlyMode()
+            setIsViewOnlyMode(viewOnly)
           }
         }
       }
@@ -86,6 +126,7 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
         locationData,
         isValidToken,
         isLoading,
+        isViewOnlyMode,
         validateToken: validateTokenAsync,
         clearToken,
       }}
@@ -104,6 +145,7 @@ const AccessProviderFallback: React.FC<{ children: React.ReactNode }> = ({ child
         locationData: null,
         isValidToken: false,
         isLoading: true,
+        isViewOnlyMode: false,
         validateToken: async () => false,
         clearToken: () => {},
       }}

@@ -34,13 +34,15 @@ type MenuItemCardProps = {
 }
 
 export function MenuItemCard({ item }: MenuItemCardProps) {
-  const { addItem } = useCart()
+  const { addItem, isViewOnlyMode } = useCart()
   const [imageError, setImageError] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(item.options?.[0]?.name || "")
   const [activeTab, setActiveTab] = useState<string>("details")
 
   const handleAddToCart = () => {
+    if (isViewOnlyMode) return // Don't allow adding items in view-only mode
+    
     if (item.options && item.options.length > 0) {
       setIsDialogOpen(true)
     } else {
@@ -49,6 +51,8 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
   }
 
   const handleAddWithOption = () => {
+    if (isViewOnlyMode) return // Don't allow adding items in view-only mode
+    
     const selectedOptionObj = item.options?.find((opt) => opt.name === selectedOption)
     if (selectedOptionObj) {
       const itemWithOption = {
@@ -149,14 +153,16 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
                   ? `${formatPrice(item.options[0].price)}`
                   : formatPrice(item.price)}
               </div>
-              <Button
-                size="sm"
-                className="rounded-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white"
-                onClick={handleAddToCart}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                {item.options && item.options.length > 0 ? "Seç" : "Ekle"}
-              </Button>
+              {!isViewOnlyMode && (
+                <Button
+                  size="sm"
+                  className="rounded-full bg-blue-500 text-white hover:bg-blue-600 hover:text-white"
+                  onClick={handleAddToCart}
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  {item.options && item.options.length > 0 ? "Seç" : "Ekle"}
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -214,12 +220,14 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
                     ))}
                   </RadioGroup>
 
-                  <Button
-                    className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white"
-                    onClick={handleAddWithOption}
-                  >
-                    Sepete Ekle
-                  </Button>
+                  {!isViewOnlyMode && (
+                    <Button
+                      className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white"
+                      onClick={handleAddWithOption}
+                    >
+                      Sepete Ekle
+                    </Button>
+                  )}
                 </div>
               ) : (
                 <div>
@@ -227,15 +235,17 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
                     {item.weight && <span className="block text-sm mb-2">Porsiyon: {item.weight}</span>}
                     {item.description}
                   </p>
-                  <Button
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-                    onClick={() => {
-                      addItem(item)
-                      setIsDialogOpen(false)
-                    }}
-                  >
-                    Sepete Ekle
-                  </Button>
+                  {!isViewOnlyMode && (
+                    <Button
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+                      onClick={() => {
+                        addItem(item)
+                        setIsDialogOpen(false)
+                      }}
+                    >
+                      Sepete Ekle
+                    </Button>
+                  )}
                 </div>
               )}
             </TabsContent>

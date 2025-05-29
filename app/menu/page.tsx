@@ -179,7 +179,7 @@ export default function MenuPage() {
 
   return (
     <AccessGuard requireValidToken={true} requireOpenHours={true}>
-      <div className="flex flex-col min-h-screen bg-[#0f172a]">
+    <div className="flex flex-col min-h-screen bg-[#0f172a]">
       <MenuHeader onSearch={handleSearch} />
 
       <CategoryTabs categories={categories} activeCategory={activeCategory} onSelectCategory={handleSelectCategory} />

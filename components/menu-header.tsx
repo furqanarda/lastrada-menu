@@ -15,7 +15,7 @@ type MenuHeaderProps = {
 }
 
 export function MenuHeader({ onSearch }: MenuHeaderProps) {
-  const { totalItems } = useCart()
+  const { totalItems, isViewOnlyMode } = useCart()
   const { language, t } = useLanguage()
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -50,20 +50,22 @@ export function MenuHeader({ onSearch }: MenuHeaderProps) {
                 <span className="text-xl">{getLanguageFlag()}</span>
               </Button>
             </Link>
-            <Link href="/cart">
-              <Button variant="outline" size="icon" className="relative bg-[#1a2234] border-[#2a3346] text-white">
-                <ShoppingBag className="h-5 w-5" />
-                {totalItems > 0 && (
-                  <motion.span
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
-                  >
-                    {totalItems}
-                  </motion.span>
-                )}
-              </Button>
-            </Link>
+            {!isViewOnlyMode && (
+              <Link href="/cart">
+                <Button variant="outline" size="icon" className="relative bg-[#1a2234] border-[#2a3346] text-white">
+                  <ShoppingBag className="h-5 w-5" />
+                  {totalItems > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                    >
+                      {totalItems}
+                    </motion.span>
+                  )}
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
 

@@ -25,7 +25,7 @@ export default function CartPage() {
 
   return (
     <AccessGuard requireValidToken={true} requireOpenHours={true}>
-      <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
       <div className="sticky top-0 z-10 bg-background border-b border-border p-4">
         <div className="flex items-center gap-4">
           <Link href="/menu">

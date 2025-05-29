@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://menu.theplazahoteledirne.com'),
   title: "La Strada Restaurant | The Plaza Hotel Edirne",
   description: "Digital menu for La Strada Restaurant at The Plaza Hotel Edirne",
   generator: 'v0.dev',
@@ -47,11 +48,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <LanguageProvider>
             <AccessProvider>
-              <CartProvider>
-                <StockProvider>
-                  <main className="min-h-screen bg-[#0f172a]">{children}</main>
-                </StockProvider>
-              </CartProvider>
+            <CartProvider>
+              <StockProvider>
+                <main className="min-h-screen bg-[#0f172a]">{children}</main>
+              </StockProvider>
+            </CartProvider>
             </AccessProvider>
           </LanguageProvider>
         </ThemeProvider>

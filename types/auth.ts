@@ -12,6 +12,7 @@ export interface TokenContext {
   locationData: TokenData | null
   isValidToken: boolean
   isLoading: boolean
+  isViewOnlyMode: boolean
   validateToken: (token: string) => Promise<boolean>
   clearToken: () => void
 }

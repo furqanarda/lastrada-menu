@@ -19,7 +19,7 @@ export const AccessGuard: React.FC<AccessGuardProps> = ({
   requireValidToken = true, 
   requireOpenHours = true 
 }) => {
-  const { isValidToken, isLoading } = useAccess()
+  const { isValidToken, isLoading, isViewOnlyMode } = useAccess()
   const restaurantHours = useRestaurantHours()
   const router = useRouter()
   const pathname = usePathname()
@@ -32,18 +32,18 @@ export const AccessGuard: React.FC<AccessGuardProps> = ({
     // Don't protect admin or access-denied pages
     if (pathname.startsWith('/admin') || pathname === '/access-denied') return
 
-    // Check token validation
-    if (requireValidToken && !isValidToken) {
+    // Check token validation (bypass for view-only mode)
+    if (requireValidToken && !isValidToken && !isViewOnlyMode) {
       router.push('/access-denied')
       return
     }
 
-    // Check restaurant hours (only if token is valid)
-    if (requireOpenHours && isValidToken && !restaurantHours.isOpen) {
+    // Check restaurant hours (only if token is valid or in view-only mode)
+    if (requireOpenHours && (isValidToken || isViewOnlyMode) && !restaurantHours.isOpen) {
       // Don't redirect, just show closed message
       return
     }
-  }, [isValidToken, isLoading, restaurantHours.isOpen, router, pathname, requireValidToken, requireOpenHours])
+  }, [isValidToken, isLoading, isViewOnlyMode, restaurantHours.isOpen, router, pathname, requireValidToken, requireOpenHours])
 
   // Show loading screen
   if (isLoading) {
@@ -88,14 +88,14 @@ export const AccessGuard: React.FC<AccessGuardProps> = ({
     return <>{children}</>
   }
 
-  // Check token validation
-  if (requireValidToken && !isValidToken) {
+  // Check token validation (bypass for view-only mode)
+  if (requireValidToken && !isValidToken && !isViewOnlyMode) {
     // Will redirect in useEffect, show nothing for now
     return null
   }
 
-  // Check restaurant hours (only show closed screen if token is valid)
-  if (requireOpenHours && isValidToken && !restaurantHours.isOpen) {
+  // Check restaurant hours (only show closed screen if token is valid or in view-only mode)
+  if (requireOpenHours && (isValidToken || isViewOnlyMode) && !restaurantHours.isOpen) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-[#0f172a]">
         <motion.div

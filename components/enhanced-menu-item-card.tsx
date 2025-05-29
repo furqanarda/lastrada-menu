@@ -39,6 +39,7 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   const { addItem } = useCart()
   const { t, language } = useLanguage()
   const { isItemAvailable } = useStock()
+  const { isViewOnlyMode } = useCart()
   const [imageError, setImageError] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedOption, setSelectedOption] = useState(item.options?.[0]?.name || "")
@@ -48,7 +49,7 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   const itemAvailable = isItemAvailable(item.id)
 
   const handleAddToCart = () => {
-    if (!itemAvailable) return // Don't allow adding out-of-stock items
+    if (!itemAvailable || isViewOnlyMode) return // Don't allow adding items in view-only mode
     
     if (item.options && item.options.length > 0) {
       setIsDialogOpen(true)
@@ -64,7 +65,7 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
   }
 
   const handleAddWithOption = () => {
-    if (!itemAvailable) return // Don't allow adding out-of-stock items
+    if (!itemAvailable || isViewOnlyMode) return // Don't allow adding items in view-only mode
     
     const selectedOptionObj = item.options?.find((opt) => opt.name === selectedOption)
     if (selectedOptionObj) {
@@ -196,54 +197,56 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
                   ? `${formatPrice(item.options[0].price)}`
                   : formatPrice(item.price)}
               </div>
-              <div className="relative">
-                <Button
-                  size="sm"
-                  className={`rounded-full ${itemAvailable 
-                    ? 'bg-blue-500 text-white hover:bg-blue-600 hover:text-white' 
-                    : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
-                  onClick={handleAddToCart}
-                  disabled={!itemAvailable}
-                >
-                  <Plus className="h-4 w-4 mr-1" />
-                  {!itemAvailable 
-                    ? t("item.outOfStock")
-                    : (item.options && item.options.length > 0 ? t("app.select") : t("app.add"))
-                  }
-                </Button>
-                {isItemAdded && (
-                  <>
-                    {/* First wave - fast */}
-                    <motion.div
-                      initial={{ opacity: 0.8, scale: 1 }}
-                      animate={{ opacity: 0, scale: 2.2 }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0 rounded-full bg-blue-400"
-                    />
-                    {/* Second wave - slightly delayed */}
-                    <motion.div
-                      initial={{ opacity: 0.7, scale: 1 }}
-                      animate={{ opacity: 0, scale: 2 }}
-                      transition={{ duration: 0.5, delay: 0.1 }}
-                      className="absolute inset-0 rounded-full bg-blue-500"
-                    />
-                    {/* Third wave - more delayed, different color */}
-                    <motion.div
-                      initial={{ opacity: 0.5, scale: 1 }}
-                      animate={{ opacity: 0, scale: 1.8 }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                      className="absolute inset-0 rounded-full bg-blue-600"
-                    />
-                    {/* Brief flash effect */}
-                    <motion.div
-                      initial={{ opacity: 0.9 }}
-                      animate={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 rounded-full bg-white"
-                    />
-                  </>
-                )}
-              </div>
+              {!isViewOnlyMode && (
+                <div className="relative">
+                  <Button
+                    size="sm"
+                    className={`rounded-full ${itemAvailable 
+                      ? 'bg-blue-500 text-white hover:bg-blue-600 hover:text-white' 
+                      : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+                    onClick={handleAddToCart}
+                    disabled={!itemAvailable}
+                  >
+                    <Plus className="h-4 w-4 mr-1" />
+                    {!itemAvailable 
+                      ? t("item.outOfStock")
+                      : (item.options && item.options.length > 0 ? t("app.select") : t("app.add"))
+                    }
+                  </Button>
+                  {isItemAdded && (
+                    <>
+                      {/* First wave - fast */}
+                      <motion.div
+                        initial={{ opacity: 0.8, scale: 1 }}
+                        animate={{ opacity: 0, scale: 2.2 }}
+                        transition={{ duration: 0.4 }}
+                        className="absolute inset-0 rounded-full bg-blue-400"
+                      />
+                      {/* Second wave - slightly delayed */}
+                      <motion.div
+                        initial={{ opacity: 0.7, scale: 1 }}
+                        animate={{ opacity: 0, scale: 2 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="absolute inset-0 rounded-full bg-blue-500"
+                      />
+                      {/* Third wave - more delayed, different color */}
+                      <motion.div
+                        initial={{ opacity: 0.5, scale: 1 }}
+                        animate={{ opacity: 0, scale: 1.8 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="absolute inset-0 rounded-full bg-blue-600"
+                      />
+                      {/* Brief flash effect */}
+                      <motion.div
+                        initial={{ opacity: 0.9 }}
+                        animate={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 rounded-full bg-white"
+                      />
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -339,15 +342,17 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
           ))}
         </RadioGroup>
 
-        <Button 
-          className={`w-full mt-4 ${itemAvailable 
-            ? 'bg-blue-500 hover:bg-blue-600 text-white' 
-            : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
-          onClick={handleAddWithOption}
-          disabled={!itemAvailable}
-        >
-          {itemAvailable ? t("app.addToCart") : t("item.outOfStock")}
-        </Button>
+        {!isViewOnlyMode && (
+          <Button 
+            className={`w-full mt-4 ${itemAvailable 
+              ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+              : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+            onClick={handleAddWithOption}
+            disabled={!itemAvailable}
+          >
+            {itemAvailable ? t("app.addToCart") : t("item.outOfStock")}
+          </Button>
+        )}
       </div>
     ) : (
       <div>
@@ -365,20 +370,22 @@ export function EnhancedMenuItemCard({ item }: EnhancedMenuItemCardProps) {
             </p>
           </div>
         )}
-        <Button
-          className={`w-full ${itemAvailable 
-            ? 'bg-blue-500 hover:bg-blue-600 text-white' 
-            : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
-          onClick={() => {
-            if (itemAvailable) {
-              addItem(item)
-              setIsDialogOpen(false)
-            }
-          }}
-          disabled={!itemAvailable}
-        >
-          {itemAvailable ? t("app.addToCart") : t("item.outOfStock")}
-        </Button>
+        {!isViewOnlyMode && (
+          <Button
+            className={`w-full ${itemAvailable 
+              ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+              : 'bg-gray-500 text-gray-300 cursor-not-allowed'}`}
+            onClick={() => {
+              if (itemAvailable) {
+                addItem(item)
+                setIsDialogOpen(false)
+              }
+            }}
+            disabled={!itemAvailable}
+          >
+            {itemAvailable ? t("app.addToCart") : t("item.outOfStock")}
+          </Button>
+        )}
       </div>
     )
   }

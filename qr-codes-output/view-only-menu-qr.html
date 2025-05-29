@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View-Only Menu QR Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: white;
+        }
+        .qr-container {
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            background: white;
+        }
+        .qr-code {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .url {
+            font-size: 12px;
+            color: #888;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        @media print {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <div class="title">La Strada Restaurant</div>
+        <div class="subtitle">View-Only Menu</div>
+        <div class="qr-code">
+            <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#FFFFFF" d="M0 0h33v33H0z"/><path stroke="#000000" d="M2 2.5h7m6 0h1m1 0h1m1 0h4m1 0h7M2 3.5h1m5 0h1m3 0h8m4 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m1 0h1m2 0h3m1 0h2m5 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h1m2 0h2m1 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m1 0h1m1 0h3m2 0h2m3 0h1m1 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 9.5h1m3 0h1m1 0h1m1 0h1m1 0h1M2 10.5h1m1 0h5m3 0h1m6 0h1m4 0h5M2 11.5h1m8 0h3m1 0h2m1 0h1m1 0h5m1 0h1m3 0h1M5 12.5h2m1 0h1m1 0h1m1 0h7m5 0h3M2 13.5h2m2 0h2m1 0h1m3 0h1m1 0h1m5 0h1m1 0h5m1 0h1M3 14.5h1m1 0h1m1 0h3m4 0h1m1 0h2m1 0h1m1 0h2m2 0h1m1 0h2M2 15.5h2m2 0h1m2 0h4m5 0h5m1 0h3m3 0h1M2 16.5h5m1 0h2m4 0h1m2 0h1m4 0h1m4 0h2M2 17.5h1m1 0h3m2 0h1m3 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m3 0h1M3 18.5h10m1 0h1m4 0h1m7 0h2M2 19.5h3m2 0h1m3 0h2m1 0h3m3 0h7m1 0h1m1 0h1M2 20.5h1m1 0h1m3 0h2m2 0h2m1 0h4m4 0h4m1 0h1M2 21.5h1m2 0h3m1 0h1m1 0h2m2 0h1m1 0h2m3 0h2m1 0h2m2 0h1M2 22.5h1m2 0h1m2 0h1m2 0h1m2 0h1m1 0h2m1 0h1m1 0h6m1 0h3M10 23.5h1m1 0h2m4 0h1m1 0h1m1 0h1m3 0h5M2 24.5h7m3 0h1m1 0h1m2 0h1m3 0h2m1 0h1m1 0h3M2 25.5h1m5 0h1m1 0h5m1 0h1m1 0h1m1 0h3m3 0h1m2 0h1M2 26.5h1m1 0h3m1 0h1m1 0h1m8 0h1m2 0h5m1 0h1M2 27.5h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h1m1 0h3m6 0h4M2 28.5h1m1 0h3m1 0h1m1 0h2m1 0h1m3 0h1m2 0h1m2 0h7M2 29.5h1m5 0h1m3 0h2m7 0h2m2 0h3m1 0h1M2 30.5h7m1 0h1m2 0h1m1 0h5m1 0h1m3 0h1m2 0h1"/></svg>
+
+        </div>
+        <div class="url">https://menu.theplazahoteledirne.com</div>
+    </div>
+    
+    <div class="no-print">
+        <p><strong>Usage:</strong> This QR code allows guests to view the menu and prices without being able to place orders.</p>
+        <p><strong>Perfect for:</strong> Reception desk, lobby areas, or anywhere you want to display menu information.</p>
+        <button onclick="window.print()">🖨️ Print QR Code</button>
+    </div>
+</body>
+</html>
+    

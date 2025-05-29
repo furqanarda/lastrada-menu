@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const QRCode = require('qrcode');
 
 // Read tokens from the JSON file
 const tokensPath = path.join(__dirname, '../data/tokens.json');
@@ -25,7 +26,8 @@ function getAllRooms() {
       roomNumber: key,
       roomName: data.name,
       token: data.token,
-      qrCodeURL: generateQRCodeURL(data.token)
+      qrCodeURL: generateQRCodeURL(data.token),
+      displayNumber: key // Use the key as display number
     }))
     .sort((a, b) => {
       // Sort by room number (handle both numeric and alphanumeric)
@@ -37,167 +39,589 @@ function getAllRooms() {
 }
 
 /**
- * Generate CSV format for easy import into other tools
+ * Get all restaurant tables
  */
-function generateCSV(rooms) {
-  const header = 'Room Number,Room Name,Token,QR Code URL\n';
-  const rows = rooms.map(room => 
-    `"${room.roomNumber}","${room.roomName}","${room.token}","${room.qrCodeURL}"`
-  ).join('\n');
-  return header + rows;
+function getRestaurantTables() {
+  return Object.entries(tokens)
+    .filter(([key, data]) => data.type === 'restaurant')
+    .map(([key, data]) => ({
+      tableNumber: key,
+      tableName: data.name,
+      token: data.token,
+      qrCodeURL: generateQRCodeURL(data.token),
+      displayNumber: key // Keep full identifier like "S1", "S2", etc.
+    }))
+    .sort((a, b) => {
+      const aNum = parseInt(a.displayNumber.replace('S', '')) || 0;
+      const bNum = parseInt(b.displayNumber.replace('S', '')) || 0;
+      return aNum - bNum;
+    });
 }
 
 /**
- * Generate HTML format for easy viewing and printing
+ * Get all garden tables
  */
-function generateHTML(rooms) {
+function getGardenTables() {
+  return Object.entries(tokens)
+    .filter(([key, data]) => data.type === 'garden')
+    .map(([key, data]) => ({
+      tableNumber: key,
+      tableName: data.name,
+      token: data.token,
+      qrCodeURL: generateQRCodeURL(data.token),
+      displayNumber: key // Keep full identifier like "B1", "B2", etc.
+    }))
+    .sort((a, b) => {
+      const aNum = parseInt(a.displayNumber.replace('B', '')) || 0;
+      const bNum = parseInt(b.displayNumber.replace('B', '')) || 0;
+      return aNum - bNum;
+    });
+}
+
+/**
+ * Generate QR code as SVG with number overlay
+ */
+async function generateQRCodeWithNumber(url, displayNumber) {
+  try {
+    // Generate QR code as SVG
+    const qrSVG = await QRCode.toString(url, {
+      type: 'svg',
+      width: 400,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF'
+      },
+      errorCorrectionLevel: 'M'
+    });
+
+    // Extract viewBox dimensions to calculate center
+    const viewBoxMatch = qrSVG.match(/viewBox="([^"]+)"/);
+    let centerX = 200, centerY = 200; // default fallback
+    let qrWidth = 400;
+    
+    if (viewBoxMatch) {
+      const viewBoxValues = viewBoxMatch[1].split(' ').map(Number);
+      const [minX, minY, width, height] = viewBoxValues;
+      centerX = minX + width / 2;
+      centerY = minY + height / 2;
+      qrWidth = width;
+    }
+
+    // Calculate circle radius based on QR code size (make it visible)
+    const circleRadius = Math.max(2.5, qrWidth * 0.12);
+    
+    // Adjust font size based on circle size and number length
+    const baseFontSize = circleRadius * 0.65;
+    const fontSize = displayNumber.length <= 2 ? baseFontSize : 
+                     displayNumber.length <= 3 ? baseFontSize * 0.75 : 
+                     baseFontSize * 0.55;
+
+    // Add number overlay to SVG
+    const svgWithNumber = qrSVG.replace(
+      '</svg>',
+      `
+      <!-- White circle background -->
+      <circle cx="${centerX}" cy="${centerY}" r="${circleRadius}" fill="white" stroke="black" stroke-width="0.3"/>
+      <!-- Number text -->
+      <text x="${centerX}" y="${centerY}" text-anchor="middle" dominant-baseline="central" 
+            font-family="Arial, sans-serif" font-weight="bold" font-size="${fontSize}" 
+            fill="black">${displayNumber}</text>
+      </svg>`
+    );
+
+    return svgWithNumber;
+  } catch (error) {
+    console.error(`Error generating QR code for ${displayNumber}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Generate QR code as PNG file (plain, no numbers)
+ */
+async function generateQRCodePNG(url, displayNumber, outputPath) {
+  try {
+    // Generate QR code as PNG buffer
+    const qrBuffer = await QRCode.toBuffer(url, {
+      type: 'png',
+      width: 400,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF'
+      },
+      errorCorrectionLevel: 'M'
+    });
+
+    // Save the PNG file
+    fs.writeFileSync(outputPath, qrBuffer);
+    return true;
+  } catch (error) {
+    console.error(`Error generating QR code PNG for ${displayNumber}:`, error);
+    return false;
+  }
+}
+
+/**
+ * Generate individual QR code instruction HTML file
+ */
+function generateInstructionHTML(item, type, svgFileName, pngFileName) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Strada Hotel - Room QR Codes</title>
+    <title>${item.displayName || item.roomName || item.tableName} - QR Code</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .header { text-align: center; margin-bottom: 30px; }
-        .room-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .room-card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; text-align: center; }
-        .room-number { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
-        .qr-url { font-size: 12px; word-break: break-all; color: #666; margin-top: 10px; }
-        .instructions { background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
-        @media print {
-            .room-card { page-break-inside: avoid; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .qr-preview {
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: white;
+            display: inline-block;
+        }
+        .download-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .download-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .download-btn:hover {
+            background: #1d4ed8;
+        }
+        .download-btn.primary {
+            background: #059669;
+        }
+        .download-btn.primary:hover {
+            background: #047857;
+        }
+        .instructions {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .url {
+            word-break: break-all;
+            font-family: monospace;
+            background: #f1f3f4;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        .recommendation {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .recommendation h4 {
+            color: #047857;
+            margin-top: 0;
+        }
+        .folder-structure {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .folder-structure h4 {
+            color: #1e293b;
+            margin-top: 0;
+        }
+        .folder-tree {
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>La Strada Hotel - Room QR Codes</h1>
-        <p>Total Rooms: ${rooms.length}</p>
-    </div>
-    
-    <div class="instructions">
-        <h3>How to Generate QR Code Images:</h3>
-        <ol>
-            <li>Copy the URL from each room card below</li>
-            <li>Go to a QR code generator like <a href="https://qr-code-generator.com" target="_blank">qr-code-generator.com</a></li>
-            <li>Paste the URL and generate the QR code</li>
-            <li>Download as PNG/SVG and print</li>
-            <li>Alternative: Use the bulk generation script (see README)</li>
-        </ol>
-    </div>
-    
-    <div class="room-grid">
-        ${rooms.map(room => `
-            <div class="room-card">
-                <div class="room-number">${room.roomName}</div>
-                <div>Token: <code>${room.token}</code></div>
-                <div class="qr-url">
-                    <strong>QR Code URL:</strong><br>
-                    <a href="${room.qrCodeURL}" target="_blank">${room.qrCodeURL}</a>
-                </div>
+    <div class="container">
+        <div class="title">${item.displayName || item.roomName || item.tableName}</div>
+        <div class="subtitle">La Strada ${type}</div>
+        
+        <div class="qr-preview">
+            <div style="width: 400px; height: 400px; margin: 0 auto;">
+                <object data="${svgFileName}" type="image/svg+xml" width="400" height="400">
+                    <p>QR Code Preview - Please download the SVG file</p>
+                </object>
             </div>
-        `).join('')}
+        </div>
+        
+        <div class="recommendation">
+            <h4>🎯 Recommended: SVG with Number</h4>
+            <p>The SVG version includes the <strong>"${item.displayNumber}"</strong> number in the center and is perfect for printing!</p>
+        </div>
+
+        <div class="folder-structure">
+            <h4>📁 File Organization</h4>
+            <div class="folder-tree">
+├── svg/    📊 SVG files (with numbers in center)
+├── png/    🖼️ PNG files (plain QR codes)
+└── HTML files (this page)
+            </div>
+        </div>
+        
+        <div class="download-section">
+            <h3>📥 Download Options</h3>
+            <a href="${svgFileName}" download="${svgFileName.split('/')[1]}" class="download-btn primary">
+                📊 Download SVG (with number ${item.displayNumber})
+            </a>
+            <a href="${pngFileName}" download="${pngFileName.split('/')[1]}" class="download-btn">
+                🖼️ Download PNG (plain)
+            </a>
+            <p><strong>Recommended:</strong> Use the SVG file for best printing quality with the number in center.</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            <ol>
+                <li><strong>Download SVG</strong> (recommended) - includes "${item.displayNumber}" in center</li>
+                <li><strong>Print the SVG file</strong> directly from your browser</li>
+                <li><strong>Alternative:</strong> Download PNG and manually add "${item.displayNumber}" when printing</li>
+                <li><strong>Cut out</strong> the QR code</li>
+                <li><strong>Place</strong> in ${item.displayName || item.roomName || item.tableName}</li>
+            </ol>
+            <p><strong>Note:</strong> SVG files print at higher quality and include the room/table number automatically!</p>
+        </div>
+        
+        <div class="url">
+            <strong>URL:</strong> ${item.qrCodeURL}
+        </div>
     </div>
 </body>
 </html>`;
 }
 
 /**
- * Generate a simple text list
+ * Generate all QR code files
  */
-function generateTextList(rooms) {
-  let output = 'LA STRADA HOTEL - ROOM QR CODES\n';
-  output += '=====================================\n\n';
-  
-  rooms.forEach(room => {
-    output += `${room.roomName}\n`;
-    output += `Token: ${room.token}\n`;
-    output += `QR URL: ${room.qrCodeURL}\n`;
-    output += '---\n';
-  });
-  
-  return output;
-}
+async function generateAllQRCodes() {
+  const rooms = getAllRooms();
+  const restaurantTables = getRestaurantTables();
+  const gardenTables = getGardenTables();
 
-/**
- * Generate JSON format for programmatic use
- */
-function generateJSON(rooms) {
-  return JSON.stringify({
-    generated: new Date().toISOString(),
-    baseURL: BASE_URL,
-    totalRooms: rooms.length,
-    rooms: rooms
-  }, null, 2);
+  // Create output directories with separate folders for SVG and PNG
+  const outputDir = path.join(__dirname, '../qr-codes-output');
+  const roomsDir = path.join(outputDir, 'rooms');
+  const roomsSvgDir = path.join(roomsDir, 'svg');
+  const roomsPngDir = path.join(roomsDir, 'png');
+  const restaurantDir = path.join(outputDir, 'restaurant');
+  const restaurantSvgDir = path.join(restaurantDir, 'svg');
+  const restaurantPngDir = path.join(restaurantDir, 'png');
+  const gardenDir = path.join(outputDir, 'garden');
+  const gardenSvgDir = path.join(gardenDir, 'svg');
+  const gardenPngDir = path.join(gardenDir, 'png');
+
+  [outputDir, roomsDir, roomsSvgDir, roomsPngDir, restaurantDir, restaurantSvgDir, restaurantPngDir, gardenDir, gardenSvgDir, gardenPngDir].forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  });
+
+  console.log('🏨 Generating QR codes as SVG and PNG files...\n');
+
+  // Generate room QR codes
+  console.log(`📱 Generating ${rooms.length} room QR codes...`);
+  for (const room of rooms) {
+    const svgFileName = `room-${room.roomNumber}.svg`;
+    const pngFileName = `room-${room.roomNumber}.png`;
+    const htmlFileName = `room-${room.roomNumber}.html`;
+    const svgFilePath = path.join(roomsSvgDir, svgFileName);
+    const pngFilePath = path.join(roomsPngDir, pngFileName);
+    const htmlFilePath = path.join(roomsDir, htmlFileName);
+    
+    const svgWithNumber = await generateQRCodeWithNumber(room.qrCodeURL, room.displayNumber);
+    if (svgWithNumber) {
+      fs.writeFileSync(svgFilePath, svgWithNumber, 'utf8');
+      const success = await generateQRCodePNG(room.qrCodeURL, room.displayNumber, pngFilePath);
+      if (success) {
+        const html = generateInstructionHTML(room, 'Hotel Room', `svg/${svgFileName}`, `png/${pngFileName}`);
+        fs.writeFileSync(htmlFilePath, html, 'utf8');
+        console.log(`  ✅ ${room.roomName} (${room.displayNumber}) - SVG + PNG + HTML`);
+      } else {
+        console.log(`  ❌ Failed: ${room.roomName}`);
+      }
+    } else {
+      console.log(`  ❌ Failed: ${room.roomName}`);
+    }
+  }
+
+  // Generate restaurant table QR codes
+  console.log(`\n🍽️ Generating ${restaurantTables.length} restaurant table QR codes...`);
+  for (const table of restaurantTables) {
+    const svgFileName = `restaurant-table-${table.displayNumber}.svg`;
+    const pngFileName = `restaurant-table-${table.displayNumber}.png`;
+    const htmlFileName = `restaurant-table-${table.displayNumber}.html`;
+    const svgFilePath = path.join(restaurantSvgDir, svgFileName);
+    const pngFilePath = path.join(restaurantPngDir, pngFileName);
+    const htmlFilePath = path.join(restaurantDir, htmlFileName);
+    
+    const svgWithNumber = await generateQRCodeWithNumber(table.qrCodeURL, table.displayNumber);
+    if (svgWithNumber) {
+      fs.writeFileSync(svgFilePath, svgWithNumber, 'utf8');
+      const success = await generateQRCodePNG(table.qrCodeURL, table.displayNumber, pngFilePath);
+      if (success) {
+        const html = generateInstructionHTML(table, 'Restaurant Table', `svg/${svgFileName}`, `png/${pngFileName}`);
+        fs.writeFileSync(htmlFilePath, html, 'utf8');
+        console.log(`  ✅ ${table.tableName} (${table.displayNumber}) - SVG + PNG + HTML`);
+      } else {
+        console.log(`  ❌ Failed: ${table.tableName}`);
+      }
+    } else {
+      console.log(`  ❌ Failed: ${table.tableName}`);
+    }
+  }
+
+  // Generate garden table QR codes
+  console.log(`\n🌿 Generating ${gardenTables.length} garden table QR codes...`);
+  for (const table of gardenTables) {
+    const svgFileName = `garden-table-${table.displayNumber}.svg`;
+    const pngFileName = `garden-table-${table.displayNumber}.png`;
+    const htmlFileName = `garden-table-${table.displayNumber}.html`;
+    const svgFilePath = path.join(gardenSvgDir, svgFileName);
+    const pngFilePath = path.join(gardenPngDir, pngFileName);
+    const htmlFilePath = path.join(gardenDir, htmlFileName);
+    
+    const svgWithNumber = await generateQRCodeWithNumber(table.qrCodeURL, table.displayNumber);
+    if (svgWithNumber) {
+      fs.writeFileSync(svgFilePath, svgWithNumber, 'utf8');
+      const success = await generateQRCodePNG(table.qrCodeURL, table.displayNumber, pngFilePath);
+      if (success) {
+        const html = generateInstructionHTML(table, 'Garden Table', `svg/${svgFileName}`, `png/${pngFileName}`);
+        fs.writeFileSync(htmlFilePath, html, 'utf8');
+        console.log(`  ✅ ${table.tableName} (${table.displayNumber}) - SVG + PNG + HTML`);
+      } else {
+        console.log(`  ❌ Failed: ${table.tableName}`);
+      }
+    } else {
+      console.log(`  ❌ Failed: ${table.tableName}`);
+    }
+  }
+
+  return { rooms, restaurantTables, gardenTables };
 }
 
 // Main execution
-console.log('🏨 Generating QR codes for La Strada Hotel rooms...\n');
+async function main() {
+  console.log('🏨 Generating QR codes as SVG and PNG files for La Strada...\n');
 
-const rooms = getAllRooms();
-console.log(`Found ${rooms.length} rooms:`);
-rooms.forEach(room => console.log(`  - ${room.roomName} (${room.roomNumber})`));
+  try {
+    // Generate all QR code files
+    const { rooms, restaurantTables, gardenTables } = await generateAllQRCodes();
 
-// Create output directory
-const outputDir = path.join(__dirname, '../qr-codes-output');
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
+    // Generate summary files
+    const outputDir = path.join(__dirname, '../qr-codes-output');
+    
+    console.log('\n📁 Generating summary files...');
+    
+    // Generate combined summary
+    const allItems = [
+      ...rooms.map(r => ({ ...r, type: 'Room', displayName: r.roomName })),
+      ...restaurantTables.map(t => ({ ...t, type: 'Restaurant Table', displayName: t.tableName })),
+      ...gardenTables.map(t => ({ ...t, type: 'Garden Table', displayName: t.tableName }))
+    ];
+
+    // Generate summary HTML
+    const summaryHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Strada - QR Code Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: #f5f5f5; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 2em; font-weight: bold; color: #2563eb; }
+        .stat-label { font-size: 1.1em; color: #666; }
+        .section { margin-bottom: 40px; }
+        .section h2 { color: #1f2937; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .item { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 6px; text-align: center; }
+        .item-number { font-weight: bold; font-size: 1.2em; color: #1f2937; }
+        .item-type { font-size: 0.9em; color: #666; }
+        .item a { text-decoration: none; color: inherit; }
+        .item:hover { background: #f8f9fa; }
+        .folder-info { background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .folder-tree { font-family: monospace; font-size: 14px; line-height: 1.6; background: white; padding: 15px; border-radius: 6px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏨 La Strada - QR Code Generation Complete</h1>
+        <p>All QR codes have been generated as SVG and PNG files</p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">${rooms.length}</div>
+            <div class="stat-label">Hotel Rooms</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">${restaurantTables.length}</div>
+            <div class="stat-label">Restaurant Tables</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">${gardenTables.length}</div>
+            <div class="stat-label">Garden Tables</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">${allItems.length}</div>
+            <div class="stat-label">Total QR Codes</div>
+        </div>
+    </div>
+
+    <div class="folder-info">
+        <h3>📁 Organized File Structure</h3>
+        <div class="folder-tree">qr-codes-output/
+├── rooms/
+│   ├── svg/           📊 SVG files with numbers (recommended for printing)
+│   ├── png/           🖼️ PNG files (plain QR codes)
+│   └── *.html         📄 Individual QR code pages
+├── restaurant/
+│   ├── svg/           📊 SVG files with numbers (S1, S2, etc.)
+│   ├── png/           🖼️ PNG files (plain QR codes)
+│   └── *.html         📄 Individual QR code pages
+├── garden/
+│   ├── svg/           📊 SVG files with numbers (B1, B2, etc.)
+│   ├── png/           🖼️ PNG files (plain QR codes)
+│   └── *.html         📄 Individual QR code pages
+└── summary.html       📋 This overview page</div>
+    </div>
+
+    <div class="section">
+        <h2>📁 Generated Files</h2>
+        <ul>
+            <li><strong>rooms/svg/</strong> - ${rooms.length} room SVG files with numbers (recommended)</li>
+            <li><strong>rooms/png/</strong> - ${rooms.length} room PNG files (plain)</li>
+            <li><strong>restaurant/svg/</strong> - ${restaurantTables.length} restaurant table SVG files with numbers</li>
+            <li><strong>restaurant/png/</strong> - ${restaurantTables.length} restaurant table PNG files</li>
+            <li><strong>garden/svg/</strong> - ${gardenTables.length} garden table SVG files with numbers</li>
+            <li><strong>garden/png/</strong> - ${gardenTables.length} garden table PNG files</li>
+        </ul>
+        <p><strong>📊 Recommended:</strong> Use the SVG files for printing - they include the room/table numbers in the center!</p>
+        <p><strong>🖼️ Alternative:</strong> Use PNG files if needed, but you'll need to manually add the numbers when printing.</p>
+    </div>
+
+    <div class="section">
+        <h2>🏨 Hotel Rooms</h2>
+        <div class="grid">
+            ${rooms.map(room => `
+                <div class="item">
+                    <a href="rooms/room-${room.roomNumber}.html" target="_blank">
+                        <div class="item-number">${room.displayNumber}</div>
+                        <div class="item-type">${room.roomName}</div>
+                    </a>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🍽️ Restaurant Tables</h2>
+        <div class="grid">
+            ${restaurantTables.map(table => `
+                <div class="item">
+                    <a href="restaurant/restaurant-table-${table.displayNumber}.html" target="_blank">
+                        <div class="item-number">${table.displayNumber}</div>
+                        <div class="item-type">${table.tableName}</div>
+                    </a>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🌿 Garden Tables</h2>
+        <div class="grid">
+            ${gardenTables.map(table => `
+                <div class="item">
+                    <a href="garden/garden-table-${table.displayNumber}.html" target="_blank">
+                        <div class="item-number">${table.displayNumber}</div>
+                        <div class="item-type">${table.tableName}</div>
+                    </a>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 Instructions</h2>
+        <ol>
+            <li>Click on any room/table number above to open its QR code page</li>
+            <li>Each page shows both SVG (with numbers) and PNG (plain) download options</li>
+            <li><strong>Recommended:</strong> Download the SVG files for best printing quality</li>
+            <li>Use your browser's print function (Ctrl+P or Cmd+P) to print</li>
+            <li>Cut out the QR codes and place them in the corresponding locations</li>
+            <li>QR codes link to: <code>https://menu.theplazahoteledirne.com</code></li>
+            <li>Each QR code contains a unique token for access control</li>
+        </ol>
+    </div>
+</body>
+</html>`;
+
+    fs.writeFileSync(path.join(outputDir, 'summary.html'), summaryHTML, 'utf8');
+    console.log('  ✅ Summary: summary.html');
+
+    console.log('\n🎉 QR code generation complete!');
+    console.log(`📂 Output directory: ${outputDir}`);
+    console.log(`📊 Generated ${allItems.length} QR codes total:`);
+    console.log(`   - ${rooms.length} hotel rooms`);
+    console.log(`   - ${restaurantTables.length} restaurant tables`);
+    console.log(`   - ${gardenTables.length} garden tables`);
+    console.log('\n📋 Next steps:');
+    console.log('1. Open summary.html to see all generated QR codes');
+    console.log('2. Click on each room/table to open its QR code');
+    console.log('3. Print each QR code page from your browser');
+    console.log('4. Place QR codes in their respective locations');
+
+  } catch (error) {
+    console.error('❌ Error generating QR codes:', error);
+    process.exit(1);
+  }
 }
 
-// Generate all formats
-const formats = [
-  { name: 'CSV', extension: 'csv', generator: generateCSV },
-  { name: 'HTML', extension: 'html', generator: generateHTML },
-  { name: 'Text', extension: 'txt', generator: generateTextList },
-  { name: 'JSON', extension: 'json', generator: generateJSON }
-];
-
-console.log('\n📁 Generating files...');
-formats.forEach(format => {
-  const filename = `room-qr-codes.${format.extension}`;
-  const filepath = path.join(outputDir, filename);
-  const content = format.generator(rooms);
-  
-  fs.writeFileSync(filepath, content, 'utf8');
-  console.log(`  ✅ ${format.name}: ${filename}`);
-});
-
-// Generate individual room files for easy access
-const individualDir = path.join(outputDir, 'individual-rooms');
-if (!fs.existsSync(individualDir)) {
-  fs.mkdirSync(individualDir, { recursive: true });
-}
-
-console.log('\n📄 Generating individual room files...');
-rooms.forEach(room => {
-  const content = `Room: ${room.roomName}
-Token: ${room.token}
-QR Code URL: ${room.qrCodeURL}
-
-Instructions:
-1. Copy the URL above
-2. Go to https://qr-code-generator.com
-3. Paste the URL and generate QR code
-4. Download and print the QR code
-5. Place it in ${room.roomName}
-`;
-  
-  const filename = `room-${room.roomNumber}.txt`;
-  const filepath = path.join(individualDir, filename);
-  fs.writeFileSync(filepath, content, 'utf8');
-});
-
-console.log(`  ✅ Created ${rooms.length} individual room files`);
-
-console.log('\n🎉 QR code generation complete!');
-console.log(`📂 Output directory: ${outputDir}`);
-console.log('\n📋 Next steps:');
-console.log('1. Open room-qr-codes.html in your browser to view all QR codes');
-console.log('2. Use the CSV file to import into spreadsheet applications');
-console.log('3. Check individual-rooms/ folder for per-room instructions');
-console.log('4. Use a QR code generator to create actual QR code images');
-console.log('\n🔗 Recommended QR code generators:');
-console.log('- https://qr-code-generator.com (free, high quality)');
-console.log('- https://www.qr-code-generator.org (bulk generation)');
-console.log('- https://qr.io (API for automation)'); 
+// Run the main function
+main(); 

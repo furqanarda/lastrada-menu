@@ -41,12 +41,48 @@ export default function Home() {
           <LanguageSelector />
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 1 }}
-            className="text-gray-400 text-sm mt-16 flex items-center justify-center"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+            className="mt-20 relative"
           >
-            Made with <Heart className="h-4 w-4 mx-1 text-red-500 animate-pulse" /> by Furkan ARDA
+            {/* Decorative line */}
+            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent"></div>
+            
+            {/* Main footer content */}
+            <div className="relative backdrop-blur-sm bg-gradient-to-r from-slate-800/20 via-slate-700/30 to-slate-800/20 rounded-2xl border border-slate-600/30 p-6 shadow-2xl">
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5 rounded-2xl blur-xl"></div>
+              
+              <div className="relative flex items-center justify-center gap-2 text-sm">
+                <span className="text-gray-300 font-light tracking-wide">Crafted with</span>
+                <div className="relative">
+                  <Heart className="h-4 w-4 text-red-400 animate-pulse drop-shadow-sm" />
+                  <div className="absolute inset-0 h-4 w-4 text-red-400/30 animate-ping"></div>
+                </div>
+                <span className="text-gray-300 font-light tracking-wide">by</span>
+                
+                <a
+                  href="https://compassintelligence.co.uk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative inline-flex items-center ml-1 group cursor-pointer"
+                >
+                  <div className="relative transform group-hover:scale-105 transition-all duration-300 ease-out">
+                    <Image
+                      src="/images/logos/compass_logo.png"
+                      alt="Compass Intelligence"
+                      width={95}
+                      height={20}
+                      className="object-contain brightness-90 contrast-110 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-300 drop-shadow-sm"
+                      style={{
+                        filter: 'grayscale(0.2) opacity(0.95)'
+                      }}
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
       </motion.div>

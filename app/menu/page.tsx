@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { AccessGuard } from "@/components/access-guard"
 import { useLanguage } from "@/contexts/language-context"
+import { useAccess } from "@/contexts/access-context"
 import { categories } from "@/data/menu"
 import {
   burgers,
@@ -31,6 +32,7 @@ import Image from "next/image"
 
 export default function MenuPage() {
   const { t } = useLanguage()
+  const { isViewOnlyMode } = useAccess()
   const [activeCategory, setActiveCategory] = useState("all")
   const [filteredItems, setFilteredItems] = useState<MenuItem[]>([])
   const [searchQuery, setSearchQuery] = useState("")
@@ -178,7 +180,7 @@ export default function MenuPage() {
   }
 
   return (
-    <AccessGuard requireValidToken={true} requireOpenHours={true}>
+    <AccessGuard requireValidToken={!isViewOnlyMode} requireOpenHours={!isViewOnlyMode}>
     <div className="flex flex-col min-h-screen bg-[#0f172a]">
       <MenuHeader onSearch={handleSearch} />
 

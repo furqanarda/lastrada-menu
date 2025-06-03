@@ -80,6 +80,7 @@ export default function CheckoutPage() {
         orderNumber: number, // Use generated number
         orderTime: time.toISOString(), // Use generated time
         locationInfo,
+        roomOrTableNumber: locationInfo, // For backward compatibility with print service
         items: items.map(cartItem => ({
           id: cartItem.item.id,
           nameKey: cartItem.item.nameKey,

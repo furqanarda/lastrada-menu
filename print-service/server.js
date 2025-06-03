@@ -76,7 +76,7 @@ app.use((req, res, next) => {
   next();
 });
 
-async function printReceipt(printerIp, printerPort, orderData) {
+async function printReceipt(printerIp, printerPort, orderData, locationInfo) {
   let printer = new ThermalPrinter({
     type: PrinterTypes.EPSON, // Assuming Palmx POS-80-IV is Epson compatible
     interface: `tcp://${printerIp}:${printerPort}`,
@@ -97,7 +97,7 @@ async function printReceipt(printerIp, printerPort, orderData) {
     printer.bold(false);
     printer.newLine();
     printer.println(latinizeText(`Siparis No: ${orderData.orderNumber}`));
-    printer.println(latinizeText(`Oda/Masa: ${orderData.roomOrTableNumber}`));
+    printer.println(latinizeText(`Oda/Masa: ${locationInfo}`));
     printer.println(latinizeText(`Tarih: ${new Date(orderData.orderTime).toLocaleString('tr-TR')}`)); // Date formatting might still have Turkish month names if not handled by latinize
     printer.drawLine();
 
@@ -155,7 +155,10 @@ app.post('/print', authenticateToken, async (req, res) => {
   console.log('Received authenticated print request:', JSON.stringify(req.body, null, 2));
   const orderData = req.body;
 
-  if (!orderData.orderNumber || !orderData.items || !orderData.roomOrTableNumber) {
+  // Support both old and new location field names for compatibility
+  const locationInfo = orderData.locationInfo || orderData.roomOrTableNumber;
+
+  if (!orderData.orderNumber || !orderData.items || !locationInfo) {
     console.error('Missing order data in print request');
     return res.status(400).json({ message: 'Bad Request: Missing order data.' });
   }
@@ -176,7 +179,7 @@ app.post('/print', authenticateToken, async (req, res) => {
 
   for (const ip of printerIPs) {
     console.log(`Attempting to print to ${ip}:${PRINTER_PORT}`);
-    const success = await printReceipt(ip, PRINTER_PORT, orderData);
+    const success = await printReceipt(ip, PRINTER_PORT, orderData, locationInfo);
     printResults.push({ printer: ip, success });
     if (!success) {
       allPrintsSuccessful = false;

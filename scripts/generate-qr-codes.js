@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const QRCode = require('qrcode');
+const { createCanvas, loadImage } = require('canvas');
 
 // Read tokens from the JSON file
 const tokensPath = path.join(__dirname, '../data/tokens.json');
@@ -138,11 +139,11 @@ async function generateQRCodeWithNumber(url, displayNumber) {
 }
 
 /**
- * Generate QR code as PNG file (plain, no numbers)
+ * Generate QR code as PNG file with number overlay
  */
 async function generateQRCodePNG(url, displayNumber, outputPath) {
   try {
-    // Generate QR code as PNG buffer
+    // Generate QR code as PNG buffer first
     const qrBuffer = await QRCode.toBuffer(url, {
       type: 'png',
       width: 400,
@@ -154,8 +155,51 @@ async function generateQRCodePNG(url, displayNumber, outputPath) {
       errorCorrectionLevel: 'M'
     });
 
-    // Save the PNG file
-    fs.writeFileSync(outputPath, qrBuffer);
+    // Load the QR code image into Canvas
+    const qrImage = await loadImage(qrBuffer);
+    
+    // Create a canvas with the same dimensions
+    const canvas = createCanvas(qrImage.width, qrImage.height);
+    const ctx = canvas.getContext('2d');
+    
+    // Draw the QR code
+    ctx.drawImage(qrImage, 0, 0);
+    
+    // Calculate center position
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    
+    // Calculate circle radius based on QR code size (similar to SVG version)
+    const qrWidth = canvas.width;
+    const circleRadius = Math.max(15, qrWidth * 0.12); // Convert to pixels for canvas
+    
+    // Draw white circle background
+    ctx.fillStyle = 'white';
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, circleRadius, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+    
+    // Configure text properties
+    const baseFontSize = circleRadius * 0.65;
+    const fontSize = displayNumber.length <= 2 ? baseFontSize : 
+                     displayNumber.length <= 3 ? baseFontSize * 0.75 : 
+                     baseFontSize * 0.55;
+    
+    ctx.fillStyle = 'black';
+    ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    // Draw the number text
+    ctx.fillText(displayNumber, centerX, centerY);
+    
+    // Save the final image
+    const finalBuffer = canvas.toBuffer('image/png');
+    fs.writeFileSync(outputPath, finalBuffer);
+    
     return true;
   } catch (error) {
     console.error(`Error generating QR code PNG for ${displayNumber}:`, error);
@@ -297,7 +341,7 @@ function generateInstructionHTML(item, type, svgFileName, pngFileName) {
             <h4>📁 File Organization</h4>
             <div class="folder-tree">
 ├── svg/    📊 SVG files (with numbers in center)
-├── png/    🖼️ PNG files (plain QR codes)
+├── png/    🖼️ PNG files (with numbers in center)
 └── HTML files (this page)
             </div>
         </div>
@@ -308,21 +352,22 @@ function generateInstructionHTML(item, type, svgFileName, pngFileName) {
                 📊 Download SVG (with number ${item.displayNumber})
             </a>
             <a href="${pngFileName}" download="${pngFileName.split('/')[1]}" class="download-btn">
-                🖼️ Download PNG (plain)
+                🖼️ Download PNG (with number ${item.displayNumber})
             </a>
-            <p><strong>Recommended:</strong> Use the SVG file for best printing quality with the number in center.</p>
+            <p><strong>Both versions</strong> include the number "${item.displayNumber}" in the center!</p>
         </div>
         
         <div class="instructions">
             <h3>📋 Instructions:</h3>
             <ol>
-                <li><strong>Download SVG</strong> (recommended) - includes "${item.displayNumber}" in center</li>
-                <li><strong>Print the SVG file</strong> directly from your browser</li>
-                <li><strong>Alternative:</strong> Download PNG and manually add "${item.displayNumber}" when printing</li>
+                <li><strong>Download your preferred format</strong> - both include "${item.displayNumber}" in center</li>
+                <li><strong>SVG:</strong> Best for vector graphics and scaling</li>
+                <li><strong>PNG:</strong> Standard image format, works with all printers</li>
+                <li><strong>Print the file</strong> directly from your browser or image viewer</li>
                 <li><strong>Cut out</strong> the QR code</li>
                 <li><strong>Place</strong> in ${item.displayName || item.roomName || item.tableName}</li>
             </ol>
-            <p><strong>Note:</strong> SVG files print at higher quality and include the room/table number automatically!</p>
+            <p><strong>Note:</strong> Both SVG and PNG files now include the room/table number automatically!</p>
         </div>
         
         <div class="url">

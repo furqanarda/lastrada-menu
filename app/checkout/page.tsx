@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { AccessGuard } from "@/components/access-guard"
 import { formatPrice, generateOrderNumber, formatDate } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { ArrowLeft, Check, Loader2 } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
@@ -25,7 +26,7 @@ const printerNameMapping: { [key: string]: string } = {
 
 export default function CheckoutPage() {
   const { items, subtotal, locationInfo, clearCart } = useCart()
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const router = useRouter()
   const [orderNumber, setOrderNumber] = useState("")
   const [orderTime, setOrderTime] = useState<Date>(new Date())
@@ -34,6 +35,7 @@ export default function CheckoutPage() {
   const [printJobDetails, setPrintJobDetails] = useState<PrintResult[]>([])
   const [orderProcessingError, setOrderProcessingError] = useState<string | null>(null)
   const [confirmedOrderTotal, setConfirmedOrderTotal] = useState<number>(0)
+  const [customerEmail, setCustomerEmail] = useState("")
 
   const tax = 0 // Prices include tax
   const total = subtotal // subtotal from cart is now the final total
@@ -81,6 +83,8 @@ export default function CheckoutPage() {
         orderTime: time.toISOString(), // Use generated time
         locationInfo,
         roomOrTableNumber: locationInfo, // For backward compatibility with print service
+        customerEmail: customerEmail.trim() || null, // Include customer email if provided
+        customerLanguage: language, // Include customer's language preference
         items: items.map(cartItem => ({
           id: cartItem.item.id,
           nameKey: cartItem.item.nameKey,
@@ -243,7 +247,22 @@ export default function CheckoutPage() {
             <h2 className="font-medium mb-2">
               {t("app.roomNumber")} / {t("app.tableNumber")}
             </h2>
-                          <p className="text-lg">{locationInfo}</p>
+            <p className="text-lg">{locationInfo}</p>
+          </div>
+
+          <div className="bg-secondary/30 rounded-lg p-4">
+            <label htmlFor="customer-email" className="text-sm font-medium mb-2 block text-gray-300">
+              {t("app.customerEmail")} ({t("app.optional")})
+            </label>
+            <Input
+              id="customer-email"
+              type="email"
+              placeholder={t("app.customerEmailPlaceholder")}
+              value={customerEmail}
+              onChange={(e) => setCustomerEmail(e.target.value)}
+              className="bg-background border-border text-white"
+            />
+            <p className="text-xs text-gray-400 mt-2">{t("app.emailNotification")}</p>
           </div>
 
           <div className="space-y-4">

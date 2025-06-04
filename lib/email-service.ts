@@ -1,94 +1,19 @@
-require('dotenv').config();
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const { ThermalPrinter, PrinterTypes, CharacterSet } = require('node-thermal-printer');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
+import nodemailer from 'nodemailer';
+import { formatPrice, formatDate } from './utils';
 
 // Import shared translation system
-const { getTranslations, t: translateKey } = require('../lib/translations');
+const { getTranslations, t: translateKey } = require('./translations');
+
+// Language type and translation data
+type Language = "en" | "tr" | "el" | "bg";
 
 // Load translations from the existing files
 const translations = getTranslations();
 
 // Translation function
-const t = (key, language) => {
+const t = (key: string, language: Language): string => {
   return translateKey(key, language, translations);
 };
-
-const app = express();
-const port = 3001;
-const PRINTER_PORT = 9100;
-
-// THIS SHOULD BE IN AN ENVIRONMENT VARIABLE IN PRODUCTION!
-const EXPECTED_AUTH_TOKEN = "LA_STRADA_PRINT_SUPER_SECRET_TOKEN_123!";
-
-// Function to convert Turkish characters to Latin equivalents
-const latinizeText = (text) => {
-  if (typeof text !== 'string') return text;
-  return text
-    .replace(/ö/g, 'o')
-    .replace(/ü/g, 'u')
-    .replace(/ç/g, 'c')
-    .replace(/ğ/g, 'g')
-    .replace(/ş/g, 's')
-    .replace(/ı/g, 'i')
-    .replace(/Ö/g, 'O')
-    .replace(/Ü/g, 'U')
-    .replace(/Ç/g, 'C')
-    .replace(/Ğ/g, 'G')
-    .replace(/Ş/g, 'S')
-    .replace(/İ/g, 'I'); // Note: Turkish 'İ' (dotted capital I) becomes Latin 'I'
-};
-
-// Load Turkish translations
-let translationsTR = {};
-try {
-  const trPath = path.join(__dirname, '..', 'locales', 'tr.json');
-  const trFileContent = fs.readFileSync(trPath, 'utf-8');
-  translationsTR = JSON.parse(trFileContent);
-  console.log('Turkish translations loaded successfully.');
-} catch (error) {
-  console.error('Error loading Turkish translations:', error);
-  // Service can still run, but printing will use nameKeys directly
-}
-
-const getTurkishTranslation = (nameKey) => {
-  const translatedText = translationsTR[nameKey] || nameKey.split('.').pop().replace(/-/g, ' '); // Fallback
-  return latinizeText(translatedText);
-};
-
-// Middleware to parse JSON bodies
-app.use(express.json());
-
-// Authentication middleware
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
-
-  if (token == null) {
-    console.warn('Auth Error: No token provided');
-    return res.status(401).json({ message: 'Unauthorized: No token provided' });
-  }
-
-  if (token !== EXPECTED_AUTH_TOKEN) {
-    console.warn('Auth Error: Invalid token');
-    return res.status(403).json({ message: 'Forbidden: Invalid token' });
-  }
-  next(); // Token is valid
-};
-
-// TODO: Implement a more robust CORS policy for production
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Allow all origins for now
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-  next();
-});
 
 // Email configuration for Google SMTP
 const createTransporter = () => {
@@ -105,18 +30,28 @@ const createTransporter = () => {
 const HOTEL_EMAIL = 'info@theplazahoteledirne.com';
 const HOTEL_NAME = 'La Strada Restaurant - The Plaza Hotel Edirne';
 
-// Function to format price for emails
-const formatPrice = (price) => {
-  return price.toFixed(2) + ' TL';
-};
+interface OrderItem {
+  id: string;
+  nameKey: string;
+  quantity: number;
+  price: number;
+  notes?: string;
+}
 
-// Function to format date for emails
-const formatDate = (date) => {
-  return new Date(date).toLocaleString('tr-TR');
-};
+interface OrderData {
+  orderNumber: string;
+  orderTime: string;
+  locationInfo: string;
+  customerEmail?: string;
+  customerLanguage?: Language; // Add customer language preference
+  items: OrderItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+}
 
 // Function to get item name from nameKey for a specific language
-const getItemDisplayName = (nameKey, language) => {
+const getItemDisplayName = (nameKey: string, language: Language): string => {
   // Try to get translated name from the translation data
   const translatedName = translations[language]?.[nameKey];
   if (translatedName) {
@@ -128,7 +63,7 @@ const getItemDisplayName = (nameKey, language) => {
 };
 
 // Generate hotel notification email HTML (Always in Turkish)
-const generateHotelEmailHTML = (orderData) => {
+const generateHotelEmailHTML = (orderData: OrderData): string => {
   const language = 'tr'; // Always Turkish for hotel
   
   const itemsHTML = orderData.items
@@ -166,7 +101,7 @@ const generateHotelEmailHTML = (orderData) => {
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold;">${t('email.orderTime', language)}:</td>
-            <td style="padding: 8px 0;">${formatDate(orderData.orderTime)}</td>
+            <td style="padding: 8px 0;">${formatDate(new Date(orderData.orderTime))}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold;">${t('email.location', language)}:</td>
@@ -219,7 +154,7 @@ const generateHotelEmailHTML = (orderData) => {
 };
 
 // Generate customer confirmation email HTML (In customer's preferred language)
-const generateCustomerEmailHTML = (orderData) => {
+const generateCustomerEmailHTML = (orderData: OrderData): string => {
   const language = orderData.customerLanguage || 'en'; // Default to English if not specified
   
   const itemsHTML = orderData.items
@@ -257,7 +192,7 @@ const generateCustomerEmailHTML = (orderData) => {
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold;">${t('email.orderTime', language)}:</td>
-            <td style="padding: 8px 0;">${formatDate(orderData.orderTime)}</td>
+            <td style="padding: 8px 0;">${formatDate(new Date(orderData.orderTime))}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; font-weight: bold;">${t('email.deliveryLocation', language)}:</td>
@@ -305,8 +240,8 @@ const generateCustomerEmailHTML = (orderData) => {
   `;
 };
 
-// Function to send order notification emails
-const sendOrderNotificationEmails = async (orderData) => {
+// Main function to send order notification emails
+export const sendOrderNotificationEmails = async (orderData: OrderData): Promise<{success: boolean, error?: string}> => {
   try {
     const transporter = createTransporter();
 
@@ -341,156 +276,7 @@ const sendOrderNotificationEmails = async (orderData) => {
     console.error('Error sending order notification emails:', error);
     return { 
       success: false, 
-      error: error.message || 'Unknown email error' 
+      error: error instanceof Error ? error.message : 'Unknown email error' 
     };
   }
-};
-
-async function printReceipt(printerIp, printerPort, orderData, locationInfo) {
-  let printer = new ThermalPrinter({
-    type: PrinterTypes.EPSON, // Assuming Palmx POS-80-IV is Epson compatible
-    interface: `tcp://${printerIp}:${printerPort}`,
-    characterSet: CharacterSet.PC850_MULTILINGUAL_LATIN1, // Changed character set
-    removeSpecialCharacters: false,
-    lineCharacter: '-',
-    options:{
-      timeout: 5000 // Keep a timeout for the execute attempt itself
-    }
-  });
-
-  try {
-    console.log(`Attempting to print to ${printerIp}:${printerPort} (connection via execute)`);
-
-    printer.alignCenter();
-    printer.bold(true);
-    printer.println(latinizeText("LA STRADA RESTAURANT"));
-    printer.bold(false);
-    printer.newLine();
-    printer.println(latinizeText(`Siparis No: ${orderData.orderNumber}`));
-    printer.println(latinizeText(`Oda/Masa: ${locationInfo}`));
-    printer.println(latinizeText(`Tarih: ${new Date(orderData.orderTime).toLocaleString('tr-TR')}`)); // Date formatting might still have Turkish month names if not handled by latinize
-    printer.drawLine();
-
-    orderData.items.forEach(item => {
-      const itemNameInLatin = getTurkishTranslation(item.nameKey); // Already latinized by getTurkishTranslation
-      printer.leftRight(`${item.quantity}x ${itemNameInLatin}`, item.price.toFixed(2));
-      if (item.notes) {
-        printer.println(latinizeText(`  Not: ${item.notes}`));
-      }
-    });
-    printer.drawLine();
-
-    printer.alignRight();
-    // Ara Toplam and Vergi are not displayed as per previous user request, but if they were, they'd need latinizeText()
-    // printer.println(latinizeText(`Ara Toplam: ${orderData.subtotal.toFixed(2)}`));
-    // printer.println(latinizeText(`Vergi (%8): ${orderData.tax.toFixed(2)}`));
-    printer.bold(true);
-    printer.println(latinizeText(`TOPLAM: ${orderData.total.toFixed(2)} TL`));
-    printer.bold(false);
-    printer.newLine();
-    printer.alignCenter();
-    printer.println(latinizeText("Tesekkur Ederiz!"));
-    
-    // Single long beep (approximately 3 seconds)
-    // Method 1: Built-in beep method
-    printer.beep();
-    
-    // Method 2: Single long beep with maximum duration
-    // ESC (27) + B (66) + number_of_beeps (1) + beep_duration (9 - maximum for longest single beep)
-    const longBeepCommand = Buffer.from([27, 66, 1, 9]);
-    const currentBuffer = printer.getBuffer();
-    const newBuffer = Buffer.concat([currentBuffer, longBeepCommand]);
-    printer.setBuffer(newBuffer);
-    
-    // Method 3: Additional long beep commands to extend duration to ~3 seconds
-    // Some printers have limited single beep duration, so we chain single long beeps
-    const extendedBeep1 = Buffer.from([27, 66, 1, 9]);
-    const extendedBeep2 = Buffer.from([27, 66, 1, 9]);
-    const finalBuffer = Buffer.concat([newBuffer, extendedBeep1, extendedBeep2]);
-    printer.setBuffer(finalBuffer);
-    
-    printer.newLine();
-    printer.cut();
-
-    await printer.execute();
-    console.log(`Print job for order ${orderData.orderNumber} sent to ${printerIp}:${printerPort}`);
-    return true; // Indicate success for this printer
-  } catch (error) {
-    console.error(`Failed to print to ${printerIp}:${printerPort}:`, error);
-    return false; // Indicate failure for this printer
-  }
-}
-
-app.post('/print', authenticateToken, async (req, res) => {
-  console.log('Received authenticated print request:', JSON.stringify(req.body, null, 2));
-  const orderData = req.body;
-
-  // Support both old and new location field names for compatibility
-  const locationInfo = orderData.locationInfo || orderData.roomOrTableNumber;
-
-  if (!orderData.orderNumber || !orderData.items || !locationInfo) {
-    console.error('Missing order data in print request');
-    return res.status(400).json({ message: 'Bad Request: Missing order data.' });
-  }
-
-  // TODO: Token validation logic
-
-  const printerIPs = [
-    '192.168.1.50', // Bar
-    '192.168.1.51', // Kitchen
-    '192.168.1.52'  // Reception
-  ];
-
-  let allPrintsSuccessful = true;
-  let printResults = [];
-
-  // Helper function for a delay
-  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-  for (const ip of printerIPs) {
-    console.log(`Attempting to print to ${ip}:${PRINTER_PORT}`);
-    const success = await printReceipt(ip, PRINTER_PORT, orderData, locationInfo);
-    printResults.push({ printer: ip, success });
-    if (!success) {
-      allPrintsSuccessful = false;
-    }
-    if (printerIPs.indexOf(ip) < printerIPs.length - 1) { // Don't delay after the last printer
-      console.log(`Delaying for 3 seconds before next print attempt...`);
-      await delay(3000); // 3-second delay
-    }
-  }
-
-  // Send email notifications (always send regardless of print success/failure)
-  console.log('Sending email notifications for order:', orderData.orderNumber);
-  try {
-    const emailResult = await sendOrderNotificationEmails(orderData);
-    if (emailResult.success) {
-      console.log('Email notifications sent successfully');
-    } else {
-      console.error('Failed to send email notifications:', emailResult.error);
-    }
-  } catch (emailError) {
-    console.error('Error sending email notifications:', emailError);
-  }
-
-  if (allPrintsSuccessful) {
-    res.status(200).json({ message: 'Print requests processed.', orderNumber: orderData.orderNumber, results: printResults });
-  } else {
-    // Even if some prints fail, we might still return 200 to the client, 
-    // as the order itself is processed. The error is logged on the server.
-    // Alternatively, return a 500 or a more specific error if critical.
-    res.status(207).json({ 
-        message: 'Some print requests failed. Check server logs.', 
-        orderNumber: orderData.orderNumber, 
-        results: printResults 
-    });
-  }
-});
-
-app.get('/', (req, res) => {
-  res.send('Print Service is running. Use POST /print to send an order.');
-});
-
-app.listen(port, () => {
-  console.log(`Print service listening at http://localhost:${port}`);
-}); 
+}; 

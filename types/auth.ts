@@ -7,6 +7,27 @@ export interface TokenData {
   name: string
 }
 
+// Session-related interfaces
+export interface SessionData {
+  sessionToken: string
+  permanentToken: string // The original QR token
+  locationData: TokenData
+  createdAt: number // Unix timestamp
+  expiresAt: number // Unix timestamp
+}
+
+export interface SessionContext {
+  sessionToken: string | null
+  sessionData: SessionData | null
+  isValidSession: boolean
+  isSessionExpired: boolean
+  hasSessionExpiredMessage: boolean
+  createSession: (permanentToken: string) => Promise<boolean>
+  validateSession: () => boolean
+  clearSession: () => void
+  dismissExpiredMessage: () => void
+}
+
 export interface TokenContext {
   token: string | null
   locationData: TokenData | null

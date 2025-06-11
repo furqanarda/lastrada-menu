@@ -6,7 +6,10 @@ import { LanguageProvider } from "@/contexts/language-context"
 import { CartProvider } from "@/contexts/cart-context"
 import { StockProvider } from "@/contexts/stock-context"
 import { AccessProvider } from "@/contexts/access-context"
+import { SessionProvider } from "@/contexts/session-context"
 import { ThemeProvider } from "@/components/theme-provider"
+import SessionGuardWrapper from "@/components/session-guard-wrapper"
+import SessionDebug from "@/components/session-debug"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -47,13 +50,18 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <LanguageProvider>
-            <AccessProvider>
-            <CartProvider>
-              <StockProvider>
-                <main className="min-h-screen bg-[#0f172a]">{children}</main>
-              </StockProvider>
-            </CartProvider>
-            </AccessProvider>
+            <SessionProvider>
+              <SessionGuardWrapper>
+                <AccessProvider>
+                  <CartProvider>
+                    <StockProvider>
+                      <main className="min-h-screen bg-[#0f172a]">{children}</main>
+                      <SessionDebug />
+                    </StockProvider>
+                  </CartProvider>
+                </AccessProvider>
+              </SessionGuardWrapper>
+            </SessionProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

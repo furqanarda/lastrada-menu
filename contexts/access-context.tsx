@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import type { TokenContext, TokenData } from "@/types/auth"
-import { validateToken, getRestaurantHours } from "@/lib/auth"
+import { validateToken, getRestaurantHours, validateSession } from "@/lib/auth"
 
 // Create context with default values
 const AccessContext = createContext<TokenContext>({
@@ -95,29 +95,29 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
     const checkToken = async () => {
       setIsLoading(true)
       
-      // First check URL parameter
-      const urlToken = searchParams.get("token")
-      if (urlToken) {
-        await validateTokenAsync(urlToken)
+      // Check if we have a valid session
+      const sessionData = validateSession()
+      if (sessionData) {
+        // Use the location data from the session
+        setToken(sessionData.permanentToken)
+        setLocationData(sessionData.locationData)
+        setIsValidToken(true)
+        setIsViewOnlyMode(false)
       } else {
-        // Fallback to localStorage
-        if (typeof window !== 'undefined') {
-          const storedToken = localStorage.getItem("accessToken")
-          if (storedToken) {
-            await validateTokenAsync(storedToken)
-          } else {
-            // No token found, check if we should enable view-only mode
-            const viewOnly = checkViewOnlyMode()
-            setIsViewOnlyMode(viewOnly)
-          }
-        }
+        // No valid session, check for view-only mode
+        const viewOnly = checkViewOnlyMode()
+        setIsViewOnlyMode(viewOnly)
       }
       
       setIsLoading(false)
     }
 
     checkToken()
-  }, [searchParams])
+    
+    // Listen for session changes by checking periodically
+    const interval = setInterval(checkToken, 5000) // Check every 5 seconds
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <AccessContext.Provider

@@ -131,16 +131,16 @@ export const AccessGuard: React.FC<AccessGuardProps> = ({
           <div className="bg-secondary/30 rounded-lg p-6">
             <div className="space-y-3 text-left">
               <p className="text-gray-300 text-sm">
-                🇹🇷 Restoranımız şu anda kapalı. Servis saatleri: {restaurantHours.openTime} - {restaurantHours.closeTime}
+                🇹🇷 Restoranımız şu anda kapalı. Kahvaltı: 07:00-12:00, Ana menü: 12:00-00:00
               </p>
               <p className="text-gray-300 text-sm">
-                🇺🇸 Our restaurant is currently closed. Service hours: {restaurantHours.openTime} - {restaurantHours.closeTime}
+                🇺🇸 Our restaurant is currently closed. Breakfast: 07:00AM-12:00PM, Main menu: 12:00PM-12:00AM
               </p>
               <p className="text-gray-300 text-sm">
-                🇧🇬 Нашият ресторант в момента е затворен. Работно време: {restaurantHours.openTime} - {restaurantHours.closeTime}
+                🇧🇬 Нашият ресторант в момента е затворен. Закуска: 07:00-12:00, Основно меню: 12:00-00:00
               </p>
               <p className="text-gray-300 text-sm">
-                🇬🇷 Το εστιατόριό μας είναι κλειστό αυτή τη στιγμή. Ώρες λειτουργίας: {restaurantHours.openTime} - {restaurantHours.closeTime}
+                🇬🇷 Το εστιατόριό μας είναι κλειστό αυτή τη στιγμή. Πρωινό: 07:00-12:00, Κυρίως μενού: 12:00-00:00
               </p>
             </div>
           </div>

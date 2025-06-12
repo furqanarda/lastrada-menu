@@ -16,16 +16,16 @@ export function RestaurantClosed() {
       
       <div className="space-y-4 text-center">
         <p className="text-yellow-400 font-medium">
-          🇹🇷 Mutfak şu anda kapalıdır. Sipariş saatleri her gün 12:00 - 00:00 arasıdır.
+          🇹🇷 Mutfak şu anda kapalıdır. Kahvaltı: 07:00-12:00, Ana menü: 12:00-00:00
         </p>
         <p className="text-yellow-400 font-medium">
-          🇺🇸 The kitchen is currently closed. Orders can be made between 12:00 PM and 12:00 AM.
+          🇺🇸 The kitchen is currently closed. Breakfast: 07:00AM-12:00PM, Main menu: 12:00PM-12:00AM
         </p>
         <p className="text-yellow-400 font-medium">
-          🇧🇬 Кухнята в момента е затворена. Поръчките се приемат всеки ден между 12:00 и 00:00.
+          🇧🇬 Кухнята в момента е затворена. Закуска: 07:00-12:00, Основно меню: 12:00-00:00
         </p>
         <p className="text-yellow-400 font-medium">
-          🇬🇷 Η κουζίνα είναι προσωρινά κλειστή. Οι παραγγελίες γίνονται καθημερινά 12:00 - 00:00.
+          🇬🇷 Η κουζίνα είναι προσωρινά κλειστή. Πρωινό: 07:00-12:00, Κυρίως μενού: 12:00-00:00
         </p>
       </div>
     </motion.div>

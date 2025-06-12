@@ -40,6 +40,17 @@ export interface TokenContext {
 
 export interface RestaurantHours {
   isOpen: boolean
-  openTime: string // "12:00"
+  openTime: string // "07:00"
   closeTime: string // "00:00"
+}
+
+export interface DetailedRestaurantStatus {
+  isBreakfastTime: boolean
+  isRegularTime: boolean
+  isClosed: boolean
+  isBreakfastAvailable: boolean
+  isRegularMenuAvailable: boolean
+  currentTimeInMinutes: number
+  breakfastHours: string
+  regularHours: string
 } 

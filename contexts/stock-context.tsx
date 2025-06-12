@@ -12,6 +12,7 @@ const StockContext = createContext<StockContextType | undefined>(undefined)
 
 export function StockProvider({ children }: { children: ReactNode }) {
   const [stockStatus, setStockStatus] = useState<Record<string, boolean>>({})
+  const [isLoaded, setIsLoaded] = useState(false)
 
   // Load stock status from localStorage on mount
   useEffect(() => {
@@ -23,18 +24,24 @@ export function StockProvider({ children }: { children: ReactNode }) {
         console.error("Error loading stock status:", error)
       }
     }
+    setIsLoaded(true)
   }, [])
 
-  // Save stock status to localStorage whenever it changes
+  // Save stock status to localStorage whenever it changes (but only after initial load)
   useEffect(() => {
-    localStorage.setItem("laStradaStock", JSON.stringify(stockStatus))
-  }, [stockStatus])
+    if (isLoaded) {
+      localStorage.setItem("laStradaStock", JSON.stringify(stockStatus))
+    }
+  }, [stockStatus, isLoaded])
 
   const toggleItemAvailability = (itemId: string) => {
-    setStockStatus(prev => ({
-      ...prev,
-      [itemId]: !prev[itemId]
-    }))
+    setStockStatus(prev => {
+      const currentValue = prev[itemId] !== false // Default to true if not set
+      return {
+        ...prev,
+        [itemId]: !currentValue
+      }
+    })
   }
 
   const isItemAvailable = (itemId: string) => {

@@ -5,6 +5,7 @@ import { AccessGuard } from "@/components/access-guard"
 import { useLanguage } from "@/contexts/language-context"
 import { useAccess } from "@/contexts/access-context"
 import { categories } from "@/data/menu"
+import { isCategoryAvailable, getDetailedRestaurantStatus } from "@/lib/auth"
 import {
   burgers,
   desserts,
@@ -25,7 +26,7 @@ import { MenuHeader } from "@/components/menu-header"
 import { CategoryTabs } from "@/components/category-tabs"
 import { EnhancedMenuItemCard } from "@/components/enhanced-menu-item-card"
 import { motion } from "framer-motion"
-import { UtensilsCrossed, Beer, Wine, Coffee, GlassWater, Citrus, Search } from 'lucide-react'
+import { UtensilsCrossed, Beer, Wine, Coffee, GlassWater, Citrus, Search, Clock, AlertTriangle } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import Image from "next/image"
@@ -41,6 +42,28 @@ export default function MenuPage() {
   const [activeDrinkTab, setActiveDrinkTab] = useState<DrinkCategory>("coffee")
   const [activeWineTab, setActiveWineTab] = useState<WineCategory>("white")
   const [activeWineBrand, setActiveWineBrand] = useState<string | null>(null)
+  const [restaurantStatus, setRestaurantStatus] = useState(getDetailedRestaurantStatus())
+
+  // Update restaurant status every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRestaurantStatus(getDetailedRestaurantStatus())
+    }, 60000) // Check every minute
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Filter items based on category time availability (stock availability handled by visual styling)
+  const isItemAvailable = (item: MenuItem) => {
+    // In view-only mode, show all items regardless of time
+    if (isViewOnlyMode) {
+      return true
+    }
+    
+    // For QR access, only filter by category-specific time availability
+    // Stock availability will be handled by the visual styling in EnhancedMenuItemCard
+    return isCategoryAvailable(item.category)
+  }
 
   // Filter items based on active category and search query
   useEffect(() => {
@@ -164,8 +187,11 @@ export default function MenuPage() {
       }
     }
 
+    // Apply time-based availability filter (only for QR access, not view-only mode)
+    items = items.filter(isItemAvailable);
+
     setFilteredItems(items);
-  }, [activeCategory, searchQuery, activeBeerTab, activeSpiritTab, activeDrinkTab, activeWineTab, activeWineBrand]);
+  }, [activeCategory, searchQuery, activeBeerTab, activeSpiritTab, activeDrinkTab, activeWineTab, activeWineBrand, isViewOnlyMode, restaurantStatus, t]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
@@ -525,9 +551,9 @@ export default function MenuPage() {
               </>
             )}
           </motion.div>
-        )}
+                  )}
+        </div>
       </div>
-    </div>
-    </AccessGuard>
+      </AccessGuard>
   )
 }

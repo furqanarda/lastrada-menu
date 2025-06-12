@@ -8,8 +8,8 @@ Object.values(tokensData as Record<string, TokenData>).forEach((data) => {
 })
 
 // Session configuration
-const SESSION_DURATION_HOURS = 2
-const SESSION_DURATION_MS = SESSION_DURATION_HOURS * 60 * 60 * 1000 // 2 hours in milliseconds
+const SESSION_DURATION_MINUTES = 15
+const SESSION_DURATION_MS = SESSION_DURATION_MINUTES * 60 * 1000 // 15 minutes in milliseconds
 const SESSION_STORAGE_KEY = 'menuSessionData'
 const SESSION_EXPIRED_MESSAGE_KEY = 'sessionExpiredMessageShown'
 
@@ -177,6 +177,7 @@ export function refreshSession(): boolean {
 /**
  * Checks if the restaurant is currently open
  * Restaurant hours: 12:00 PM - 12:00 AM (24:00) daily
+ * Breakfast hours: 07:00 AM - 12:00 PM daily
  */
 export function getRestaurantHours(): RestaurantHours {
   const now = new Date()
@@ -190,14 +191,68 @@ export function getRestaurantHours(): RestaurantHours {
   const openTimeInMinutes = 12 * 60 // 12:00 PM = 720 minutes
   const closeTimeInMinutes = 24 * 60 // 12:00 AM = 1440 minutes (next day)
   
-  // Check if current time is within operating hours
-  // Open from 12:00 PM to 11:59 PM (same day)
-  const isOpen = currentTimeInMinutes >= openTimeInMinutes
+  // Breakfast hours: 07:00 AM (420 minutes) to 12:00 PM (720 minutes)
+  const breakfastStartInMinutes = 7 * 60 // 07:00 AM = 420 minutes
+  const breakfastEndInMinutes = 12 * 60 // 12:00 PM = 720 minutes
+  
+  // Check if current time is within operating hours (either breakfast or regular)
+  const isRegularHours = currentTimeInMinutes >= openTimeInMinutes
+  const isBreakfastHours = currentTimeInMinutes >= breakfastStartInMinutes && currentTimeInMinutes < breakfastEndInMinutes
+  const isOpen = isRegularHours || isBreakfastHours
   
   return {
     isOpen,
-    openTime: "12:00",
+    openTime: "07:00", // Updated to show earliest opening time
     closeTime: "00:00"
+  }
+}
+
+/**
+ * Checks if a specific category is available at the current time
+ */
+export function isCategoryAvailable(category: string): boolean {
+  const now = new Date()
+  const currentHour = now.getHours()
+  const currentMinute = now.getMinutes()
+  const currentTimeInMinutes = currentHour * 60 + currentMinute
+  
+  // Breakfast category: 07:00 - 00:00 (all day after 7 AM)
+  if (category === "breakfast") {
+    const breakfastStart = 7 * 60 // 07:00 AM
+    return currentTimeInMinutes >= breakfastStart
+  }
+  
+  // All other categories: 12:00 - 00:00 (next day)
+  const regularStart = 12 * 60 // 12:00 PM
+  return currentTimeInMinutes >= regularStart
+}
+
+/**
+ * Gets detailed restaurant status with category-specific information
+ */
+export function getDetailedRestaurantStatus() {
+  const now = new Date()
+  const currentHour = now.getHours()
+  const currentMinute = now.getMinutes()
+  const currentTimeInMinutes = currentHour * 60 + currentMinute
+  
+  const breakfastStart = 7 * 60 // 07:00 AM
+  const regularStart = 12 * 60 // 12:00 PM
+  const closeTime = 24 * 60 // 00:00 (next day)
+  
+  const isBreakfastTime = currentTimeInMinutes >= breakfastStart
+  const isRegularTime = currentTimeInMinutes >= regularStart
+  const isClosed = currentTimeInMinutes >= 0 && currentTimeInMinutes < breakfastStart
+  
+  return {
+    isBreakfastTime,
+    isRegularTime,
+    isClosed,
+    isBreakfastAvailable: isBreakfastTime,
+    isRegularMenuAvailable: isRegularTime,
+    currentTimeInMinutes,
+    breakfastHours: "07:00 - 00:00",
+    regularHours: "12:00 - 00:00"
   }
 }
 

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useSession } from "@/contexts/session-context"
 import { validateToken, createSession as createSessionUtil, validateSession as validateSessionUtil } from "@/lib/auth"
 import SessionExpired from "./session-expired"
@@ -12,6 +12,7 @@ interface SessionGuardProps {
 
 export default function SessionGuard({ children }: SessionGuardProps) {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const { isSessionExpired, hasSessionExpiredMessage, dismissExpiredMessage } = useSession()
   const [isInitialized, setIsInitialized] = useState(false)
 
@@ -39,11 +40,18 @@ export default function SessionGuard({ children }: SessionGuardProps) {
     initializeSession()
   }, [searchParams])
 
+  // Handle session expiration dismissal
+  const handleSessionExpiredDismiss = () => {
+    dismissExpiredMessage()
+    // Redirect to view-only mode instead of access-denied
+    router.push("/?viewonly=true")
+  }
+
   // Show session expired message if session has expired
   if (isInitialized && (isSessionExpired || hasSessionExpiredMessage)) {
     return (
       <SessionExpired 
-        onDismiss={dismissExpiredMessage}
+        onDismiss={handleSessionExpiredDismiss}
       />
     )
   }

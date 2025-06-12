@@ -117,7 +117,20 @@ const AccessProviderInternal: React.FC<{ children: React.ReactNode }> = ({ child
     // Listen for session changes by checking periodically
     const interval = setInterval(checkToken, 5000) // Check every 5 seconds
     return () => clearInterval(interval)
-  }, [])
+  }, [searchParams])
+
+  // Watch for search parameter changes (like adding ?viewonly=true)
+  useEffect(() => {
+    const checkViewOnly = () => {
+      // Only check view-only mode if we don't have a valid token
+      if (!isValidToken) {
+        const viewOnly = checkViewOnlyMode()
+        setIsViewOnlyMode(viewOnly)
+      }
+    }
+
+    checkViewOnly()
+  }, [searchParams, isValidToken])
 
   return (
     <AccessContext.Provider

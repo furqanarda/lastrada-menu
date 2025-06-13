@@ -1,0 +1,2 @@
+# This file ensures the data directory exists
+# The stock-status.json file will be created here by the API 

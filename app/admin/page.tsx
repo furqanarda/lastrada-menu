@@ -123,7 +123,7 @@ function PasswordProtection({ onAuthenticate }: { onAuthenticate: () => void }) 
 }
 
 export default function AdminPage() {
-  const { stockStatus, toggleItemAvailability, isItemAvailable } = useStock()
+  const { stockStatus, toggleItemAvailability, isItemAvailable, isLoading } = useStock()
   const { t } = useLanguage()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -353,9 +353,21 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Loading State */}
+        {isLoading && (
+          <div className="text-center py-16">
+            <div className="bg-[#1a2234] rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 border border-[#2a3346]">
+              <Package className="h-10 w-10 text-blue-400 animate-pulse" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-300 mb-2">Stok durumu yükleniyor...</h3>
+            <p className="text-gray-400">Lütfen bekleyin</p>
+          </div>
+        )}
+
         {/* Items Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredItems.map((item) => (
+        {!isLoading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {filteredItems.map((item) => (
             <Card 
               key={item.id} 
               className={`bg-[#1a2234] border-[#2a3346] transition-all duration-200 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 ${
@@ -437,10 +449,11 @@ export default function AdminPage() {
               </CardContent>
             </Card>
           ))}
-        </div>
+          </div>
+        )}
 
         {/* Empty State */}
-        {filteredItems.length === 0 && (
+        {!isLoading && filteredItems.length === 0 && (
           <div className="text-center py-16">
             <div className="bg-[#1a2234] rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 border border-[#2a3346]">
               <Package className="h-10 w-10 text-gray-400" />
@@ -462,7 +475,7 @@ export default function AdminPage() {
         )}
 
         {/* Summary Stats at Bottom */}
-        {filteredItems.length > 0 && (
+        {!isLoading && filteredItems.length > 0 && (
           <div className="mt-8 text-center text-sm text-gray-400">
             <p>
               Toplam {filteredItems.length} öğe gösteriliyor
